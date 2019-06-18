@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import LoginPage from '../pages/LoginPage'
-
+import UploadService from '../pages/UploadService'
+import homePage from '../components/homePage.vue'
 import Ind from '../pages/ind'
 
 
@@ -13,6 +14,19 @@ export default new Router({
       path:'/',
       name:'Ind',
       component:Ind,
+      children:[
+        {
+          path:'',
+          name:'homePage',
+          component:homePage
+        },
+        
+        {
+          path:'upload-service',
+          name:'UploadService',
+          component:UploadService
+        },
+      ]
     },
     {
       path:'/login-page',
@@ -20,6 +34,6 @@ export default new Router({
       component:LoginPage,
       children:[
       ]
-    }
+    },
   ]
 })
