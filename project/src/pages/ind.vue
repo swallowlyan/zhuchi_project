@@ -1,9 +1,9 @@
 <template>
-
-  <div id="ind_div">
+<div id="ind_div">
     <el-container>
     <!-- 头 -->
-      <el-header class="top-header">
+      <el-header style="height: 90px">
+        <div class="top-header">
       <a href="javascript:;">
         <img src="../assets/common/logo_zhuchi.png" alt="logo" style="float: left;margin:10px;width: 150px">
       </a>
@@ -29,71 +29,11 @@
         </el-col>
     </el-row>
       </div>
+        </div>
       </el-header>
     <!-- 身体 -->
-      <el-main>
-      <!--轮播图-->
-      <el-row>
-        <el-col :span="24">
-          <el-carousel :interval="5000"  indicator-position="none" arrow="always">
-          <el-carousel-item v-for="item in dataImg" :key="item">
-            <div class="grid-content">
-              <el-row>
-                <div>
-                  <img :src="item.src">
-                </div>
-              </el-row>
-            </div>
-          </el-carousel-item>
-        </el-carousel>
-        </el-col>
-      </el-row>
-        <el-row>
-          <el-col :span="12" :offset="10">
-              <img src="../assets/common/logo_zhuchi.png"style="margin: 20px">
-          </el-col>
-          <el-col :span="12" :offset="10" style="margin-bottom: 30px">
-            <h2>行业领先工业互联网平台</h2>
-          </el-col>
-        </el-row>
-        <el-row class="Introduction">
-          <el-col :span="4" :offset="4">
-            <el-row><h1><i class="el-icon-monitor"></i></h1></el-row>
-            <el-row><h2>接入设备<span class="num">3900</span>台</h2></el-row>
-          </el-col>
-          <el-col :span="4">
-            <el-row><h1><i class="fa fa-home"></i></h1></el-row>
-            <el-row><h2>云化软件<span class="num">39</span>款</h2></el-row>
-          </el-col>
-          <el-col :span="4">
-            <el-row><h1><i class="fa fa-share-alt"></i></h1></el-row>
-            <el-row><div style="font-weight: normal;width: 90px;float: left;margin-left: 50px">机理模型及微服务组件</div><span class="num">39</span><span>个</span></el-row>
-          </el-col>
-          <el-col :span="4">
-            <el-row><h1><i class="fa fa-buysellads"></i></h1></el-row>
-            <el-row><h2>工业APP<span class="num">139</span>款</h2></el-row>
-          </el-col>
-        </el-row>
-        <el-row class="Introduction">
-          <el-col :span="4" :offset="4">
-            <el-row><h1><i class="fa fa-users"></i></h1></el-row>
-            <el-row><h2>用户<span class="num">3900</span>人</h2></el-row>
-          </el-col>
-          <el-col :span="4">
-            <el-row><h1><i class="fa fa-user-md"></i></h1></el-row>
-            <el-row><h2>开发者<span class="num">39</span>名</h2></el-row>
-          </el-col>
-          <el-col :span="4">
-            <el-row><h1><i class="fa fa-bar-chart"></i></h1></el-row>
-            <el-row><h2>接入数据<span class="num">1.23</span>PB</h2></el-row>
-          </el-col>
-          <el-col :span="4">
-            <el-row><h1><i class="fa fa-code"></i></h1></el-row>
-            <el-row><h2>通用算法等<span class="num">139</span>个</h2></el-row>
-          </el-col>
-        </el-row>
-      <el-row>
-      </el-row>
+      <el-main style="padding: 0px 20px">
+        <homepage></homepage>
       </el-main>
     </el-container>
   </div>
@@ -101,23 +41,14 @@
 </template>
 
 <script>
+  import homepage from "../components/homePage.vue"
+  import softList from "../components/soft/softList.vue"
   export default {
     name: "Ind",
-
-    data(){
+    components:{homepage},
+  data(){
       return{
-        dataImg:[{
-          src:require("../assets/carousel/carousel_1.jpg"),
-          name:""
-        },
-          {
-            src:require("../assets/carousel/carousel_2.jpg"),
-            name:""
-          },
-          {
-            src:require("../assets/carousel/carousel_3.jpg"),
-            name:""
-          }]
+
       }
     },
 
@@ -150,7 +81,7 @@
 }
 .top-header{
   background: url(../assets/head_bg.png) no-repeat right top;
-  height:55px
+  /*height:55px*/
 }
 .bg_header {
   background-color: #447EDF;
@@ -175,17 +106,8 @@
   margin: 6px;
   text-align: center;
 }
-.menu_header{
+.menu_header a{
   color:#ffffff
 }
-.Introduction{margin: 50px 0px}
-.Introduction h1{font-size: 50px}
-.Introduction h1,.Introduction h2{
-  text-align: center;
-  font-weight: normal;
-}
-.Introduction .num{
-  font-weight: bolder;
-  font-size: 36px;
-}
+
 </style>

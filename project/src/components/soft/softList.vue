@@ -1,12 +1,12 @@
 <template>
-    <el-card class="book-manage">
-      台账管理
-    </el-card>
+    <div id="softList">
+        <el-row></el-row>
+    </div>
 </template>
 
 <script>
     export default {
-        name: "BookManage"
+        name: "softList"
     }
 </script>
 
