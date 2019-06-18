@@ -22,7 +22,7 @@ export default {
   /*text-align: center;*/
   color: #2c3e50;
   /*margin-top: 60px;*/
-  background-image: url("./assets/BG.jpg");
+  /*background-image: url("./assets/BG.jpg");*/
   background-repeat:no-repeat;
   background-size: cover;
 }
