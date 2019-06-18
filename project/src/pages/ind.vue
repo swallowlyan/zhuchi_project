@@ -33,7 +33,7 @@
       </el-header>
     <!-- 身体 -->
       <el-main style="padding: 0px 20px">
-        <homepage></homepage>
+        <softList></softList>
       </el-main>
     </el-container>
   </div>
@@ -42,10 +42,10 @@
 
 <script>
   import homepage from "../components/homePage.vue"
-  import softList from "../components/soft/softList.vue"
+  import softList from "../components/soft/softCommon.vue"
   export default {
     name: "Ind",
-    components:{homepage},
+    components:{homepage,softList},
   data(){
       return{
 
