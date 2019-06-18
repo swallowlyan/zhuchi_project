@@ -33,7 +33,7 @@
       </el-header>
     <!-- 身体 -->
       <el-main style="padding: 0px 20px">
-        <softList></softList>
+          <router-view/>
       </el-main>
     </el-container>
   </div>
