@@ -6,6 +6,7 @@ import UploadService from '../pages/UploadService'
 import SaasService from '../pages/SaasService'
 import PurchasedServices from '../pages/PurchasedServices'
 import HistoricalServices from '../pages/HistoricalServices'
+import CollectionServices from '../pages/CollectionServices'
 import MyUpload from '../pages/MyUpload'
 import homePage from '../components/homePage.vue'
 import Ind from '../pages/ind'
@@ -55,6 +56,11 @@ export default new Router({
               path:'historical-services',
               name:'HistoricalServices',
               component:HistoricalServices
+            },
+            {
+              path:'collection-services',
+              name:'CollectionServices',
+              component:CollectionServices
             },
           ]
         },
