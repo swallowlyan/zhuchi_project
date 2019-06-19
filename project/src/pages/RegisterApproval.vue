@@ -4,14 +4,11 @@
     <el-col :span="7" style="border-right:1px dashed #eee;padding-right:20px;height:700px">
       <div class="suffix">
           <div style="font-size:20px;font-weight:700;margin:0px 14px 0px -23px">|</div>
-          <span style="font-weight:700;font-size:12px;">待审服务</span>
+          <span style="font-weight:700;font-size:12px;">用户注册申请</span>
       </div>
-      <el-card style="height:300px;margin-left:-20px;">
-        <div class="sty">员工 张三 于2018年8月10日上传HyperWorks软件</div>
-        <div class="sty">领域分类：研发设计</div>
-        <div class="sty">行业分类：汽车制造</div>
-        <div class="sty">交付方式：下载</div>
-        <div class="sty_a"><a href="" style="color:rgb(68, 126, 223)">点击下载安装文件</a></div>
+      <el-card style="height:180px;margin-left:-20px;">
+        <div class="sty">员工 张三 于2018年8月10日申请成为平台开发者用户</div>
+        <div class="sty">所属企业为：株齿</div>
         <div style="text-align:center;">
           <el-button><span style="color:red;padding-right:10px;font-weight:700;">√</span>同意</el-button>
           <el-button><span style="color:green;padding-right:10px;font-weight:700;">×</span>拒绝</el-button>
@@ -29,11 +26,11 @@
           style="border-collapse:collapse;"
         >
         <tr style="font-weight:700;font-size:14px;line-height:35px;">
-          <td>上传人</td>
-          <td>软件名</td>
-          <td>上传时间</td>
-          <td>软件链接</td>
+          <td>申请人</td>
+          <td>申请时间</td>
+          <td>企业名称</td>
           <td>您的审批</td>
+          <td>您的批注</td>
           <td>审批时间</td>
         </tr>
         <tr v-for="(data, index) in datas"
@@ -41,9 +38,9 @@
       :key="index"
         >
           <td>{{data.user}}</td>
-          <td>{{data.title}}</td>
           <td>{{data.data}}</td>
-          <td><a href="" style="color:rgb(68, 126, 223)">点击下载</a></td>
+          <td></td>
+          <td>同意</td>
           <td></td>
           <td>{{data.data}}</td>
         </tr>

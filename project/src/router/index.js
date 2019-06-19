@@ -18,6 +18,9 @@ import softDetail from '../components/soft/softDetail.vue'
 import EnterpriseWorkbench from '../pages/EnterpriseWorkbench'
 import EnterpriseIndex from '../pages/EnterpriseIndex'
 import ServiceApproval from '../pages/ServiceApproval'
+import AdministratorBackstage from '../pages/AdministratorBackstage'
+import RegisterApproval from '../pages/RegisterApproval'
+import ApprovalService from '../pages/ApprovalService'
 
 Vue.use(Router)
 
@@ -95,6 +98,23 @@ export default new Router({
               path:'service-approval',
               name:'ServiceApproval',
               component:ServiceApproval
+            }
+          ]
+        },
+        {
+          path:'administrator-backstage',
+          name:'AdministratorBackstage',
+          component:AdministratorBackstage,
+          children:[
+            {
+              path:'index',
+              name:'RegisterApproval',
+              component:RegisterApproval
+            },
+            {
+              path:'approval-service',
+              name:'ApprovalService',
+              component:ApprovalService
             }
           ]
         },
