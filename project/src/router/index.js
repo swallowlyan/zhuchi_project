@@ -7,6 +7,7 @@ import SaasService from '../pages/SaasService'
 import PurchasedServices from '../pages/PurchasedServices'
 import HistoricalServices from '../pages/HistoricalServices'
 import CollectionServices from '../pages/CollectionServices'
+import CommonServices from '../pages/CommonServices'
 import MyUpload from '../pages/MyUpload'
 import homePage from '../components/homePage.vue'
 import Ind from '../pages/ind'
@@ -61,6 +62,11 @@ export default new Router({
               path:'collection-services',
               name:'CollectionServices',
               component:CollectionServices
+            },
+            {
+              path:'common-services',
+              name:'CommonServices',
+              component:CommonServices
             },
           ]
         },
