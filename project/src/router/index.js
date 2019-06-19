@@ -15,7 +15,7 @@ import Ind from '../pages/ind'
 import softCommon from '../components/soft/softCommon.vue'
 import softList from '../components/soft/softList.vue'
 import softDetail from '../components/soft/softDetail.vue'
-
+import EnterpriseWorkbench from '../pages/EnterpriseWorkbench'
 
 Vue.use(Router)
 
@@ -78,6 +78,12 @@ export default new Router({
               component:CommonServices
             }
           ]
+        },
+        {
+          path:'enterprise-workbench',
+          name:'EnterpriseWorkbench',
+          component:EnterpriseWorkbench,
+          children:[]
         },
         {
           path:'soft',
