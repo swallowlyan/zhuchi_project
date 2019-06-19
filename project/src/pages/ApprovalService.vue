@@ -13,8 +13,8 @@
         <div class="sty">交付方式：下载</div>
         <div class="sty_a"><a href="" style="color:rgb(68, 126, 223)">点击下载安装文件</a></div>
         <div style="text-align:center;">
-          <el-button><span style="color:red;padding-right:10px;font-weight:700;">√</span>同意</el-button>
-          <el-button><span style="color:green;padding-right:10px;font-weight:700;">×</span>拒绝</el-button>
+          <el-button><span style="color:green;padding-right:10px;font-weight:700;">√</span>同意</el-button>
+          <el-button><span style="color:red;padding-right:10px;font-weight:700;">×</span>拒绝</el-button>
         </div>
       </el-card>
       <el-card style="height:300px;margin-left:-20px;">
@@ -24,8 +24,8 @@
         <div class="sty">交付方式：下载</div>
         <div class="sty_a"><a href="" style="color:rgb(68, 126, 223)">点击下载安装文件</a></div>
         <div style="text-align:center;">
-          <el-button><span style="color:red;padding-right:10px;font-weight:700;">√</span>同意</el-button>
-          <el-button><span style="color:green;padding-right:10px;font-weight:700;">×</span>拒绝</el-button>
+          <el-button><span style="color:green;padding-right:10px;font-weight:700;">√</span>同意</el-button>
+          <el-button><span style="color:red;padding-right:10px;font-weight:700;">×</span>拒绝</el-button>
         </div>
       </el-card>
     </el-col>

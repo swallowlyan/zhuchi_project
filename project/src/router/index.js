@@ -21,6 +21,9 @@ import ServiceApproval from '../pages/ServiceApproval'
 import AdministratorBackstage from '../pages/AdministratorBackstage'
 import RegisterApproval from '../pages/RegisterApproval'
 import ApprovalService from '../pages/ApprovalService'
+import UserManagement from '../pages/UserManagement'
+import DataStatistics from '../pages/DataStatistics'
+import ComprehensiveStatistics from '../pages/ComprehensiveStatistics'
 
 Vue.use(Router)
 
@@ -115,7 +118,22 @@ export default new Router({
               path:'approval-service',
               name:'ApprovalService',
               component:ApprovalService
-            }
+            },
+            {
+              path:'data-statistics',
+              name:'DataStatistics',
+              component:DataStatistics
+            },
+            {
+              path:'comprehensive-statistics',
+              name:'ComprehensiveStatistics',
+              component:ComprehensiveStatistics
+            },
+            {
+              path:'user-management',
+              name:'UserManagement',
+              component:UserManagement 
+            },
           ]
         },
         {

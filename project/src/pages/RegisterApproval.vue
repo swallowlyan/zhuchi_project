@@ -10,8 +10,8 @@
         <div class="sty">员工 张三 于2018年8月10日申请成为平台开发者用户</div>
         <div class="sty">所属企业为：株齿</div>
         <div style="text-align:center;">
-          <el-button><span style="color:red;padding-right:10px;font-weight:700;">√</span>同意</el-button>
-          <el-button><span style="color:green;padding-right:10px;font-weight:700;">×</span>拒绝</el-button>
+          <el-button><span style="color:green;padding-right:10px;font-weight:700;">√</span>同意</el-button>
+          <el-button><span style="color:red;padding-right:10px;font-weight:700;">×</span>拒绝</el-button>
         </div>
       </el-card>
     </el-col>
