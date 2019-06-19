@@ -3,8 +3,8 @@
     <div class="suffix">
       <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>已收藏服务
     </div>
-    <div>
-      <div style="margin:0 auto;width:85%;">
+    <div style="margin-left:-100px;">
+      <div style="margin:0 auto;width:80%;">
         <div class="suffix" style="justify-content:space-between;border-bottom:1px dashed #aaa;padding:0 10px;"
          v-for="(data, index) in datas"
         :key="index"

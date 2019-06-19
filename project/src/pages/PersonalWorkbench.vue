@@ -17,7 +17,7 @@
       </el-menu-item>
     </el-menu>
   </el-col>
-  <el-col :offset="1" :span="16" class="line_style">
+  <el-col :offset="1" :span="19" class="line_style">
      <router-view/>
   </el-col>
 </el-row>

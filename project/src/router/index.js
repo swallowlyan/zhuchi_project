@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import LoginPage from '../pages/LoginPage'
+import PersonalIndex from '../pages/PersonalIndex'
 import PersonalWorkbench from '../pages/PersonalWorkbench'
 import UploadService from '../pages/UploadService'
 import SaasService from '../pages/SaasService'
@@ -36,6 +37,11 @@ export default new Router({
           name:'PersonalWorkbench',
           component:PersonalWorkbench,
           children:[
+            {
+              path:'',
+              name:'PersonalIndex',
+              component:PersonalIndex
+            },
             {
               path:'my-upload',
               name:'MyUpload',

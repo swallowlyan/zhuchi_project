@@ -5,7 +5,7 @@
     </div>
     <div>
        <table
-        width="100%"
+        width="90%"
         style="border-collapse:collapse;"
       >
         <tr style="font-weight:700;font-size:14px;line-height:35px;">
