@@ -8,6 +8,7 @@ import axios from 'axios'
 import qs from 'qs'
 import 'font-awesome/css/font-awesome.css'
 
+
 /////////////////////
 Vue.prototype.$axios = axios;
 
