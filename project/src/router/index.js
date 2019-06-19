@@ -4,6 +4,8 @@ import LoginPage from '../pages/LoginPage'
 import PersonalWorkbench from '../pages/PersonalWorkbench'
 import UploadService from '../pages/UploadService'
 import SaasService from '../pages/SaasService'
+import PurchasedServices from '../pages/PurchasedServices'
+import HistoricalServices from '../pages/HistoricalServices'
 import MyUpload from '../pages/MyUpload'
 import homePage from '../components/homePage.vue'
 import Ind from '../pages/ind'
@@ -43,6 +45,16 @@ export default new Router({
               path:'saas-service',
               name:'SaasService',
               component:SaasService
+            },
+            {
+              path:'purchased-services',
+              name:'PurchasedServices',
+              component:PurchasedServices
+            },
+            {
+              path:'historical-services',
+              name:'HistoricalServices',
+              component:HistoricalServices
             },
           ]
         },

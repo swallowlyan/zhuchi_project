@@ -1,39 +1,21 @@
 <template>
   <div>
     <div class="suffix">
-      <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>我的上传
-    </div>
-    <div><el-button type="primary">上传服务</el-button></div>
-    <div class="suffix">
-      <el-input
-      style="width:300px;"
-        popper-class="my-autocomplete"
-        v-model="state"
-        :fetch-suggestions="querySearch"
-        placeholder="请输入内容">
-      </el-input>
-        <i
-         style="margin:0 5px"
-          class="el-icon-search"
-          @click="handleIconClick">
-        </i>
+      <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>已购买服务
     </div>
     <div>
        <table
         width="100%"
-        style="border-collapse:collapse"
+        style="border-collapse:collapse;"
       >
         <tr style="font-weight:700;font-size:14px;line-height:35px;">
           <td>服务名</td>
           <td>软件图标</td>
           <td>版本号</td>
-          <td>服务分类</td>
-          <td>行业分类</td>
-          <td>领域分类</td>
           <td>交付方式</td>
-          <td>服务简介</td>
-          <td>规格报价</td>
-          <td>当前状态</td>
+          <td>购买时间</td>
+          <td>到期时间</td>
+          <td>评分</td>
           <td>操作</td>
         </tr>
         <tr v-for="(data, index) in datas"
@@ -46,23 +28,38 @@
           <td></td>
           <td></td>
           <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>{{data.state}}</td>
+          <td><el-rate
+            v-model="data.value"
+            disabled
+            show-score
+            text-color="#ccc">
+            </el-rate>
+          </td>
           <td>
             <template >
               <el-button
                 size="mini"
                 name="select"
               >
-                编辑
+                续费
               </el-button>
               <el-button
                 size="mini"
                 name="select"
               >
-                下架
+                暂停
+              </el-button>
+                <el-button
+                size="mini"
+                name="select"
+              >
+                退款
+              </el-button>
+                <el-button
+                size="mini"
+                name="select"
+              >
+                重新下载
               </el-button>
             </template>
           </td>
@@ -89,11 +86,11 @@
           restaurants: [],
           state: '',
           datas: [
-              { title: 'Creo',state:'已上架'},
-              { title: 'Creo',state:'已上架'},
-              { title: 'Creo',state:'已上架'},
-              { title: 'Creo',state:'已上架'},
-              { title: 'Creo',state:'已上架'},
+              { title: 'Creo',value:'5',way:'SAAS'},
+              { title: 'Creo',value:'5',way:'SAAS'},
+              { title: 'Creo',value:'5',way:'SAAS'},
+              { title: 'Creo',value:'5',way:'SAAS'},
+              { title: 'Creo',value:'5',way:'SAAS'},
           ],
           currentPage1: 5,
           currentPage2: 5,
