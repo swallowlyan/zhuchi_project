@@ -28,14 +28,13 @@
             </el-row>
           </el-col>
         </el-row>
-      <softList></softList>
+      <router-view/>
     </div>
 </template>
 <script>
-  import softList from "../soft/softList.vue"
     export default {
         name: "softList",
-      components:{softList},
+      components:{},
       data(){
           return{
             searchType:"",

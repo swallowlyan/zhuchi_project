@@ -12,7 +12,8 @@
       <div class="title"><h3>工业互联网平台</h3></div>
     <div class="bg_header">
       <el-row class="menu_header">
-        <el-col :span="2"><el-link :underline="false" href="www.baidu.com">首页</el-link></el-col>
+        <el-col :span="2"><router-link  to="/" >首页</router-link></el-col>
+        <el-col :span="2"><router-link  to="/soft" >工业软件</router-link></el-col>
         <el-col :span="2"  style="float: right;">
           <el-dropdown trigger="click">
       <span class="el-dropdown-link" style="margin-right: 0px;font-size: 25px;color: #ffffff">
@@ -41,11 +42,9 @@
 </template>
 
 <script>
-  import homepage from "../components/homePage.vue"
-  import softList from "../components/soft/softCommon.vue"
   export default {
     name: "Ind",
-    components:{homepage,softList},
+    components:{},
   data(){
       return{
 

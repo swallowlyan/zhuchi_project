@@ -47,7 +47,11 @@
             <div class="softContent">
               <!--softInfo-->
               <el-row>
-                <el-col :span="2" class="softImg"><img src="../../assets/common/logo_zhuchi.png" height="80" width="80"></el-col>
+                <el-col :span="2" class="softImg">
+                  <router-link  to="/soft/softDetail" >
+                  <img src="../../assets/common/logo_zhuchi.png" height="80" width="80">
+                  </router-link>
+                </el-col>
                 <el-col :span="5" class="softInfo">
                   <el-row><h3 class="softName">Cero</h3></el-row>
                   <el-row><span class="company">北京XX公司</span></el-row>
@@ -75,7 +79,10 @@
               <el-divider></el-divider>
               <!--softInfo-->
               <el-row>
-                <el-col :span="2" class="softImg"><img src="../../assets/common/logo_zhuchi.png" height="80" width="80"></el-col>
+                <el-col :span="2" class="softImg">
+                  <router-link  to="/soft/softDetail" >
+                  <img src="../../assets/common/logo_zhuchi.png" height="80" width="80">
+                  </router-link></el-col>
                 <el-col :span="5" class="softInfo">
                   <el-row><h3 class="softName">Cero</h3></el-row>
                   <el-row><span class="company">北京XX公司</span></el-row>
@@ -102,7 +109,10 @@
               </el-row>
               <el-divider></el-divider>
               <el-row>
-                <el-col :span="2" class="softImg"><img src="../../assets/common/logo_zhuchi.png" height="80" width="80"></el-col>
+                <el-col :span="2" class="softImg">
+                  <router-link  to="/soft/softDetail" >
+                    <img src="../../assets/common/logo_zhuchi.png" height="80" width="80">
+                  </router-link></el-col>
                 <el-col :span="5" class="softInfo">
                   <el-row><h3 class="softName">Cero</h3></el-row>
                   <el-row><span class="company">北京XX公司</span></el-row>
@@ -129,7 +139,9 @@
               </el-row>
               <el-divider></el-divider>
               <el-row>
-                <el-col :span="2" class="softImg"><img src="../../assets/common/logo_zhuchi.png" height="80" width="80"></el-col>
+                <el-col :span="2" class="softImg">
+                  <router-link  to="/soft/softDetail" ><img src="../../assets/common/logo_zhuchi.png" height="80" width="80">
+                  </router-link></el-col>
                 <el-col :span="5" class="softInfo">
                   <el-row><h3 class="softName">Cero</h3></el-row>
                   <el-row><span class="company">北京XX公司</span></el-row>
@@ -156,7 +168,10 @@
               </el-row>
               <el-divider></el-divider>
               <el-row>
-                <el-col :span="2" class="softImg"><img src="../../assets/common/logo_zhuchi.png" height="80" width="80"></el-col>
+                <el-col :span="2" class="softImg">
+                  <router-link  to="/soft/softDetail" >
+                  <img src="../../assets/common/logo_zhuchi.png" height="80" width="80">
+                  </router-link></el-col>
                 <el-col :span="5" class="softInfo">
                   <el-row><h3 class="softName">Cero</h3></el-row>
                   <el-row><span class="company">北京XX公司</span></el-row>

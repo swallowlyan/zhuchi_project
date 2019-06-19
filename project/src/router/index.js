@@ -11,6 +11,9 @@ import CommonServices from '../pages/CommonServices'
 import MyUpload from '../pages/MyUpload'
 import homePage from '../components/homePage.vue'
 import Ind from '../pages/ind'
+import softCommon from '../components/soft/softCommon.vue'
+import softList from '../components/soft/softList.vue'
+import softDetail from '../components/soft/softDetail.vue'
 
 
 Vue.use(Router)
@@ -27,7 +30,7 @@ export default new Router({
           name:'homePage',
           component:homePage
         },
-        
+
         {
           path:'personal-workbench',
           name:'PersonalWorkbench',
@@ -67,17 +70,33 @@ export default new Router({
               path:'common-services',
               name:'CommonServices',
               component:CommonServices
-            },
+            }
           ]
         },
+        {
+          path:'soft',
+          name:'soft',
+          component:softCommon,
+          children:[
+            {
+              path:'',
+              name:'softList',
+              component:softList
+            },
+            {
+              path:'softDetail',
+              name:'softDetail',
+              component:softDetail
+            }
+          ]
+        }
       ]
     },
     {
       path:'/login-page',
       name:'LoginPage',
       component:LoginPage,
-      children:[
-      ]
+      children:[]
     },
   ]
 })
