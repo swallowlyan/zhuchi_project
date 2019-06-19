@@ -24,6 +24,7 @@ import ApprovalService from '../pages/ApprovalService'
 import UserManagement from '../pages/UserManagement'
 import DataStatistics from '../pages/DataStatistics'
 import ComprehensiveStatistics from '../pages/ComprehensiveStatistics'
+import CategoryConfiguration from '../pages/CategoryConfiguration'
 
 Vue.use(Router)
 
@@ -133,6 +134,11 @@ export default new Router({
               path:'user-management',
               name:'UserManagement',
               component:UserManagement 
+            },
+            {
+              path:'category-configuration',
+              name:'CategoryConfiguration',
+              component:CategoryConfiguration 
             },
           ]
         },

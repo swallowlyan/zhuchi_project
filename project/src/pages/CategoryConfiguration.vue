@@ -1,0 +1,197 @@
+<template>
+  <div>
+    <div class="suffix">
+      <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>服务类别配置
+    </div>
+    <div class="suffix">
+      领域分类：
+      <el-tag
+        v-for="tag in tags"
+        :key="tag.name"
+        closable
+        :type="tag.type">
+        {{tag.name}}
+      </el-tag>
+      <el-button size="small">
+      新增
+      </el-button>
+    </div>
+     <div class="suffix">
+      行业分类：
+      <el-tag
+        v-for="tag in tags"
+        :key="tag.name"
+        closable
+        :type="tag.type">
+        {{tag.name}}
+      </el-tag>
+      <el-button size="small">
+      新增
+      </el-button>
+    </div>
+     <div class="suffix">
+      交付方式：
+      <el-tag
+        v-for="tag in tags"
+        :key="tag.name"
+        closable
+        :type="tag.type">
+        {{tag.name}}
+      </el-tag>
+      <el-button size="small">
+      新增
+      </el-button>
+    </div>
+    <div class="suffix">
+      <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>服务分类管理
+    </div>
+    <div class="suffix">
+      <el-input
+      style="width:300px;"
+        popper-class="my-autocomplete"
+        v-model="state"
+        :fetch-suggestions="querySearch"
+        placeholder="请输入内容">
+      </el-input>
+        <i
+         style="margin:0 5px"
+          class="el-icon-search"
+          @click="handleIconClick">
+        </i>
+    </div>
+    <div>
+       <table
+        width="90%"
+        style="border-collapse:collapse"
+      >
+        <tr style="font-weight:700;font-size:14px;line-height:35px;">
+          <td>服务名</td>
+          <td>软件图标</td>
+          <td>版本号</td>
+          <td>服务分类</td>
+          <td>行业分类</td>
+          <td>领域分类</td>
+          <td>交付方式</td>
+          <td>服务简介</td>
+          <td>规格报价</td>
+          <td>当前状态</td>
+          <td>操作</td>
+        </tr>
+        <tr v-for="(data, index) in datas"
+        style="font-size:12px;line-height:35px;"
+      :key="index"
+        >
+          <td>{{data.title}}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{data.state}}</td>
+          <td>
+            <template >
+              <el-button
+                size="mini"
+                name="select"
+              >
+                编辑
+              </el-button>
+              <el-button
+                size="mini"
+                name="select"
+              >
+                下架
+              </el-button>
+            </template>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div style="text-align:center;">
+    <el-pagination
+      style="margin-left:-100px;"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage4"
+      :page-sizes="[100, 200, 300, 400]"
+      :page-size="100"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="400">
+    </el-pagination>
+  </div>
+  </div>
+</template>
+<script>
+    export default {
+      data(){
+          return{
+          restaurants: [],
+          state: '',
+          datas: [
+              { title: 'Creo',state:'已上架'},
+              { title: 'Creo',state:'已上架'},
+              { title: 'Creo',state:'已上架'},
+              { title: 'Creo',state:'已上架'},
+              { title: 'Creo',state:'已上架'},
+          ],
+          currentPage1: 5,
+          currentPage2: 5,
+          currentPage3: 5,
+          currentPage4: 4,
+           tags: [
+          { name: '研发设计', type: '' },
+          { name: '生产制造', type: 'success' },
+          { name: '远程运维', type: 'info' },
+          { name: '运维服务', type: 'warning' },
+          { name: '航空航天', type: 'danger' }
+        ]
+          }
+      },
+      created(){
+      },
+      methods:{
+         querySearch(queryString, cb) {
+        var restaurants = this.restaurants;
+        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+        // 调用 callback 返回建议列表的数据
+        cb(results);
+      },
+      createFilter(queryString) {
+        return (restaurant) => {
+          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        };
+      },
+      handleSelect(item) {
+        console.log(item);
+      },
+      handleIconClick(ev) {
+        console.log(ev);
+      },
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+      }
+      },
+    }
+</script>
+
+<style scoped>
+.suffix{
+ display:flex;
+ align-items:center;
+}
+tr:nth-child(odd) {
+  background: #efefef;
+}
+.line_style div{
+ margin:10px 0;
+}
+.el-tag{
+  margin:0 5px;
+}
+</style>
