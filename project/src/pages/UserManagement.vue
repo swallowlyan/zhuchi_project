@@ -4,7 +4,7 @@
       <el-col :span="17" >
         <div class="suffix">
           <div style="font-size:20px;font-weight:700;margin:0px 14px 0px -23px">|</div>
-          <span style="font-weight:700;font-size:12px;">企业用户指标</span>
+          <span style="font-weight:700;font-size:12px;">用户数据指标</span>
         </div>
         <div class="suffix" style="width:100%;margin-top:30px;">
           <div style="width:25%;" class="style_s"v-for="(data, index) in datas" :key="index">
@@ -21,9 +21,9 @@
         </div>
         <el-radio-group v-model="radio1"size="small">
           <el-radio-button label="总用户数"></el-radio-button>
-          <el-radio-button label="活跃用户数"></el-radio-button>
+          <el-radio-button label="在线用户数"></el-radio-button>
           <el-radio-button label="访问次数"></el-radio-button>
-          <el-radio-button label="用户提交次数"></el-radio-button>
+          <el-radio-button label="日活跃用户数"></el-radio-button>
         </el-radio-group>
         <div id="main" style="width:100%;height:260px;margin-top:-30px;"></div>
       </el-col>
@@ -31,12 +31,7 @@
     <el-row style="margin-top:10px;">
       <div class="suffix">
           <div style="font-size:20px;font-weight:700;margin:0px 14px 0px -23px">|</div>
-          <span style="font-weight:700;font-size:12px;">企业成员管理</span>
-      </div>
-      <div  class="special">
-       <el-button size="mini" type="primary">
-          +添加成员
-       </el-button>
+          <span style="font-weight:700;font-size:12px;">用户管理</span>
       </div>
       <div  class="special">
         <table
@@ -46,44 +41,41 @@
         <tr style="font-weight:700;font-size:14px;line-height:35px;">
           <td>姓名</td>
           <td>注册时间</td>
-          <td>应用提交次数</td>
-          <td>应用通过次数</td>
-          <td>应用使用次数</td>
-          <td>应用通过率</td>
-          <td>用户评级</td>
+          <td>账号</td>
+          <td>手机号</td>
+          <td>所属部门</td>
+          <td>用户状态</td>
           <td>操作</td>
         </tr>
         <tr v-for="(data, index) in datas_b"
         style="font-size:12px;line-height:35px;"
       :key="index"
         >
-          <td>{{data.title}}</td>
+          <td>{{data.user}}</td>
+          <td>{{data.data}}</td>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
-          <td></td>
-          <td>
-          <el-rate
-            v-model="data.value"
-            disabled
-            show-score
-            text-color="#ccc">
-            </el-rate>
-          </td>
           <td>
             <template >
               <el-button
                 size="mini"
                 name="select"
               >
-                续费
+                编辑
               </el-button>
               <el-button
                 size="mini"
                 name="select"
               >
-                暂停
+                禁用
+              </el-button>
+              <el-button
+                size="mini"
+                name="select"
+              >
+                重置密码
               </el-button>
             </template>
           </td>
@@ -116,20 +108,20 @@
       data(){
           return{
              datas: [
-              { title: '总用户数',value:'525',way:'%96.21'},
-              { title: '活跃用户数',value:'855',way:'%6.9'},
+              { title: '总用户数',value:'2116',way:'%96.21'},
+              { title: '在线用户数',value:'855',way:'%6.9'},
               { title: '访问次数',value:'821',way:'%66.3'},
-              { title: '用户提交次数',value:'544',way:'%5.5'},
+              { title: '日活跃用户数',value:'544',way:'%5.5'},
             ],
             radio1:'总用户数',
              state: '',
           datas_b: [
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
+               { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'张三'},
+              { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'李红'},
+              { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'张三'},
+              { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'王丽'},
+              { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'张三'},
+              { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'洛洛'},
           ],
           currentPage1: 5,
           currentPage2: 5,
