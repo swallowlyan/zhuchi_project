@@ -157,9 +157,15 @@
     series: [{
         data: [820, 932, 901, 934, 1290, 1330, 1320],
         type: 'line'
-    }]
-});
-        }
+      }]
+    });
+        },
+        handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+      }
        
       },
     }

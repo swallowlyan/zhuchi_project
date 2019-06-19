@@ -17,6 +17,7 @@ import softList from '../components/soft/softList.vue'
 import softDetail from '../components/soft/softDetail.vue'
 import EnterpriseWorkbench from '../pages/EnterpriseWorkbench'
 import EnterpriseIndex from '../pages/EnterpriseIndex'
+import ServiceApproval from '../pages/ServiceApproval'
 
 Vue.use(Router)
 
@@ -86,9 +87,14 @@ export default new Router({
           component:EnterpriseWorkbench,
           children:[
             {
-              path:'',
+              path:'index',
               name:'EnterpriseIndex',
               component:EnterpriseIndex
+            },
+            {
+              path:'service-approval',
+              name:'ServiceApproval',
+              component:ServiceApproval
             }
           ]
         },
