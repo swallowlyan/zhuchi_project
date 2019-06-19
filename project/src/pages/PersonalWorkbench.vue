@@ -52,7 +52,7 @@
               { title: '我的数据',index:'7',url:''},
               { title: '我的订单',index:'8',url:''},
               { title: '我的收入' ,index:'9',url:''},
-              { title: '我的企业',index:'10',url:''},
+              { title: '我的企业',index:'10',url:'my-business'},
               { title: '账号管理',index:'11',url:''},
             ],
           }

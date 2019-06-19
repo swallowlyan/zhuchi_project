@@ -21,6 +21,7 @@ import ServiceApproval from '../pages/ServiceApproval'
 import AdministratorBackstage from '../pages/AdministratorBackstage'
 import RegisterApproval from '../pages/RegisterApproval'
 import ApprovalService from '../pages/ApprovalService'
+import MyBusiness from '../pages/MyBusiness'
 import UserManagement from '../pages/UserManagement'
 import DataStatistics from '../pages/DataStatistics'
 import ComprehensiveStatistics from '../pages/ComprehensiveStatistics'
@@ -55,6 +56,11 @@ export default new Router({
               path:'my-upload',
               name:'MyUpload',
               component:MyUpload
+            },
+            {
+              path:'my-business',
+              name:'MyBusiness',
+              component:MyBusiness
             },
             {
               path:'upload-service',
@@ -102,7 +108,8 @@ export default new Router({
               path:'service-approval',
               name:'ServiceApproval',
               component:ServiceApproval
-            }
+            },
+           
           ]
         },
         {
