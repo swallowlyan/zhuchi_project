@@ -48,6 +48,7 @@
     </div>
     <div style="text-align:center;">
     <el-pagination
+      style="margin-left:-100px;"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="currentPage4"
