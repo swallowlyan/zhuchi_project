@@ -3,7 +3,7 @@
     <div class="suffix">
       <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>我的上传
     </div>
-    <div><el-button type="primary">上传服务</el-button></div>
+    <div><el-button type="primary"><router-link :to="{path:'/personal-workbench/upload-service'}">上传服务</router-link></el-button></div>
     <div class="suffix">
       <el-input
       style="width:300px;"
@@ -20,7 +20,7 @@
     </div>
     <div>
        <table
-        width="100%"
+        width="90%"
         style="border-collapse:collapse"
       >
         <tr style="font-weight:700;font-size:14px;line-height:35px;">

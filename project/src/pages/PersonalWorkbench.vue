@@ -11,10 +11,16 @@
       background-color="#447edf"
       text-color="#fff"
       active-text-color="#fff">
-      <el-menu-item :index="button.index" v-for="(button, index) in buttons"
-      :key="index">
-        <span slot="title">{{button.title}}</span>
-      </el-menu-item>
+      <div  v-for="(button, index) in buttons">
+      <router-link :to="button.url">
+        <el-menu-item :index="button.index"
+        :key="index">
+        <span slot="title">
+            {{button.title}}
+          </span>
+        </el-menu-item>
+      </router-link>
+      </div>
     </el-menu>
   </el-col>
   <el-col :offset="1" :span="19" class="line_style">
@@ -37,17 +43,17 @@
             username:'',
             roleId:'',
             buttons: [
-              { title: '常用服务',index:'1'},
-              { title: '历史服务', index:'2'},
-              { title: '已购买服务',index:'3'},
-              { title: '已收藏服务', index:'4'},
-              { title: '全部上架服务',index:'5'},
-              { title: '我的上传' ,index:'6'},
-              { title: '我的数据',index:'7' },
-              { title: '我的订单',index:'8'},
-              { title: '我的收入' ,index:'9'},
-              { title: '我的企业',index:'10 '},
-              { title: '账号管理',index:'11'},
+              { title: '常用服务',index:'1',url:'common-services'},
+              { title: '历史服务', index:'2',url:'historical-services'},
+              { title: '已购买服务',index:'3',url:'purchased-services'},
+              { title: '已收藏服务', index:'4',url:'collection-services'},
+              { title: '全部上架服务',index:'5',url:''},
+              { title: '我的上传' ,index:'6',url:'my-upload'},
+              { title: '我的数据',index:'7',url:''},
+              { title: '我的订单',index:'8',url:''},
+              { title: '我的收入' ,index:'9',url:''},
+              { title: '我的企业',index:'10',url:''},
+              { title: '账号管理',index:'11',url:''},
             ],
           }
       },

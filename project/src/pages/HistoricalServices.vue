@@ -19,7 +19,7 @@
         </tr>
         <tr v-for="(data, index) in datas"
         style="font-size:12px;line-height:35px;"
-      :key="index"
+        :key="index"
         >
           <td>{{data.title}}</td>
           <td></td>
