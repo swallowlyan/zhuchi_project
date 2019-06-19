@@ -13,9 +13,8 @@
           <td>软件图标</td>
           <td>版本号</td>
           <td>交付方式</td>
-          <td>购买时间</td>
-          <td>到期时间</td>
-          <td>评分</td>
+          <td>使用总时长</td>
+          <td>最近使用时间</td>
           <td>操作</td>
         </tr>
         <tr v-for="(data, index) in datas"
@@ -28,13 +27,6 @@
           <td>{{data.way}}</td>
           <td></td>
           <td></td>
-          <td><el-rate
-            v-model="data.value"
-            disabled
-            show-score
-            text-color="#ccc">
-            </el-rate>
-          </td>
           <td>
             <template >
               <el-button
