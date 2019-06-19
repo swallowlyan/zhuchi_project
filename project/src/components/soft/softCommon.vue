@@ -1,7 +1,7 @@
 <template>
     <div id="softList">
         <el-row class="searchForm">
-          <el-col :span="2" :offset="4"><h1>工业软件</h1></el-col>
+          <el-col :span="2" :offset="4"><h1 style="font-size: 30px;font-weight: normal">工业软件</h1></el-col>
           <el-col :span="10" :offset="1">
             <el-col :span="5">
               <el-select v-model="searchType" placeholder="请选择分类" size="medium">
@@ -15,7 +15,7 @@
             </el-col>
             <el-col :span="18">
               <el-col :span="16"><el-input v-model="searchInput" placeholder="请输入内容" size="medium"></el-input></el-col>
-              <el-col :span="2"><el-button type="primary" icon="el-icon-search" size="medium" @click="searchSoft">搜索</el-button></el-col>
+              <el-col :span="2"><router-link  to="/soft" ><el-button type="primary" icon="el-icon-search" size="medium">搜索</el-button></router-link></el-col>
             </el-col>
             <el-row>
               <el-col :span="16" style="margin: 20px 0px">
