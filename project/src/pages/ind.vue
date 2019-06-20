@@ -7,14 +7,22 @@
       <a href="javascript:;">
         <img src="../assets/common/logo_zhuchi.png" alt="logo" style="float: left;margin:10px;width: 150px">
       </a>
-      <span id="welcomeTitle">欢迎，Admin</span>
+      <span id="welcomeTitle" class="managerArea">欢迎，Admin</span>
       <div class="division"></div>
       <div class="title"><h3>工业互联网平台</h3></div>
     <div class="bg_header">
       <el-row class="menu_header">
-        <el-col :span="2"><router-link  to="/" >首页</router-link></el-col>
-        <el-col :span="2"><router-link  to="/soft" >工业软件</router-link></el-col>
-        <el-col :span="2"  style="float: right;">
+        <el-col :span="15">
+          <el-col :span="3" class="managerArea" v-for="(item) in menuList">
+            <el-button  type="text" @click="toPage(item.name,item.id)">{{item.name}}</el-button></el-col>
+          <!--<el-col :span="3" class="managerArea"><router-link  to="/soft" >工业软件</router-link></el-col>
+          <el-col :span="3" class="managerArea"><router-link  to="/soft" >工业APP</router-link></el-col>
+          <el-col :span="3" class="managerArea"><router-link  to="/soft" >机理模型</router-link></el-col>
+          <el-col :span="3" class="managerArea"><router-link  to="/soft" >微服务组件</router-link></el-col>
+          <el-col :span="3" class="managerArea"><router-link  to="/soft" >算法模型</router-link></el-col>
+          <el-col :span="2" class="managerArea"><router-link  to="/soft" >设备</router-link></el-col>-->
+        </el-col>
+        <el-col :span="1" class="managerArea"  style="float: right;">
           <el-dropdown trigger="click">
       <span class="el-dropdown-link" style="margin-right: 0px;font-size: 25px;color: #ffffff">
         <i class="el-icon-s-unfold"></i>
@@ -48,20 +56,28 @@
     components:{},
   data(){
       return{
-
+        menuList:[]
       }
     },
-
+created(){
+      this.getMenu();
+},
+    watch: {
+      '$route' (to, from) {
+        this.$router.go(0);
+      }
+    },
     methods:{
-      onIndex(){
-        console.log('1111111111');
-        this.$router.push('/login-page/login');
-      },
-
-      zhizao(){
-        console.log('222222222');
-        // window.open('http://www.baidu.com');
-        window.location.href = 'http://127.0.0.1:8080'
+     getMenu(){
+       this.$axios.get('/menu/list-all').then((res)=>{
+         if(res.data.data.length>0)this.menuList=res.data.data;
+       }).catch((err)=>{
+         console.log(err);
+       });
+     },
+      toPage(name,id){
+       if(name==="首页")this.$router.push("");
+       else this.$router.push({name: 'softList', params: {menuId: id,menuName:name}})
       }
     },
   }
@@ -106,8 +122,9 @@
   margin: 6px;
   text-align: center;
 }
-.menu_header a{
-  color:#ffffff
+.menu_header button{
+  color:#ffffff;
+  padding:0px;
 }
 .dropMenu a{color: #606266}
 

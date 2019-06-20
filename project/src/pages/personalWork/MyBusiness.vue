@@ -3,18 +3,18 @@
     <div class="suffix">
       <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>当前企业
     </div>
-     <img src="../assets/common/logo_zhuchi.png" >
+     <img src="../../assets/common/logo_zhuchi.png" >
      <div class="suffix">
       当前企业：株洲齿轮有限责任公司
-     </div>  
+     </div>
      <div class="suffix">
       加入时间：2019年6月11日
-     </div>  
+     </div>
       <div class="suffix">
         <el-button type="primary">变更企业</el-button>
         <el-button type="primary">离开企业</el-button>
-     </div>  
-     
+     </div>
+
     <div class="suffix">
       <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>企业已购服务
     </div>
@@ -99,7 +99,7 @@
       created(){
       },
       methods:{
-     
+
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
       },

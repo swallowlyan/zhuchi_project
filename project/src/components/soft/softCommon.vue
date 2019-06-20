@@ -1,8 +1,9 @@
 <template>
     <div id="softList">
-        <el-row class="searchForm">
-          <el-col :span="2" :offset="4"><h1 style="font-size: 30px;font-weight: normal">工业软件</h1></el-col>
-          <el-col :span="10" :offset="1">
+      <el-row class="searchForm">
+        <el-col :span="3" :offset="4"><h1 style="font-size: 30px;font-weight: normal">{{menuName}}</h1></el-col>
+        <el-col :span="10" :offset="1">
+          <el-row>
             <el-col :span="5">
               <el-select v-model="searchType" placeholder="请选择分类" size="medium">
                 <el-option
@@ -14,21 +15,22 @@
               </el-select>
             </el-col>
             <el-col :span="18">
-              <el-col :span="16"><el-input v-model="searchInput" placeholder="请输入内容" size="medium"></el-input></el-col>
-              <el-col :span="2"><router-link  to="/soft" ><el-button type="primary" icon="el-icon-search" size="medium">搜索</el-button></router-link></el-col>
+              <el-col :span="16"><el-input v-model="searchInput" placeholder="请输入内容" size="medium" ></el-input></el-col>
+              <el-col :span="2"><el-button type="primary" icon="el-icon-search" size="medium" @click="searchSoft()">搜索</el-button></el-col>
             </el-col>
-            <el-row>
-              <el-col :span="16" style="margin: 20px 0px">
+          </el-row>
+          <el-row>
+            <el-col :span="16" style="margin: 20px 0px">
                 <span>热门搜索：
                   <el-button type="text">研发统计</el-button>
                   <el-button type="text">生产制造</el-button>
                   <el-button type="text">creo</el-button>
                 </span>
-              </el-col>
-            </el-row>
-          </el-col>
-        </el-row>
-      <router-view/>
+            </el-col>
+          </el-row>
+        </el-col>
+      </el-row>
+      <router-view ref="list" :searchCommon="searchInput" v-on:getObj="getDetailObj" :detail="detailObj"></router-view>
     </div>
 </template>
 <script>
@@ -37,18 +39,42 @@
       components:{},
       data(){
           return{
-            searchType:"",
+            title:"",
+            searchType:"0",
             searchInput:"",
             searchOptions:[
-              {label:"",value:""}
-            ]
+              {label:"领域分类",value:"0"},
+              {label:"行业分类",value:"1"},
+              {label:"交付方式",value:"2"}
+            ],
+            menuName:"",
+            menuId:"",
+            searchVal:"",
+            detailObj:{}
           }
+      },
+      created(){
+        this.menuId=this.$route.params.menuId;
+        this.menuName=this.$route.params.menuName;
+        console.info(this.$route.params);
+      },
+      watch:{
+        detailObj(val){
+          this.detailObj=val;
+        }
       },
       methods:{
           //查找软件
-          searchSoft(val){
-              console.info(val);
-          }
+          searchSoft(){
+            if(this.$route.path.indexOf("Detail")>-1){
+              this.$router.push({path: '/soft', query: {menuId: this.menuId,menuName:this.menuName}});
+            }else{
+              this.$refs.list.getSoft();
+            }
+          },
+        getDetailObj(obj){
+            this.detailObj=obj;
+        }
       }
     }
 </script>

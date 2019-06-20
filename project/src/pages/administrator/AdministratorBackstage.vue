@@ -28,12 +28,12 @@
   </el-col>
 </el-row>
 
-       
+
     </div>
 </template>
 
 <script>
-    import MyHeader from "../components/MyHeader";
+    import MyHeader from "../../components/MyHeader";
     export default {
         name: "MainPage",
       components: {MyHeader},
@@ -43,14 +43,11 @@
             username:'',
             roleId:'',
             buttons: [
-              { title: '企业成员管理',index:'1',url:'index'},
-              { title: '企业已购服务', index:'2',url:''},
-              { title: '企业上传服务',index:'3',url:''},
-              { title: '企业上传审批', index:'4',url:'service-approval'},
-              { title: '全部上架服务',index:'5',url:''},
-              { title: '企业数据空间' ,index:'6',url:''},
-              { title: '企业订单',index:'7',url:''},
-              { title: '企业收入',index:'8',url:''}
+              { title: '用户注册审批',index:'1',url:'index'},
+              { title: '服务发布审批', index:'2',url:'approval-service'},
+              { title: '服务类别配置',index:'3',url:'category-configuration'},
+              { title: '综合统计分析', index:'4',url:'comprehensive-statistics'},
+              { title: '平台用户管理',index:'5',url:'user-management'},
             ],
           }
       },

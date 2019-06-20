@@ -11,7 +11,7 @@
             </div>
             <div class="suffix">
               <div style="text-align:center;width:50%;"
-              v-for="(data, index) in datas_a"
+              v-for="(data, index) in commonService"
               :key="index">
                  <div style="color:#263d77;font-size:13px;font-weight:700;">{{data.title}}</div>
                  <div style="font-size:14px;">{{data.value}}</div>
@@ -28,7 +28,7 @@
           </div>
           <div class="suffix">
             <div style="text-align:center;width:25%;"
-              v-for="(data, index) in datas_b"
+              v-for="(data, index) in historyService"
               :key="index">
                 <div style="color:#263d77;font-size:13px;font-weight:700;">{{data.title}}</div>
                 <div style="font-size:14px;">{{data.value}}</div>
@@ -63,7 +63,7 @@
                  <span style="font-size:14px;margin-left:10px">工业软件</span>
                   <div style="display:flex;align-items:center;flex-wrap:wrap;">
                     <div style="text-align:center;width:25%;"
-                      v-for="(data, index) in datas_c"
+                      v-for="(data, index) in buyService"
                       :key="index">
                         <div>图片</div>
                         <div>{{data.title}}</div>
@@ -74,7 +74,7 @@
                   <span style="font-size:14px;margin-left:10px;">工业app</span>
                   <div style="display:flex;align-items:center;flex-wrap:wrap;">
                     <div style="text-align:center;width:25%;"
-                      v-for="(data, index) in datas_c"
+                      v-for="(data, index) in buyService"
                       :key="index">
                         <div>图片</div>
                         <div>{{data.title}}</div>
@@ -87,7 +87,7 @@
                   <span style="font-size:14px;margin-left:10px;">微服务组件</span>
                   <div style="display:flex;align-items:center;flex-wrap:wrap;">
                     <div style="text-align:center;width:25%;"
-                      v-for="(data, index) in datas_c"
+                      v-for="(data, index) in buyService"
                       :key="index">
                         <div>图片</div>
                         <div>{{data.title}}</div>
@@ -95,10 +95,10 @@
                   </div>
                 </div>
                 <div style="width:50%;height:130px;">
-                  <span style="font-size:14px;margin-left:10px;">肌理模型</span>
+                  <span style="font-size:14px;margin-left:10px;">机理模型</span>
                   <div style="display:flex;align-items:center;flex-wrap:wrap;">
                     <div style="text-align:center;width:25%;"
-                      v-for="(data, index) in datas_c"
+                      v-for="(data, index) in buyService"
                       :key="index">
                         <div>图片</div>
                         <div>{{data.title}}</div>
@@ -132,8 +132,8 @@
           </div>
           <div style="margin-top:50px;">
             <div style="text-align:center;width:25%;margin:20px 10px;"
-              v-for="(data, index) in datas_c"
-              :key="index">                
+              v-for="(data, index) in buyService"
+              :key="index">
                 <div>
                 <i
                   style="margin-right:8px;"
@@ -153,6 +153,9 @@
       data(){
           return{
             state:'',
+            commonService:[],
+            historyService:[],
+            buyService:[],
             datas_a: [
               { title: '!!!ABAQUS',value:'ABAQUS'},
               { title: '!!!ABAQUS',value:'ABAQUS',},
@@ -178,8 +181,33 @@
           }
       },
       created(){
+        this.getCommonService();this.getHistoryService();this.getBuyService();
       },
       methods:{
+        getCommonService(){
+          let param={username:"admin",limit:6};
+          this.$axios.get('/wc-index/recent-softs',{params:param}).then((res)=>{
+            if(res.data.data.length>0)this.commonService=res.data.data;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
+        getHistoryService(){
+          let param={username:"admin",limit:8};
+          this.$axios.get('/wc-index/recent-softs',{params:param}).then((res)=>{
+            if(res.data.data.length>0)this.historyService=res.data.data;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
+        getBuyService(){
+          let param={username:"admin",limit:8};
+          this.$axios.get('/wc-index/available-softs',{params:param}).then((res)=>{
+            if(res.data.data.length>0)this.buyService=res.data.data;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
          querySearch(queryString, cb) {
         var restaurants = this.restaurants;
         var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
@@ -216,7 +244,7 @@
 }
 .suffix div div{
   padding:5px 0;
-} 
+}
 .suffix_s div{
   font-size:18px;
   font-weight:700;

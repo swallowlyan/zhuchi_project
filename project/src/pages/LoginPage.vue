@@ -7,13 +7,13 @@
             <el-tab-pane label="个人用户登录" name="userLogin">
               <el-form :model="userForm" :rules="formRule" ref="ruleForm" label-width="100px">
                 <el-form-item label="用户名" prop="name">
-                  <el-input v-model="userForm.name"></el-input>
+                  <el-input v-model="userForm.name" placeholder="请输入用户名"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
-                  <el-input v-model="userForm.password" type="password"></el-input>
+                  <el-input v-model="userForm.password" type="password" placeholder="请输入密码"></el-input>
                 </el-form-item>
                 <el-form-item label="验证码" prop="verificationCode">
-                  <el-input v-model="userForm.verificationCode"></el-input>
+                  <el-input v-model="userForm.verificationCode" placeholder="请输入验证码"></el-input>
                 </el-form-item>
               </el-form>
               <el-row><el-col :span="13" :offset="5">
@@ -21,20 +21,20 @@
               </el-col>
               </el-row>
                 <el-row><el-col :span="13" :offset="5">
-                  <el-button>立即注册</el-button>
+                  <router-link  to="/register" ><el-button>立即注册</el-button></router-link>
                 </el-col>
                 </el-row>
             </el-tab-pane>
             <el-tab-pane label="企业用户登录" name="enterpriseLogin">
               <el-form :model="enterpriseForm" :rules="formRule" ref="ruleForm" label-width="100px">
                 <el-form-item label="用户名" prop="name">
-                  <el-input v-model="enterpriseForm.name"></el-input>
+                  <el-input v-model="enterpriseForm.name" placeholder="请输入用户名"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
-                  <el-input v-model="enterpriseForm.password" type="password"></el-input>
+                  <el-input v-model="enterpriseForm.password" type="password" placeholder="请输入密码"></el-input>
                 </el-form-item>
                 <el-form-item label="验证码" prop="verificationCode">
-                  <el-input v-model="enterpriseForm.verificationCode"></el-input>
+                  <el-input v-model="enterpriseForm.verificationCode" placeholder="请输入验证码"></el-input>
                 </el-form-item>
               </el-form>
               <el-row><el-col :span="13" :offset="5">
@@ -93,5 +93,8 @@
   }
   .box-card{background-color: #ffffff}
   .el-row button{width: 100%;margin: 10px 0px}
+  .managerArea{display: none}
+</style>
+<style>
 
 </style>

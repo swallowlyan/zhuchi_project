@@ -65,7 +65,7 @@
 </template>
 
 <script>
-    import MyHeader from "../components/MyHeader";
+    import MyHeader from "../../components/MyHeader";
     export default {
         name: "MainPage",
       components: {MyHeader},
@@ -88,7 +88,7 @@
       },
 
       mounted(){
-       
+
       },
 
       methods:{
@@ -99,7 +99,7 @@
         console.log(`当前页: ${val}`);
       }
         }
-       
+
     }
 </script>
 

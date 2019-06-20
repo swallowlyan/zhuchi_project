@@ -127,6 +127,15 @@
             detailScore:"3.5"
           }
       },
+      props: {
+        detail:{
+          type:Object,
+          default(){return {}}
+        }
+      },
+      created(){
+          console.info(this.detail);
+      },
       methods:{
       }
     }

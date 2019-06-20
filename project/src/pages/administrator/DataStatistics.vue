@@ -4,7 +4,7 @@
       <el-col :span="17" >
         <div class="suffix">
           <div style="font-size:20px;font-weight:700;margin:0px 14px 0px -23px">|</div>
-          <span style="font-weight:700;font-size:12px;">用户数据指标</span>
+          <span style="font-weight:700;font-size:12px;">数据指标</span>
         </div>
         <div class="suffix" style="width:100%;margin-top:30px;">
           <div style="width:25%;" class="style_s"v-for="(data, index) in datas" :key="index">
@@ -19,19 +19,13 @@
           <div style="font-size:20px;font-weight:700;margin:0px 14px 0px -23px">|</div>
           <span style="font-weight:700;font-size:12px;">数据图</span>
         </div>
-        <el-radio-group v-model="radio1"size="small">
-          <el-radio-button label="总用户数"></el-radio-button>
-          <el-radio-button label="在线用户数"></el-radio-button>
-          <el-radio-button label="访问次数"></el-radio-button>
-          <el-radio-button label="日活跃用户数"></el-radio-button>
-        </el-radio-group>
-        <div id="main" style="width:100%;height:260px;margin-top:-30px;"></div>
+        <div id="main" style="width:100%;height:260px;"></div>
       </el-col>
     </el-row>
     <el-row style="margin-top:10px;">
       <div class="suffix">
           <div style="font-size:20px;font-weight:700;margin:0px 14px 0px -23px">|</div>
-          <span style="font-weight:700;font-size:12px;">用户管理</span>
+          <span style="font-weight:700;font-size:12px;">企业数据明细</span>
       </div>
       <div  class="special">
         <table
@@ -39,22 +33,18 @@
           style="border-collapse:collapse;"
         >
         <tr style="font-weight:700;font-size:14px;line-height:35px;">
-          <td>姓名</td>
-          <td>注册时间</td>
-          <td>账号</td>
-          <td>手机号</td>
-          <td>所属部门</td>
-          <td>用户状态</td>
+          <td>企业名称</td>
+          <td>上月新增数据（单位：tb）</td>
+          <td>结构化数据（单位：tb）</td>
+          <td>非结构化数据（单位：tb）</td>
           <td>操作</td>
         </tr>
         <tr v-for="(data, index) in datas_b"
         style="font-size:12px;line-height:35px;"
       :key="index"
         >
-          <td>{{data.user}}</td>
-          <td>{{data.data}}</td>
-          <td></td>
-          <td></td>
+          <td>{{data.title}}</td>
+          <td>{{data.value}}</td>
           <td></td>
           <td></td>
           <td>
@@ -69,13 +59,7 @@
                 size="mini"
                 name="select"
               >
-                禁用
-              </el-button>
-              <el-button
-                size="mini"
-                name="select"
-              >
-                重置密码
+                删除
               </el-button>
             </template>
           </td>
@@ -100,7 +84,7 @@
 </template>
 
 <script>
-    import MyHeader from "../components/MyHeader";
+    import MyHeader from "../../components/MyHeader";
     export default {
         name: "MainPage",
       components: {MyHeader},
@@ -108,20 +92,20 @@
       data(){
           return{
              datas: [
-              { title: '总用户数',value:'2116',way:'%96.21'},
-              { title: '在线用户数',value:'855',way:'%6.9'},
-              { title: '访问次数',value:'821',way:'%66.3'},
-              { title: '日活跃用户数',value:'544',way:'%5.5'},
+              { title: '系统接入数据总量',value:'1.23pd',way:'%96.21'},
+              { title: '上月新增数据',value:'23gd',way:'%6.9'},
+              { title: '结构化数据',value:'821',way:'%66.3'},
+              { title: '非结构化数据',value:'544',way:'%5.5'},
             ],
             radio1:'总用户数',
              state: '',
           datas_b: [
-               { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'张三'},
-              { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'李红'},
-              { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'张三'},
-              { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'王丽'},
-              { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'张三'},
-              { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'洛洛'},
+              { title: 'Creo',value:'5',way:'SAAS'},
+              { title: 'Creo',value:'5',way:'SAAS'},
+              { title: 'Creo',value:'5',way:'SAAS'},
+              { title: 'Creo',value:'5',way:'SAAS'},
+              { title: 'Creo',value:'5',way:'SAAS'},
+              { title: 'Creo',value:'5',way:'SAAS'},
           ],
           currentPage1: 5,
           currentPage2: 5,
@@ -139,17 +123,43 @@
           let myChart = this.$echarts.init(document.getElementById('main'));
         // 指定图表的配置项和数据
         myChart.setOption({
-        xAxis: {
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+       tooltip: {
+        trigger: 'item',
+        formatter: "{a} {b}: {c} ({d}%)"
     },
-    yAxis: {
-        type: 'value'
+    legend: {
+        orient: 'vertical',
+        x: 'left',
+        data:['系统接入数据总量','上月新增数据','结构化数据','非结构化数据']
     },
-    series: [{
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
-        type: 'line'
-      }]
+    series: [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    show: true,
+                }
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data:[
+                {value:335, name:'系统接入数据总量'},
+                {value:310, name:'上月新增数据'},
+                {value:234, name:'结构化数据'},
+                {value:135, name:'非结构化数据'},
+            ]
+        }
+    ]
     });
         },
         handleSizeChange(val) {
@@ -158,7 +168,7 @@
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
       }
-       
+
       },
     }
 </script>

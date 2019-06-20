@@ -1,31 +1,36 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import registerPage from '../pages/registerPage'
 import LoginPage from '../pages/LoginPage'
-import PersonalIndex from '../pages/PersonalIndex'
-import PersonalWorkbench from '../pages/PersonalWorkbench'
-import UploadService from '../pages/UploadService'
-import SaasService from '../pages/SaasService'
-import PurchasedServices from '../pages/PurchasedServices'
-import HistoricalServices from '../pages/HistoricalServices'
-import CollectionServices from '../pages/CollectionServices'
-import CommonServices from '../pages/CommonServices'
-import MyUpload from '../pages/MyUpload'
 import homePage from '../components/homePage.vue'
 import Ind from '../pages/ind'
-import softCommon from '../components/soft/softCommon.vue'
+
+import PersonalIndex from '../pages/personalWork/PersonalIndex'
+import PersonalWorkbench from '../pages/personalWork/PersonalWorkbench'
+import UploadService from '../pages/personalWork/UploadService'
+import SaasService from '../pages/personalWork/SaasService'
+import PurchasedServices from '../pages/personalWork/PurchasedServices'
+import HistoricalServices from '../pages/personalWork/HistoricalServices'
+import CollectionServices from '../pages/personalWork/CollectionServices'
+import CommonServices from '../pages/personalWork/CommonServices'
+import MyUpload from '../pages/personalWork/MyUpload'
+import MyBusiness from '../pages/personalWork/MyBusiness'
+
 import softList from '../components/soft/softList.vue'
+import softCommon from '../components/soft/softCommon.vue'
 import softDetail from '../components/soft/softDetail.vue'
-import EnterpriseWorkbench from '../pages/EnterpriseWorkbench'
-import EnterpriseIndex from '../pages/EnterpriseIndex'
-import ServiceApproval from '../pages/ServiceApproval'
-import AdministratorBackstage from '../pages/AdministratorBackstage'
-import RegisterApproval from '../pages/RegisterApproval'
-import ApprovalService from '../pages/ApprovalService'
-import MyBusiness from '../pages/MyBusiness'
-import UserManagement from '../pages/UserManagement'
-import DataStatistics from '../pages/DataStatistics'
-import ComprehensiveStatistics from '../pages/ComprehensiveStatistics'
-import CategoryConfiguration from '../pages/CategoryConfiguration'
+
+import EnterpriseWorkbench from '../pages/enterpriseWork/EnterpriseWorkbench'
+import EnterpriseIndex from '../pages/enterpriseWork/EnterpriseIndex'
+import ServiceApproval from '../pages/enterpriseWork/ServiceApproval'
+
+import AdministratorBackstage from '../pages/administrator/AdministratorBackstage'
+import RegisterApproval from '../pages/administrator/RegisterApproval'
+import ApprovalService from '../pages/administrator/ApprovalService'
+import UserManagement from '../pages/administrator/UserManagement'
+import DataStatistics from '../pages/administrator/DataStatistics'
+import ComprehensiveStatistics from '../pages/administrator/ComprehensiveStatistics'
+import CategoryConfiguration from '../pages/administrator/CategoryConfiguration'
 
 Vue.use(Router)
 
@@ -109,7 +114,7 @@ export default new Router({
               name:'ServiceApproval',
               component:ServiceApproval
             },
-           
+
           ]
         },
         {
@@ -140,12 +145,12 @@ export default new Router({
             {
               path:'user-management',
               name:'UserManagement',
-              component:UserManagement 
+              component:UserManagement
             },
             {
               path:'category-configuration',
               name:'CategoryConfiguration',
-              component:CategoryConfiguration 
+              component:CategoryConfiguration
             },
           ]
         },
@@ -167,9 +172,15 @@ export default new Router({
           ]
         },
         {
-          path:'/login-page',
+          path:'/login',
           name:'LoginPage',
           component:LoginPage,
+          children:[]
+        },
+        {
+          path:'/register',
+          name:'registerPage',
+          component:registerPage,
           children:[]
         }
       ]
