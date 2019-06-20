@@ -1,20 +1,97 @@
 <template>
   <div class="login-page">
-    <login-header></login-header>
-    <router-view/>
+    <el-row>
+      <el-col :span="6" :offset="12" style="margin-top:50px;margin-bottom: 50px">
+        <el-card class="box-card">
+          <el-tabs v-model="activeName">
+            <el-tab-pane label="个人用户登录" name="userLogin">
+              <el-form :model="userForm" :rules="formRule" ref="ruleForm" label-width="100px">
+                <el-form-item label="用户名" prop="name">
+                  <el-input v-model="userForm.name"></el-input>
+                </el-form-item>
+                <el-form-item label="密码" prop="password">
+                  <el-input v-model="userForm.password" type="password"></el-input>
+                </el-form-item>
+                <el-form-item label="验证码" prop="verificationCode">
+                  <el-input v-model="userForm.verificationCode"></el-input>
+                </el-form-item>
+              </el-form>
+              <el-row><el-col :span="13" :offset="5">
+                <el-button type="primary" @click="submitForm('userForm')">登录</el-button>
+              </el-col>
+              </el-row>
+                <el-row><el-col :span="13" :offset="5">
+                  <el-button>立即注册</el-button>
+                </el-col>
+                </el-row>
+            </el-tab-pane>
+            <el-tab-pane label="企业用户登录" name="enterpriseLogin">
+              <el-form :model="enterpriseForm" :rules="formRule" ref="ruleForm" label-width="100px">
+                <el-form-item label="用户名" prop="name">
+                  <el-input v-model="enterpriseForm.name"></el-input>
+                </el-form-item>
+                <el-form-item label="密码" prop="password">
+                  <el-input v-model="enterpriseForm.password" type="password"></el-input>
+                </el-form-item>
+                <el-form-item label="验证码" prop="verificationCode">
+                  <el-input v-model="enterpriseForm.verificationCode"></el-input>
+                </el-form-item>
+              </el-form>
+              <el-row><el-col :span="13" :offset="5">
+                <el-button type="primary" @click="submitForm('enterpriseForm')">登录</el-button>
+              </el-col>
+              </el-row>
+              <el-row><el-col :span="13" :offset="5">
+                <el-button>立即注册</el-button>
+              </el-col>
+              </el-row>
+            </el-tab-pane>
+          </el-tabs>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
-  import LoginHeader from "../components/LoginHeader";
   export default {
     name: "LoginPage",
-    components: {LoginHeader}
+    data(){
+      return {
+        activeName:"userLogin",
+      userForm:{
+        name:"",
+        password:"",
+        verificationCode:""
+      },
+        enterpriseForm:{
+          name:"",
+          password:"",
+          verificationCode:""
+        },
+        formRule: {
+          name: [{required: true, message: '请输入用户名', trigger: 'blur'}],
+          password: [{required: true, message: '请输入密码', trigger: 'blur'}],
+          verificationCode: [{required: true, message: '请输入验证码', trigger: 'blur'}],
+        }
+      }
+    },
+    methods:{
+      submitForm(form){
+
+      }
+    }
   }
 </script>
 
 <style scoped>
   .login-page{
-    height: 100%;
+    width:100%;
+    height:100%;
+    background-size:100% 100%;
+    background: url("../assets/login_bg.jpg");
   }
+  .box-card{background-color: #ffffff}
+  .el-row button{width: 100%;margin: 10px 0px}
+
 </style>

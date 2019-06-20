@@ -19,10 +19,11 @@
       <span class="el-dropdown-link" style="margin-right: 0px;font-size: 25px;color: #ffffff">
         <i class="el-icon-s-unfold"></i>
       </span>
-            <el-dropdown-menu slot="dropdown">
+            <el-dropdown-menu slot="dropdown" class="dropMenu">
               <el-dropdown-item icon="el-icon-circle-check-outline">资源库首页</el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">我的订单</el-dropdown-item>
-              <el-dropdown-item icon="el-icon-circle-check-outline">个人工作台</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-circle-check-outline">
+                <router-link  to="/personal-workbench" >个人工作台</router-link></el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">设置中心</el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">注销</el-dropdown-item>
             </el-dropdown-menu>
@@ -69,7 +70,7 @@
 <style scoped>
 #ind_div{
   background-size: cover;
-  height: 1000px;
+  height: 100%;
 }
 .division {
   float: left;
@@ -108,5 +109,6 @@
 .menu_header a{
   color:#ffffff
 }
+.dropMenu a{color: #606266}
 
 </style>

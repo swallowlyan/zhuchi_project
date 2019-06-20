@@ -114,14 +114,14 @@ export default new Router({
               component:softDetail
             }
           ]
+        },
+        {
+          path:'/login-page',
+          name:'LoginPage',
+          component:LoginPage,
+          children:[]
         }
       ]
-    },
-    {
-      path:'/login-page',
-      name:'LoginPage',
-      component:LoginPage,
-      children:[]
     },
   ]
 })
