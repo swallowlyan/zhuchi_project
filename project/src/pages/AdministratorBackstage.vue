@@ -17,7 +17,7 @@
         :key="index">
         <span slot="title">
             {{button.title}}
-          </span>
+        </span>
         </el-menu-item>
       </router-link>
       </div>
@@ -43,17 +43,11 @@
             username:'',
             roleId:'',
             buttons: [
-              { title: '常用服务',index:'1',url:'common-services'},
-              { title: '历史服务', index:'2',url:'historical-services'},
-              { title: '已购买服务',index:'3',url:'purchased-services'},
-              { title: '已收藏服务', index:'4',url:'collection-services'},
-              { title: '全部上架服务',index:'5',url:''},
-              { title: '我的上传' ,index:'6',url:'my-upload'},
-              { title: '我的数据',index:'7',url:''},
-              { title: '我的订单',index:'8',url:''},
-              { title: '我的收入' ,index:'9',url:''},
-              { title: '我的企业',index:'10',url:'my-business'},
-              { title: '账号管理',index:'11',url:''},
+              { title: '用户注册审批',index:'1',url:'index'},
+              { title: '服务发布审批', index:'2',url:'approval-service'},
+              { title: '服务类别配置',index:'3',url:'category-configuration'},
+              { title: '综合统计分析', index:'4',url:'comprehensive-statistics'},
+              { title: '平台用户管理',index:'5',url:'user-management'},
             ],
           }
       },

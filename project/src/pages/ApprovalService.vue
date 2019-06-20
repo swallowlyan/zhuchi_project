@@ -1,7 +1,7 @@
 <template>
   <div>
    <el-row :gutter="40">
-    <el-col :span="7" style="border-right:1px dashed #eee;padding-right:20px;height:700px">
+    <el-col :span="7" style="border-right:1px dashed #eee;padding-right:10px;height:700px">
       <div class="suffix">
           <div style="font-size:20px;font-weight:700;margin:0px 14px 0px -23px">|</div>
           <span style="font-weight:700;font-size:12px;">待审服务</span>
@@ -13,8 +13,19 @@
         <div class="sty">交付方式：下载</div>
         <div class="sty_a"><a href="" style="color:rgb(68, 126, 223)">点击下载安装文件</a></div>
         <div style="text-align:center;">
-          <el-button><span style="color:red;padding-right:10px;font-weight:700;">√</span>同意</el-button>
-          <el-button><span style="color:green;padding-right:10px;font-weight:700;">×</span>拒绝</el-button>
+          <el-button><span style="color:green;padding-right:10px;font-weight:700;">√</span>同意</el-button>
+          <el-button><span style="color:red;padding-right:10px;font-weight:700;">×</span>拒绝</el-button>
+        </div>
+      </el-card>
+      <el-card style="height:300px;margin-left:-20px;">
+        <div class="sty">员工 李四 于2018年8月10日上传HyperWorks软件</div>
+        <div class="sty">领域分类：研发设计</div>
+        <div class="sty">行业分类：汽车制造</div>
+        <div class="sty">交付方式：下载</div>
+        <div class="sty_a"><a href="" style="color:rgb(68, 126, 223)">点击下载安装文件</a></div>
+        <div style="text-align:center;">
+          <el-button><span style="color:green;padding-right:10px;font-weight:700;">√</span>同意</el-button>
+          <el-button><span style="color:red;padding-right:10px;font-weight:700;">×</span>拒绝</el-button>
         </div>
       </el-card>
     </el-col>

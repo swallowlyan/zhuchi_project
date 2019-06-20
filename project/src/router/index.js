@@ -18,6 +18,14 @@ import softDetail from '../components/soft/softDetail.vue'
 import EnterpriseWorkbench from '../pages/EnterpriseWorkbench'
 import EnterpriseIndex from '../pages/EnterpriseIndex'
 import ServiceApproval from '../pages/ServiceApproval'
+import AdministratorBackstage from '../pages/AdministratorBackstage'
+import RegisterApproval from '../pages/RegisterApproval'
+import ApprovalService from '../pages/ApprovalService'
+import MyBusiness from '../pages/MyBusiness'
+import UserManagement from '../pages/UserManagement'
+import DataStatistics from '../pages/DataStatistics'
+import ComprehensiveStatistics from '../pages/ComprehensiveStatistics'
+import CategoryConfiguration from '../pages/CategoryConfiguration'
 
 Vue.use(Router)
 
@@ -48,6 +56,11 @@ export default new Router({
               path:'my-upload',
               name:'MyUpload',
               component:MyUpload
+            },
+            {
+              path:'my-business',
+              name:'MyBusiness',
+              component:MyBusiness
             },
             {
               path:'upload-service',
@@ -95,7 +108,45 @@ export default new Router({
               path:'service-approval',
               name:'ServiceApproval',
               component:ServiceApproval
-            }
+            },
+           
+          ]
+        },
+        {
+          path:'administrator-backstage',
+          name:'AdministratorBackstage',
+          component:AdministratorBackstage,
+          children:[
+            {
+              path:'index',
+              name:'RegisterApproval',
+              component:RegisterApproval
+            },
+            {
+              path:'approval-service',
+              name:'ApprovalService',
+              component:ApprovalService
+            },
+            {
+              path:'data-statistics',
+              name:'DataStatistics',
+              component:DataStatistics
+            },
+            {
+              path:'comprehensive-statistics',
+              name:'ComprehensiveStatistics',
+              component:ComprehensiveStatistics
+            },
+            {
+              path:'user-management',
+              name:'UserManagement',
+              component:UserManagement 
+            },
+            {
+              path:'category-configuration',
+              name:'CategoryConfiguration',
+              component:CategoryConfiguration 
+            },
           ]
         },
         {
