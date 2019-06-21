@@ -28,7 +28,7 @@ axios.interceptors.request.use( (config) => {
     // debugger;
     // config.url.indexOf('/soft-detail/create') != -1||config.url.indexOf('/soft-detail/update') != -1||(config.url.indexOf('/soft-standBook/import') != -1 ||
     if(config.url == "/stock-in-register/import" || config.url === '/soft-detail/create' || config.url === "/soft-detail/update" || config.url === "/soft-standBook/import"
-    || config.url == '/stock-in-register/single-register'){
+      || config.url == '/stock-in-register/single-register'){
       return config
     }else{
       config.method == 'post' ? config.data = qs.stringify(config.data) : '';

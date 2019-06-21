@@ -36,11 +36,11 @@
           <el-card class="box-card">
             <div slot="header" class="clearfix" style="height: 50px">
               <el-col :span="2" :offset="1"><span>排序：</span></el-col>
-              <el-col :span="2"><el-button type="text" @click="searchSoft()">默认</el-button></el-col>
-              <el-col :span="3"><el-button type="text"@click="searchSoft()">总销量<i class="el-icon-top"></i></el-button></el-col>
-              <el-col :span="3"><el-button type="text"@click="searchSoft()">上架时间<i class="el-icon-top"></i></el-button></el-col>
-              <el-col :span="2"><el-button type="text"@click="searchSoft()">评分<i class="el-icon-top"></i></el-button></el-col>
-              <el-col :span="2"><el-button type="text"@click="searchSoft()">价格<i class="el-icon-top"></i></el-button></el-col>
+              <el-col :span="2"><el-button type="text" @click="getSoft()">默认</el-button></el-col>
+              <el-col :span="3"><el-button type="text"@click="getSoft()">总销量<i class="el-icon-top"></i></el-button></el-col>
+              <el-col :span="3"><el-button type="text"@click="getSoft()">上架时间<i class="el-icon-top"></i></el-button></el-col>
+              <el-col :span="2"><el-button type="text"@click="getSoft()">评分<i class="el-icon-top"></i></el-button></el-col>
+              <el-col :span="2"><el-button type="text"@click="getSoft()">价格<i class="el-icon-top"></i></el-button></el-col>
             </div>
             <div class="softContent">
               <!--softInfo-->
@@ -69,9 +69,22 @@
                   <el-row style="margin-top: 15px;"><span class="saleCount">月销量10件</span></el-row>
                 </el-col>
                 <el-col :span="3"><h3 class="money" style="margin: 10px 0px">￥500000</h3></el-col>
-                <el-col :span="3"><el-button type="text"><i class="fa fa-heart-o"></i></el-button>点击收藏</el-col>
+                <el-col :span="3" v-if="item.collect!==true">
+                  <el-button type="text" @click="collectSoft(item.id,1)"><i class="fa fa-heart-o"></i>点击收藏</el-button>
+                </el-col>
+                <el-col :span="3" v-if="item.collect===true">
+                  <el-button type="text" @click="collectSoft(item.id,0)"><i class="fa fa-heart"></i>取消收藏</el-button>
+                </el-col>
+                <!--<el-col :span="3">
+                  <el-button type="text" @click="collectSoft(item.id,1)"><i class="fa fa-heart-o"></i>点击收藏</el-button>
+                </el-col>-->
                 <el-col :span="4" style="margin-top: 5px">
-                  <el-row><el-button type="button"size="medium">点击获取</el-button></el-row>
+                  <el-row v-if="item.auth==='true'">
+                    <el-button type="button"size="medium" disabled>已获取</el-button>
+                  </el-row>
+                  <el-row v-if="item.auth==='false'">
+                    <el-button type="button" size="medium" @click="downSoft(item.id)">点击获取</el-button>
+                  </el-row>
                   <el-row style="margin-top: 10px"><span class="pay">交付方式：SAAS</span></el-row>
                 </el-col>
               </el-row>
@@ -102,10 +115,9 @@
         name: "softCommon",
       data(){
         return{
-          menuName:"",
+          menuId:"",
           commonSearch:"",
           testScore:3.8,
-          menuId:"",
           areaTypeList:[],
           industryTypeList:[],
           payTypeList:[],
@@ -121,22 +133,18 @@
           }
         }
       },
-      created(){
-        this.menuId=this.$route.params.menuId;
-        this.menuName=this.$route.params.menuName;
-          this.getAreaType();this.getIndustryType();this.getPayType();
-          this.searchSoftByMenu();
-      },
-      watch: {
-        '$route' (to, from) {
-          this.$router.go(0);
-        }
-      },
       props: {
           searchCommon:{
             type:String,
             default(){return ""}
-          }
+          },
+        menuId_pro:{
+          type:Number,
+          default(){return 0}
+        }
+      },
+      mounted(){
+        this.initPage(this.menuId_pro);
       },
       methods:{
           //获取分类
@@ -162,19 +170,9 @@
           });
         },
         //查找软件
-        searchSoftByMenu(){
-          this.param.menuId=this.menuId;
-          this.$axios.post('/soft-detail/getSoftsByMenu',this.param).then((res)=>{
-            this.total=res.data.data.total;
-            this.currentPage=res.data.data.current;
-            this.pageSize=res.data.data.size;
-            this.softList=res.data.data.records;
-          }).catch((err)=>{
-            console.log(err);
-          });
-        },
         getSoft(val){
-          this.param.softName=this.searchInput;
+          this.param.username="admin";
+          this.param.softName=this.searchCommon;
           this.param.softMenu=this.menuId;
           this.param.softCategory=val;
           this.$axios.post('/soft-detail/search-softs',this.param).then((res)=>{
@@ -186,6 +184,11 @@
             console.log(err);
           });
         },
+        initPage(id){
+          this.getAreaType();this.getIndustryType();this.getPayType();
+          this.menuId=id;
+          this.getSoft("");
+        },
         handleSizeChange(val) {
           this.pageSize=val;
           this.param={
@@ -194,7 +197,7 @@
             sort:'id',
             dir:'asc'
           };
-          this.searchSoft();
+          this.getSoft("");
         },
         handleCurrentChange(val) {
           this.param={
@@ -203,11 +206,45 @@
             sort:'id',
             dir:'asc'
           };
-          this.searchSoft();
+          this.getSoft("");
         },
         toDetail(obj){
           this.$emit('getObj', obj);
-          this.$router.push({name: 'softDetail', params: {menuId: this.menuId,menuName:this.menuName}});
+        },
+        //收藏/取消收藏
+        collectSoft(softId,ifCollect){
+          let collectMessage="";
+          if(ifCollect===0)collectMessage="已取消收藏";
+          else collectMessage="已成功收藏";
+          let param={
+            username:"admin",
+            softId:softId,
+            collect:ifCollect
+          };
+          this.$axios.post('/soft-user/collectSoft',param).then((res)=>{
+            this.$message({
+              message: collectMessage,
+              type: 'success'
+            });
+            this.getSoft("");
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
+        downSoft(softId){
+          let param={
+            username:"admin",
+            softId:softId
+          };
+          this.$axios.get('/soft-auth/soft-order',{params:param}).then((res)=>{
+            this.$message({
+              message: '已成功获取改服务',
+              type: 'success'
+            });
+            this.getSoft("");
+          }).catch((err)=>{
+            console.log(err);
+          });
         }
       }
     }

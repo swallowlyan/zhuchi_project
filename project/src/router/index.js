@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import registerPage from '../pages/registerPage'
 import LoginPage from '../pages/LoginPage'
-import homePage from '../components/homePage.vue'
+import homePage from '../pages/homePage.vue'
 import Ind from '../pages/ind'
 
 import PersonalIndex from '../pages/personalWork/PersonalIndex'
@@ -16,9 +16,9 @@ import CommonServices from '../pages/personalWork/CommonServices'
 import MyUpload from '../pages/personalWork/MyUpload'
 import MyBusiness from '../pages/personalWork/MyBusiness'
 
-import softList from '../components/soft/softList.vue'
-import softCommon from '../components/soft/softCommon.vue'
-import softDetail from '../components/soft/softDetail.vue'
+import softList from '../pages/soft/softList.vue'
+import softCommon from '../pages/soft/softCommon.vue'
+import softDetail from '../pages/soft/softDetail.vue'
 
 import EnterpriseWorkbench from '../pages/enterpriseWork/EnterpriseWorkbench'
 import EnterpriseIndex from '../pages/enterpriseWork/EnterpriseIndex'
@@ -113,6 +113,16 @@ export default new Router({
               path:'service-approval',
               name:'ServiceApproval',
               component:ServiceApproval
+            },
+            {
+              path:'my-upload',
+              name:'MyUpload',
+              component:MyUpload
+            },
+            {
+              path:'upload-service',
+              name:'UploadService',
+              component:UploadService
             },
 
           ]

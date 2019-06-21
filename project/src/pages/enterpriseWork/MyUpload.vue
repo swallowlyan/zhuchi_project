@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="suffix">
-      <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>我的上传
+      <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>企业上传服务
     </div>
     <div>
-    <router-link :to="{path:'/personal-workbench/upload-service'}">
+    <router-link :to="{path:'/enterprise-workbench/upload-service'}">
       <el-button type="primary">上传服务</el-button>
     </router-link></div>
     <div class="suffix">

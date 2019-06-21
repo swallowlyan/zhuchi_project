@@ -3,12 +3,12 @@
   <div>
   <el-row class="softDetail">
     <el-col :span="3" :offset="4" class="detail_img">
-      <img src="../../assets/common/logo_zhuchi.png" height="100" width="100">
+      <img :src="softImg" height="100" width="100">
     </el-col>
     <el-col :span="8">
-      <el-row><h1 class="soft_title">CREO</h1></el-row>
+      <el-row><h1 class="soft_title">{{softTitle}}</h1></el-row>
       <el-row><span class="soft_introduce">
-              Creo是美国PTC公司于2010年10月推出CAD设计软件包。Creo是整合了PTC公司的三个软件Pro/Engineer的参数化技术、CoCreate的直接建模技
+        {{softDescription}}
       </span>
       </el-row>
       <el-row>
@@ -29,10 +29,10 @@
   </el-col>
     <el-col :span="4" :offset="1" class="detail_info">
       <el-card class="box-card">
-        <el-row><span>开发商：美国PTF公司</span></el-row>
-        <el-row><span>入驻时间：2019年1月</span></el-row>
-        <el-row><span>应用数量：20款应用</span></el-row>
-        <el-row><span>联系人：美国PTF公司</span></el-row>
+        <el-row><span>开发商：{{creator}}</span></el-row>
+        <el-row><span>入驻时间：{{createTime}}</span></el-row>
+        <el-row><span>应用数量：20</span></el-row>
+        <el-row><span>联系人：{{creator}}</span></el-row>
         <el-row><span>联系电话：13233362654</span></el-row>
       </el-card>
     </el-col>
@@ -124,19 +124,31 @@
         name: "softDetail",
       data(){
           return {
-            detailScore:"3.5"
+            detailScore:3.5,
+            softImg:"",
+            softTitle:"",
+            softDescription:"",
+            creator:"",
+            createTime:""
           }
       },
       props: {
         detail:{
           type:Object,
-          default(){return {}}
+          default(){return {'55':"o"}}
         }
       },
-      created(){
-          console.info(this.detail);
+      mounted(){
+          this.pullInfo();
       },
       methods:{
+          pullInfo(){
+            this.softImg="data:image/jpg;base64,"+this.detail.softIcon;
+            this.softTitle=this.detail.softName;
+            this.softDescription=this.detail.description;
+            this.createTime=this.detail.created;
+            this.creator=this.detail.creator;
+          }
       }
     }
 </script>

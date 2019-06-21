@@ -4,7 +4,7 @@
         <el-col :span="3" :offset="4"><h1 style="font-size: 30px;font-weight: normal">{{menuName}}</h1></el-col>
         <el-col :span="10" :offset="1">
           <el-row>
-            <el-col :span="5">
+            <!--<el-col :span="5">
               <el-select v-model="searchType" placeholder="请选择分类" size="medium">
                 <el-option
                   v-for="item in searchOptions"
@@ -13,9 +13,9 @@
                   :value="item.value">
                 </el-option>
               </el-select>
-            </el-col>
-            <el-col :span="18">
-              <el-col :span="16"><el-input v-model="searchInput" placeholder="请输入内容" size="medium" ></el-input></el-col>
+            </el-col>-->
+            <el-col :span="19">
+              <el-col :span="17"><el-input v-model="searchInput" placeholder="请输入内容" size="medium" ></el-input></el-col>
               <el-col :span="2"><el-button type="primary" icon="el-icon-search" size="medium" @click="searchSoft()">搜索</el-button></el-col>
             </el-col>
           </el-row>
@@ -30,7 +30,7 @@
           </el-row>
         </el-col>
       </el-row>
-      <router-view ref="list" :searchCommon="searchInput" v-on:getObj="getDetailObj" :detail="detailObj"></router-view>
+      <router-view ref="list" :searchCommon="searchInput" :menuName="menuName" :menuId_pro="menuId_pro" v-on:getObj="getDetailObj" :detail="detailObj"></router-view>
     </div>
 </template>
 <script>
@@ -47,33 +47,35 @@
               {label:"行业分类",value:"1"},
               {label:"交付方式",value:"2"}
             ],
-            menuName:"",
-            menuId:"",
             searchVal:"",
             detailObj:{}
           }
       },
-      created(){
-        this.menuId=this.$route.params.menuId;
-        this.menuName=this.$route.params.menuName;
-        console.info(this.$route.params);
-      },
-      watch:{
-        detailObj(val){
-          this.detailObj=val;
+      props:{
+        menuName:{
+          type:String,
+          default(){return ""}
+        },
+        menuId_pro:{
+          type:Number,
+          default(){return 0}
         }
       },
       methods:{
           //查找软件
           searchSoft(){
             if(this.$route.path.indexOf("Detail")>-1){
-              this.$router.push({path: '/soft', query: {menuId: this.menuId,menuName:this.menuName}});
+              this.$router.push({path: '/soft'});
             }else{
               this.$refs.list.getSoft();
             }
           },
         getDetailObj(obj){
             this.detailObj=obj;
+            this.$router.push({path: '/soft/softDetail'});
+        },
+        initPage(id){
+          this.$refs.list.initPage(id);
         }
       }
     }

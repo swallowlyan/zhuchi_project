@@ -45,7 +45,7 @@
             buttons: [
               { title: '企业成员管理',index:'1',url:'index'},
               { title: '企业已购服务', index:'2',url:''},
-              { title: '企业上传服务',index:'3',url:''},
+              { title: '企业上传服务',index:'3',url:'my-upload'},
               { title: '企业上传审批', index:'4',url:'service-approval'},
               { title: '全部上架服务',index:'5',url:''},
               { title: '企业数据空间' ,index:'6',url:''},

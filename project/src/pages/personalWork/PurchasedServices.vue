@@ -4,67 +4,38 @@
       <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>已购买服务
     </div>
     <div>
-       <table
-        width="90%"
-        style="border-collapse:collapse;"
-      >
-        <tr style="font-weight:700;font-size:14px;line-height:35px;">
-          <td>服务名</td>
-          <td>软件图标</td>
-          <td>版本号</td>
-          <td>交付方式</td>
-          <td>购买时间</td>
-          <td>到期时间</td>
-          <td>评分</td>
-          <td>操作</td>
-        </tr>
-        <tr v-for="(data, index) in datas"
-        style="font-size:12px;line-height:35px;"
-      :key="index"
-        >
-          <td>{{data.title}}</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td><el-rate
-            v-model="data.value"
+      <el-table
+        :data="buyService"
+        style="width: 100%">
+        <el-table-column prop="softName" label="服务名" width="120"></el-table-column>
+        <el-table-column prop="softIcon" label="软件图标" width="120">
+          <template slot-scope="scope">
+            <img :src="'data:image/jpg;base64,'+scope.row.icon" style="height:30px;width: 30px">
+          </template>
+        </el-table-column>
+        <el-table-column prop="version" label="版本号" width="90"></el-table-column>
+        <el-table-column prop="jiaofu" label="交付方式" width="100"></el-table-column>
+        <el-table-column prop="bought" label="购买时间" width="150"></el-table-column>
+        <el-table-column prop="end" label="到期时间" width="150"></el-table-column>
+        <el-table-column prop="score" label="评分" width="150">
+          <template slot-scope="scope">
+          <el-rate
+            v-model="scope.row.scope"
             disabled
-            show-score
-            text-color="#ccc">
-            </el-rate>
-          </td>
-          <td>
-            <template >
-              <el-button
-                size="mini"
-                name="select"
-              >
-                续费
-              </el-button>
-              <el-button
-                size="mini"
-                name="select"
-              >
-                暂停
-              </el-button>
-                <el-button
-                size="mini"
-                name="select"
-              >
-                退款
-              </el-button>
-                <el-button
-                size="mini"
-                name="select"
-              >
-                重新下载
-              </el-button>
-            </template>
-          </td>
-        </tr>
-      </table>
+            text-color="#ff9900"
+            score-template="{value}">
+          </el-rate>
+          </template>
+        </el-table-column>
+        <el-table-column prop="address" label="操作" width="200">
+          <template slot-scope="scope">
+            <el-button type="text" size="mini">续费</el-button>
+            <el-button type="text" size="mini">暂停</el-button>
+            <el-button type="text" size="mini">退款</el-button>
+            <el-button type="text" size="mini">重新下载</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </div>
     <div style="text-align:center;">
     <el-pagination
@@ -96,13 +67,23 @@
           currentPage1: 5,
           currentPage2: 5,
           currentPage3: 5,
-          currentPage4: 4
+          currentPage4: 4,
+            buyService:[],
           }
       },
-      created(){
+      mounted(){
+        this.getBuyService();
       },
       methods:{
-     
+        getBuyService(){
+          let param={username:"admin",limit:8};
+          this.$axios.get('/wc-index/available-softs',{params:param}).then((res)=>{
+            if(res.data.data.length>0)this.buyService=res.data.data;
+            console.info(this.buyService);
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
       },

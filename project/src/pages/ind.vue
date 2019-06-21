@@ -15,12 +15,6 @@
         <el-col :span="15">
           <el-col :span="3" class="managerArea" v-for="(item) in menuList">
             <el-button  type="text" @click="toPage(item.name,item.id)">{{item.name}}</el-button></el-col>
-          <!--<el-col :span="3" class="managerArea"><router-link  to="/soft" >工业软件</router-link></el-col>
-          <el-col :span="3" class="managerArea"><router-link  to="/soft" >工业APP</router-link></el-col>
-          <el-col :span="3" class="managerArea"><router-link  to="/soft" >机理模型</router-link></el-col>
-          <el-col :span="3" class="managerArea"><router-link  to="/soft" >微服务组件</router-link></el-col>
-          <el-col :span="3" class="managerArea"><router-link  to="/soft" >算法模型</router-link></el-col>
-          <el-col :span="2" class="managerArea"><router-link  to="/soft" >设备</router-link></el-col>-->
         </el-col>
         <el-col :span="1" class="managerArea"  style="float: right;">
           <el-dropdown trigger="click">
@@ -43,7 +37,7 @@
       </el-header>
     <!-- 身体 -->
       <el-main style="padding: 0px 20px">
-          <router-view/>
+          <router-view :menuName="menuName" :menuId_pro="menuId_pro" ref="listPage"/>
       </el-main>
     </el-container>
   </div>
@@ -56,17 +50,15 @@
     components:{},
   data(){
       return{
-        menuList:[]
+        menuList:[],
+        menuName:"",
+        menuId_pro:""
       }
     },
-created(){
+    mounted(){
       this.getMenu();
+
 },
-    watch: {
-      '$route' (to, from) {
-        this.$router.go(0);
-      }
-    },
     methods:{
      getMenu(){
        this.$axios.get('/menu/list-all').then((res)=>{
@@ -76,8 +68,15 @@ created(){
        });
      },
       toPage(name,id){
+       this.menuName=name;this.menuId_pro=id;
        if(name==="首页")this.$router.push("");
-       else this.$router.push({name: 'softList', params: {menuId: id,menuName:name}})
+       else {
+         if(this.$route.path.indexOf("soft")>-1&&this.$route.path.indexOf("Detail")<0){
+           this.$refs.listPage.initPage(id);
+         }else{
+           this.$router.push({path: '/soft'});
+         }
+       }
       }
     },
   }

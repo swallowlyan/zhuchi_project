@@ -48,7 +48,7 @@
                   <el-input
                     style="width:240px;"
                     popper-class="my-autocomplete"
-                    v-model="state"
+                    v-model="state" size="small"
                     :fetch-suggestions="querySearch"
                     placeholder="请输入内容">
                   </el-input>
@@ -59,51 +59,11 @@
                   </div>
                 </div>
               <div class="spe" style="border-bottom:1px dashed #aaa;">
-                <div style="width:49.9%;border-right:1px dashed #aaa;height:130px;">
-                 <span style="font-size:14px;margin-left:10px">工业软件</span>
-                  <div style="display:flex;align-items:center;flex-wrap:wrap;">
-                    <div style="text-align:center;width:25%;"
-                      v-for="(data, index) in buyService"
-                      :key="index">
-                        <div>图片</div>
-                        <div>{{data.title}}</div>
-                    </div>
-                  </div>
-                </div>
-                <div style="width:50%;height:130px;">
-                  <span style="font-size:14px;margin-left:10px;">工业app</span>
-                  <div style="display:flex;align-items:center;flex-wrap:wrap;">
-                    <div style="text-align:center;width:25%;"
-                      v-for="(data, index) in buyService"
-                      :key="index">
-                        <div>图片</div>
-                        <div>{{data.title}}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="spe">
-                <div style="width:49.9%;border-right:1px dashed #aaa;height:130px;">
-                  <span style="font-size:14px;margin-left:10px;">微服务组件</span>
-                  <div style="display:flex;align-items:center;flex-wrap:wrap;">
-                    <div style="text-align:center;width:25%;"
-                      v-for="(data, index) in buyService"
-                      :key="index">
-                        <div>图片</div>
-                        <div>{{data.title}}</div>
-                    </div>
-                  </div>
-                </div>
-                <div style="width:50%;height:130px;">
-                  <span style="font-size:14px;margin-left:10px;">机理模型</span>
-                  <div style="display:flex;align-items:center;flex-wrap:wrap;">
-                    <div style="text-align:center;width:25%;"
-                      v-for="(data, index) in buyService"
-                      :key="index">
-                        <div>图片</div>
-                        <div>{{data.title}}</div>
-                    </div>
-                  </div>
+                  <div style="text-align:center;width:25%;"
+                        v-for="(data, index) in buyService"
+                        :key="index">
+                  <img :src="'data:image/jpg;base64,'+data.icon" height="80" width="80">
+                  <div>{{data.softName}}</div>
                 </div>
               </div>
              </div>
@@ -115,12 +75,12 @@
       <el-card >
         <div style="height:765px">
           <div class="suffix_s">
-            <div>|</div><span>我的云空间</span>
+            <span>我的云空间</span>
             <div class="suffix" style="position:absolute;right:5px;">
               <el-input
                 style="width:150px;"
                 popper-class="my-autocomplete"
-                v-model="state"
+                v-model="state" size="small"
                 :fetch-suggestions="querySearch"
                 placeholder="请输入内容">
               </el-input>
@@ -131,17 +91,8 @@
             </div>
           </div>
           <div style="margin-top:50px;">
-            <div style="text-align:center;width:25%;margin:20px 10px;"
-              v-for="(data, index) in buyService"
-              :key="index">
-                <div>
-                <i
-                  style="margin-right:8px;"
-                  class="fa fa-file-o"
-                  @click="handleIconClick">
-                </i>{{data.title}}</div>
-            </div>
-          </div>
+
+        </div>
         </div>
       </el-card>
     </el-col >
@@ -255,8 +206,10 @@
   font-size:14px;
 }
 .spe{
-  padding:10px 0;
+  padding:30px 0;
   display:flex;
  align-items:center;
+  max-height: 260px;
+  overflow: auto;
 }
 </style>
