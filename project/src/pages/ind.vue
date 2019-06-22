@@ -25,10 +25,10 @@
               <el-dropdown-item icon="el-icon-circle-check-outline">资源库首页</el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">我的订单</el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">
-                <router-link  to="/homePage/personal-workbench">个人工作台</router-link>
+                <router-link  to="/personal-workbench">个人工作台</router-link>
               </el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">
-                <router-link  to="/homePage/enterprise-workbench">企业工作台</router-link>
+                <router-link  to="/enterprise-workbench">企业工作台</router-link>
               </el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">设置中心</el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">
@@ -80,7 +80,7 @@
          if(this.$route.path.indexOf("soft")>-1&&this.$route.path.indexOf("Detail")<0){
            this.$refs.listPage.initPage(id);
          }else{
-           this.$router.push({path: '/homePage/soft'});
+           this.$router.push({path: '/soft'});
          }
        }
       },
