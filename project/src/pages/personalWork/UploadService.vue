@@ -113,7 +113,7 @@
     export default {
       data(){
           return{
-            username:sessionStorage.getItem('username'),
+            username:"",
             roleId:'',
             fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
             serviceTypeList:[],
@@ -124,7 +124,7 @@
             ifDown:true,
             uploadFormData:new FormData(),
             uploadForm:{
-              username:this.username,
+              username:"",
               softName:'',softMenu:'',description:'',
               softCategory:'',softCategory2:'',softCategory3:'',
               softSupply:'',softFunDes:'',
@@ -232,7 +232,9 @@
               event.preventDefault();
               let param = new window.FormData();
               Object.keys(this.uploadForm).forEach((item) => {
-                param.append(item,this.uploadForm[item]);
+                if(item==="username")param.append(item,this.username);
+                else param.append(item,this.uploadForm[item]);
+
               });
               let config = {
                 headers: {

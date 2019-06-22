@@ -34,7 +34,7 @@
           <span style="font-weight:700;font-size:12px;">企业成员管理</span>
       </div>
       <div  class="special">
-       <el-button size="mini" type="primary">
+       <el-button size="mini" type="primary" @click="openDialog()">
           +添加成员
        </el-button>
       </div>
@@ -104,17 +104,20 @@
   </div>
 
     </el-row>
+    <!--Dialog_addPerson-->
+    <addPerson :addDialog_person="ifOpenDialog" @close="closeModel" @refresh="refreshPerson" ref="dialogPerson"></addPerson>
   </div>
 </template>
 
 <script>
     import MyHeader from "../../components/MyHeader";
+    import addPerson from "../enterpriseWork/addPerson";
     export default {
         name: "MainPage",
-      components: {MyHeader},
-
+      components: {MyHeader,addPerson},
       data(){
           return{
+            ifOpenDialog:false,
              datas: [
               { title: '总用户数',value:'525',way:'%96.21'},
               { title: '活跃用户数',value:'855',way:'%6.9'},
@@ -165,7 +168,16 @@
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
-      }
+      },
+        openDialog(){
+          this.ifOpenDialog = true;
+        },
+        closeModel() {//关闭弹窗-父子关联(:before-close+方法不能含参数)
+          this.ifOpenDialog = false;
+        },
+        refreshPerson(){
+          this.$refs.dialogPerson.searchPerson();
+        }
 
       },
     }

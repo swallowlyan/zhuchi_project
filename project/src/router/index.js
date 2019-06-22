@@ -14,6 +14,7 @@ import HistoricalServices from '../pages/personalWork/HistoricalServices'
 import CollectionServices from '../pages/personalWork/CollectionServices'
 import CommonServices from '../pages/personalWork/CommonServices'
 import MyUpload from '../pages/personalWork/MyUpload'
+import enterUpload from '../pages/enterpriseWork/MyUpload'
 import MyBusiness from '../pages/personalWork/MyBusiness'
 
 import softList from '../pages/soft/softList.vue'
@@ -129,13 +130,18 @@ export default new Router({
             {
               path:'my-upload',
               name:'MyUpload',
-              component:MyUpload
+              component:enterUpload
             },
             {
               path:'upload-service',
               name:'UploadService',
               component:UploadService
             },
+            {
+              path:'purchased-services',
+              name:'PurchasedServices',
+              component:PurchasedServices
+            }
 
           ]
         },

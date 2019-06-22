@@ -12,11 +12,11 @@
       <div class="title"><h3>工业互联网平台</h3></div>
     <div class="bg_header">
       <el-row style="margin: 0px">
-        <el-col :span="15" style="margin-top: 8px">
+        <el-col :span="15" style="margin-top: 8px" :style="{display:ifMenu?'':'none'}">
           <el-col :span="3" class="managerArea" v-for="(item) in menuList">
             <el-button  type="text" @click="toPage(item.name,item.id)">{{item.name}}</el-button></el-col>
         </el-col>
-        <el-col :span="1" class="managerArea"  style="float: right;">
+        <el-col :span="1" class="managerArea"  style="float: right;" :style="{display:ifLogin?'':'none'}">
           <el-dropdown trigger="click">
       <span class="el-dropdown-link" style="margin-right: 0px;font-size: 25px;color: #ffffff">
         <i class="el-icon-s-unfold"></i>
@@ -24,17 +24,15 @@
             <el-dropdown-menu slot="dropdown" class="dropMenu">
               <el-dropdown-item icon="el-icon-circle-check-outline">资源库首页</el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">我的订单</el-dropdown-item>
-              <el-dropdown-item icon="el-icon-circle-check-outline">
+              <el-dropdown-item icon="el-icon-circle-check-outline" :style="{display:roleId?'none':''}">
                 <router-link  to="/personal-workbench">个人工作台</router-link>
               </el-dropdown-item>
-              <el-dropdown-item icon="el-icon-circle-check-outline">
+              <el-dropdown-item icon="el-icon-circle-check-outline" :style="{display:roleId?'':'none'}">
                 <router-link  to="/enterprise-workbench">企业工作台</router-link>
               </el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">设置中心</el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">
-                <router-link :to="{path:'/'}">
-                  注销
-                </router-link>
+                <el-button type="text" @click="logOut">注销</el-button>
                 </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -59,12 +57,32 @@
         menuList:[],
         menuName:"",
         menuId_pro:"",
-        ifPerson:true
+        ifPerson:true,
+        roleId:"",
+        ifMenu:true,
+        ifLogin:true
       }
     },
-    mounted(){
+    created(){
       this.getMenu();
-},
+      if(this.$route.path.indexOf("/soft")>-1||this.$route.path.indexOf("/homePage")>-1){
+        this.ifMenu=true;
+      }else this.ifMenu=false;
+      if(this.$route.path==="/"){
+        this.ifLogin=false;
+      }else this.ifLogin=true;
+  },
+    watch:{
+      $route(to,from){
+        this.roleId=sessionStorage.getItem('roleId');
+        if(to.path.indexOf("/soft")>-1||to.path.indexOf("/homePage")>-1){
+          this.ifMenu=true;
+        }else this.ifMenu=false;
+        if(to.path==="/"){
+          this.ifLogin=false;
+        }else this.ifLogin=true;
+      }
+    },
     methods:{
      getMenu(){
        this.$axios.get('/menu/list-all').then((res)=>{
@@ -72,6 +90,7 @@
        }).catch((err)=>{
          console.log(err);
        });
+       this.roleId=sessionStorage.getItem('roleId');
      },
       toPage(name,id){
        this.menuName=name;this.menuId_pro=id;
@@ -86,6 +105,10 @@
       },
       getIfPerson(val){
        this.ifPerson=val;
+      },
+      logOut(){
+        sessionStorage.clear();
+        this.$router.push({path: '/'});
       }
     },
   }

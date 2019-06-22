@@ -5,7 +5,7 @@
     </div>
     <div style="padding: 20px;max-height: 450px;overflow: auto">
     <router-link :to="{path:'/enterprise-workbench/upload-service'}">
-      <el-button type="primary">上传服务</el-button>
+      <el-button type="primary">企业上传服务</el-button>
     </router-link></div>
     <div class="suffix">
       <el-input

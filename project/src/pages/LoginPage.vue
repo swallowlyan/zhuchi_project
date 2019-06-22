@@ -90,10 +90,8 @@
                 //个人用户
                 sessionStorage.setItem('username',param.username);
                 if(response.data.data!==null){//企业用户
-                  ifPerson=false;
                   sessionStorage.setItem('roleId',response.data.data.roleId);
                 }
-                this.$emit('getIfPerson', ifPerson);
                 this.$router.push('/homePage');
                /* if (response.data.data.roleId === 1) {
                   this.$router.push('/');
