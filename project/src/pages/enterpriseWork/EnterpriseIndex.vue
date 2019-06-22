@@ -44,7 +44,7 @@
           style="border-collapse:collapse;"
         >
         <tr style="font-weight:700;font-size:14px;line-height:35px;">
-          <td>姓名</td>
+          <td width="80">姓名</td>
           <td>注册时间</td>
           <td>应用提交次数</td>
           <td>应用通过次数</td>
@@ -53,12 +53,12 @@
           <td>用户评级</td>
           <td>操作</td>
         </tr>
-        <tr v-for="(data, index) in datas_b"
+        <tr v-for="(data, index) in personList"
         style="font-size:12px;line-height:35px;"
       :key="index"
         >
-          <td>{{data.title}}</td>
-          <td></td>
+          <td>{{data.nickname}}</td>
+          <td>{{data.created}}</td>
           <td></td>
           <td></td>
           <td></td>
@@ -90,22 +90,9 @@
         </tr>
       </table>
     </div>
-    <div style="text-align:center;" class="special">
-    <el-pagination
-      style="margin-left:-110px;"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
-    </el-pagination>
-  </div>
-
     </el-row>
     <!--Dialog_addPerson-->
-    <addPerson :addDialog_person="ifOpenDialog" @close="closeModel" @refresh="refreshPerson" ref="dialogPerson"></addPerson>
+    <addPerson :addDialog_person="ifOpenDialog" @close="closeModel" @refresh="searchPerson" ref="dialogPerson"></addPerson>
   </div>
 </template>
 
@@ -118,31 +105,20 @@
       data(){
           return{
             ifOpenDialog:false,
-             datas: [
-              { title: '总用户数',value:'525',way:'%96.21'},
-              { title: '活跃用户数',value:'855',way:'%6.9'},
-              { title: '访问次数',value:'821',way:'%66.3'},
-              { title: '用户提交次数',value:'544',way:'%5.5'},
-            ],
-            radio1:'总用户数',
-             state: '',
-          datas_b: [
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-          ],
-          currentPage1: 5,
-          currentPage2: 5,
-          currentPage3: 5,
-          currentPage4: 4
+            personList:[],
+        datas: [
+          { title: '总用户数',value:'525',way:'%96.21'},
+          { title: '活跃用户数',value:'855',way:'%6.9'},
+          { title: '访问次数',value:'821',way:'%66.3'},
+          { title: '用户提交次数',value:'544',way:'%5.5'},
+        ],
+          radio1:'总用户数',
           }
       },
 
       mounted(){
         this.draw();
+        this.searchPerson();
       },
 
       methods:{
@@ -169,6 +145,15 @@
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
       },
+        searchPerson(){
+          let param={groupId:sessionStorage.getItem('enterpriseId')};
+          this.$axios.get('/sysuser/group-users',{params:param}).then((res)=>{
+            console.info(res.data.data);
+            this.personList=res.data.data;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
         openDialog(){
           this.ifOpenDialog = true;
         },
@@ -204,5 +189,7 @@ tr:nth-child(odd) {
 }
 .special{
   padding:5px 0px;
+  max-height: 250px;
+  overflow: auto
 }
 </style>

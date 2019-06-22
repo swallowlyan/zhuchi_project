@@ -32,7 +32,7 @@
           <td>{{data.email}}</td>
           <td>
             <template>
-              <el-button size="mini" type="text" name="select" @click="addPerson(data.id)">
+              <el-button size="mini" type="text" name="select" @click="addPerson(data.username)">
                 加入企业
               </el-button>
             </template>
@@ -44,7 +44,7 @@
                      :current-page="1"
                      :page-sizes="[5,10]"
                      :page-size="pageSize"
-                     layout="total, sizes, prev, pager, next"
+                     layout="total, prev, pager, next"
                      :total="total"
                      style="margin: 20px 0px;float: right">
       </el-pagination>
@@ -92,8 +92,31 @@
           });
 
         },
-        addPerson(id){
-
+        addPerson(username){
+          let param={
+            gropuId:sessionStorage.getItem('enterpriseId'),
+            positionId:-1,
+            usernames:username,
+            positionType:"COMMON"
+          };
+          this.$axios.post('/sysuser/user-group',param).then((res)=>{
+            console.info(res.data);
+            if(res.data.message==="成功"){
+              this.$message({
+                message: '添加成功',
+                type: 'success'
+              });
+              this.searchPerson({
+                current:1,
+                size:5,
+                sort:'id',
+                dir:'asc'
+              });
+              this.$emit('refresh');
+            }
+          }).catch((err)=>{
+            console.log(err);
+          });
         },
         sizeChange(val){
           this.pageSize=val;
