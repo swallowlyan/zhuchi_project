@@ -66,8 +66,8 @@
       },
       methods:{
         getBuyService(){
-          let param={username:sessionStorage.getItem('username'),limit:10000};
-          this.$axios.get('/wc-index/available-softs',{params:param}).then((res)=>{
+          let param={username:sessionStorage.getItem('username')};
+          this.$axios.get('/wc-group/group-softs',{params:param}).then((res)=>{
             if(res.data.data.length>0)this.buyService=res.data.data;
           }).catch((err)=>{
             console.log(err);

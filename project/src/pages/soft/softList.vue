@@ -52,7 +52,16 @@
                     </el-button>
                 </el-col>
                 <el-col :span="5" class="softInfo">
-                  <el-row><h3 class="softName">{{item.softName}}</h3></el-row>
+                  <el-row v-if="item.softCategory3Id==='1'">
+                    <a :href="item.fileUrl">
+                    <h3 class="softName">{{item.softName}}</h3>
+                    </a>
+                  </el-row>
+                  <el-row v-if="item.softCategory3Id!=='1'">
+                    <el-button type="text" @click="toSAAS(item.id)">
+                      <h3 class="softName">{{item.softName}}</h3>
+                    </el-button>
+                  </el-row>
                   <el-row><span class="company">{{item.creator}}</span></el-row>
                   <el-row><span class="info">{{item.description}}</span></el-row>
                 </el-col>
@@ -75,9 +84,6 @@
                 <el-col :span="3" v-if="item.collect===true">
                   <el-button type="text" @click="collectSoft(item.id,0)"><i class="fa fa-heart"></i>取消收藏</el-button>
                 </el-col>
-                <!--<el-col :span="3">
-                  <el-button type="text" @click="collectSoft(item.id,1)"><i class="fa fa-heart-o"></i>点击收藏</el-button>
-                </el-col>-->
                 <el-col :span="4" style="margin-top: 5px">
                   <el-row v-if="item.auth==='true'">
                     <el-button type="button"size="medium" disabled>已获取</el-button>
@@ -85,7 +91,9 @@
                   <el-row v-if="item.auth==='false'">
                     <el-button type="button" size="medium" @click="downSoft(item.id)">点击获取</el-button>
                   </el-row>
-                  <el-row style="margin-top: 10px"><span class="pay">交付方式：SAAS</span></el-row>
+                  <el-row style="margin-top: 10px">
+                    <span class="pay">交付方式：{{item.softCategory3Name}}</span>
+                  </el-row>
                 </el-col>
               </el-row>
               <el-divider></el-divider>
@@ -115,7 +123,7 @@
         name: "softCommon",
       data(){
         return{
-          username:sessionStorage.getItem('username'),
+          username:"",
           menuId:"",
           commonSearch:"",
           testScore:3.8,
@@ -186,6 +194,7 @@
           });
         },
         initPage(id){
+          this.username=sessionStorage.getItem('username');
           this.getAreaType();this.getIndustryType();this.getPayType();
           this.menuId=id;
           this.getSoft("");
@@ -232,6 +241,7 @@
             console.log(err);
           });
         },
+        //立即获取
         downSoft(softId){
           let param={
             username:this.username,
@@ -246,6 +256,35 @@
           }).catch((err)=>{
             console.log(err);
           });
+        },
+        //云服务
+        toSAAS(softId){
+          const loading = this.$loading({
+            lock: true,
+            text: '正在打开软件……',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          });
+          this.$axios.post('/send-request/use-desktop',{
+            username:this.username,
+            softwareId:softId,
+          }).then((res)=>{
+            // console.log(res);
+            if(res.data.success === true){
+              setTimeout(()=>{
+                window.open(res.data.desktopAddr);
+                loading.close();
+              },5000);
+            }else {
+              loading.close();
+              alert('打开软件失败，请重试或联系管理员！');
+            }
+            // console.log(res.data);
+          }).catch((err)=>{
+            loading.close();
+            alert('打开软件失败，请重试或联系管理员！');
+            console.log(err);
+          });
         }
       }
     }
@@ -258,6 +297,7 @@
   .softContent span{font-size: 13px}
   .softInfo{margin-top: 10px}
   .softContent{max-height: 800px;overflow: auto}
+  .softContent a{color: #000000}
   .searchTypes button,.el-card__header button{padding: 0px}
   .el-card__header .el-col{margin-bottom: 5px}
   .searchForm{

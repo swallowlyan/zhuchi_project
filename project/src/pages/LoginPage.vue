@@ -91,6 +91,7 @@
                 sessionStorage.setItem('username',param.username);
                 if(response.data.data!==null){//企业用户
                   sessionStorage.setItem('roleId',response.data.data.roleId);
+                  sessionStorage.setItem('enterpriseId',response.data.data.id);
                 }
                 this.$router.push('/homePage');
                /* if (response.data.data.roleId === 1) {

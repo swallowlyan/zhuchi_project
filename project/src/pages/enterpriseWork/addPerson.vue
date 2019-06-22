@@ -39,11 +39,11 @@
           </td>
         </tr>
       </table>
-      <el-pagination background @size-change="searchPerson"
-                     @current-change="searchPerson"
-                     :current-page.sync="current"
+      <el-pagination background @size-change="sizeChange"
+                     @current-change="currentChange"
+                     :current-page="1"
                      :page-sizes="[5,10]"
-                     :page-size.sync="pageSize"
+                     :page-size="pageSize"
                      layout="total, sizes, prev, pager, next"
                      :total="total"
                      style="margin: 20px 0px;float: right">
@@ -64,8 +64,7 @@
             searchVal:"",
             personList:[],
             pageSize:5,
-            total:0,
-            current:1
+            total:0
           }
       },
       props:{
@@ -75,18 +74,17 @@
         }
       },
       created(){
-          this.searchPerson();
+          this.searchPerson({
+            current:1,
+            size:5,
+            sort:'id',
+            dir:'asc'
+          });
       },
       methods:{
-        searchPerson(){
-          this.$axios.post('/sysuser/free-users',{
-            current:this.current,
-            size:this.pageSize,
-            sort:'id',
-            dir:'asc',
-            search:this.searchVal
-          }).then((res)=>{
-            console.info(res.data);
+        searchPerson(param){
+          param.search=this.searchVal;
+          this.$axios.post('/sysuser/free-users',param).then((res)=>{
             this.personList=res.data.data.records;
             this.total=res.data.data.total;
           }).catch((err)=>{
@@ -96,6 +94,25 @@
         },
         addPerson(id){
 
+        },
+        sizeChange(val){
+          this.pageSize=val;
+          let param={
+            current:1,
+            size:val,
+            sort:'id',
+            dir:'asc'
+          };
+          this.searchPerson(param);
+        },
+        currentChange(val){
+          let param={
+            current:val,
+            size:this.pageSize,
+            sort:'id',
+            dir:'asc'
+          };
+          this.searchPerson(param);
         },
         closeModel(){
           this.$emit('close');

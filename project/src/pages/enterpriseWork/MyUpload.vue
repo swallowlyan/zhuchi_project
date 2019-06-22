@@ -11,18 +11,18 @@
       <el-input
       style="width:300px;"
         popper-class="my-autocomplete"
-        v-model="state"
-        :fetch-suggestions="querySearch"
+        v-model="searchVal"
+        :fetch-suggestions="searchUploadData"
         placeholder="请输入内容">
       </el-input>
         <i
          style="margin:0 5px"
           class="el-icon-search"
-          @click="handleIconClick">
+          @click="searchUploadData">
         </i>
     </div>
-    <div>
-       <table
+    <div class="work_table">
+      <table
         width="90%"
         style="border-collapse:collapse"
       >
@@ -39,99 +39,83 @@
           <td>当前状态</td>
           <td>操作</td>
         </tr>
-        <tr v-for="(data, index) in datas"
-        style="font-size:12px;line-height:35px;"
-      :key="index"
+        <tr v-for="(data, index) in uploadData"
+            style="font-size:12px;line-height:35px;"
+            :key="index"
         >
-          <td>{{data.title}}</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>{{data.state}}</td>
+          <td>{{data.softName}}</td>
           <td>
-            <template >
+            <template>
+              <img :src="'data:image/jpg;base64,'+data.softIcon" style="height:30px;width: 30px">
+            </template>
+          </td>
+          <td>{{data.softVersion}}</td>
+          <td>{{data.softMenuName}}</td>
+          <td>{{data.softCategoryName}}</td>
+          <td>{{data.softCategory2Name}}</td>
+          <td>{{data.softCategory3Name}}</td>
+          <td>{{data.description}}</td>
+          <td></td>
+          <td>{{data.status}}</td>
+          <td>
+            <template v-if="data.status==='NORMAL'">
               <el-button
                 size="mini"
                 name="select"
-              >
-                编辑
-              </el-button>
-              <el-button
-                size="mini"
-                name="select"
+                @click="delSoft(data.id)"
               >
                 下架
               </el-button>
+            </template>
+            <template v-if="data.status==='DEL'">
+              已下架
             </template>
           </td>
         </tr>
       </table>
     </div>
-    <div style="text-align:center;">
-    <el-pagination
-      style="margin-left:-100px;"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
-    </el-pagination>
-  </div>
   </div>
 </template>
 <script>
     export default {
       data(){
-          return{
-          restaurants: [],
-          state: '',
-          datas: [
-              { title: 'Creo',state:'已上架'},
-              { title: 'Creo',state:'已上架'},
-              { title: 'Creo',state:'已上架'},
-              { title: 'Creo',state:'已上架'},
-              { title: 'Creo',state:'已上架'},
-          ],
-          currentPage1: 5,
-          currentPage2: 5,
-          currentPage3: 5,
-          currentPage4: 4
-          }
+        return{
+          username:"",
+          searchVal: '',
+          uploadData:[]
+        }
       },
-      created(){
+      mounted(){
+        this.searchUploadData();
       },
       methods:{
-         querySearch(queryString, cb) {
-        var restaurants = this.restaurants;
-        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
-        // 调用 callback 返回建议列表的数据
-        cb(results);
-      },
-      createFilter(queryString) {
-        return (restaurant) => {
-          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
-        };
-      },
-      handleSelect(item) {
-        console.log(item);
-      },
-      handleIconClick(ev) {
+        searchUploadData(){
+          let param={username:sessionStorage.getItem('username')};
+          this.$axios.post('/soft-detail/my-upload',param).then((res)=>{
+            if((typeof res.data.data!=="string")&&res.data.data.length>0)this.uploadData=res.data.data;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
+        delSoft(softId){//
+          this.$axios.post('/soft-detail/del',{id:softId}).then((res)=>{
+            if(res.data.message==="成功"){
+              this.$message({
+                message: '已成功下架该服务',
+                type: 'success'
+              });
+              this.searchUploadData();
+            }else{
+              this.$message({
+                message: res.data.message,
+                type: 'error'
+              });
+            }
 
-        console.log(ev);
-      },
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
-      handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
-      }
+          }).catch((err)=>{
+            console.log(err);
+          });
+        }
       },
     }
 </script>
@@ -146,5 +130,10 @@ tr:nth-child(odd) {
 }
 .line_style div{
  margin:10px 0;
+}
+.work_table{
+  padding: 20px;
+  max-height: 450px;
+  overflow: auto
 }
 </style>

@@ -4,15 +4,24 @@
     <!-- 头 -->
       <el-header style="height: 90px">
         <div class="top-header">
-          <router-link :to="{path:'/homePage'}">
+          <!--<router-link :to="{path:'/homePage'}">-->
         <img src="../assets/common/logo_zhuchi.png" alt="logo" style="float: left;margin:10px;width: 150px">
-          </router-link>
-      <span id="welcomeTitle" class="managerArea">欢迎，Admin</span>
+          <!--</router-link>-->
+      <span id="welcomeTitle" class="managerArea">欢迎，{{username}}</span>
       <div class="division"></div>
-      <div class="title"><h3>工业互联网平台</h3></div>
+      <div class="title">
+        <h3>{{pageTitle}}</h3>
+      </div>
     <div class="bg_header">
       <el-row style="margin: 0px">
+        <el-col :span="1" class="managerArea" :style="{display:ifMenu?'none':''}"
+                style="font-size: 26px;margin-top: 5px;margin-left: -85px">
+          <router-link to="/homePage"><i class="fa fa-home"></i></router-link>
+        </el-col>
         <el-col :span="15" style="margin-top: 8px" :style="{display:ifMenu?'':'none'}">
+          <el-col :span="3" class="managerArea">
+            <router-link to="/homePage">首页</router-link>
+          </el-col>
           <el-col :span="3" class="managerArea" v-for="(item) in menuList">
             <el-button  type="text" @click="toPage(item.name,item.id)">{{item.name}}</el-button></el-col>
         </el-col>
@@ -54,17 +63,21 @@
     components:{},
   data(){
       return{
+        roleId:"",
+        username:"",
+        enterpriseId:"",
+        pageTitle:"",
         menuList:[],
         menuName:"",
         menuId_pro:"",
         ifPerson:true,
-        roleId:"",
         ifMenu:true,
         ifLogin:true
       }
     },
     created(){
       this.getMenu();
+      this.pageTitle="工业互联网平台";
       if(this.$route.path.indexOf("/soft")>-1||this.$route.path.indexOf("/homePage")>-1){
         this.ifMenu=true;
       }else this.ifMenu=false;
@@ -75,9 +88,17 @@
     watch:{
       $route(to,from){
         this.roleId=sessionStorage.getItem('roleId');
+        this.username=sessionStorage.getItem('username');
+        this.enterpriseId=sessionStorage.getItem('enterpriseId');
         if(to.path.indexOf("/soft")>-1||to.path.indexOf("/homePage")>-1){
           this.ifMenu=true;
-        }else this.ifMenu=false;
+          this.pageTitle="工业互联网平台";
+        }else{
+          this.ifMenu=false;
+          if(to.path.indexOf("/enterprise")>-1)this.pageTitle="企业工作台";
+          else if(to.path.indexOf("/personal-workbench")>-1)this.pageTitle="个人工作台";
+          else if(to.path.indexOf("/administrator")>-1)this.pageTitle="管理员工作台";
+        }
         if(to.path==="/"){
           this.ifLogin=false;
         }else this.ifLogin=true;

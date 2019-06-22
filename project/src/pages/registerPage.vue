@@ -4,7 +4,7 @@
     <el-col :span="8" :offset="7" style="margin-top:50px;margin-bottom: 50px">
     <el-card class="box-card">
       <el-tabs v-model="activeName">
-        <el-tab-pane label="用户注册" name="userRegister">
+        <el-tab-pane label="个人用户注册" name="userRegister">
           <el-row>
             <el-form :model="userForm" :rules="registerRule" ref="userForm" label-width="100px">
               <el-form-item label="账号" prop="username">
@@ -38,7 +38,7 @@
             </el-row>
           </el-row>
         </el-tab-pane>
-        <el-tab-pane label="企业注册" name="enterpriseRegister">
+        <el-tab-pane label="企业用户注册" name="enterpriseRegister">
           <el-row>
             <el-form :model="enterpriseForm" :rules="enterpriseRule" ref="enterpriseForm" label-width="120px">
               <el-form-item label="账号" prop="username">

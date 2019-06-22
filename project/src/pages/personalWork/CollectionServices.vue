@@ -4,22 +4,24 @@
       <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>已收藏服务
     </div>
     <div style="margin-left:-100px;">
-      <div style="margin:0 auto;width:80%;">
+      <div style="margin:0 auto;width:80%;max-height: 450px;overflow: auto">
         <div class="suffix" style="justify-content:space-between;border-bottom:1px dashed #aaa;padding:0 10px;"
-         v-for="(data, index) in datas"
+         v-for="(data, index) in collectService"
         :key="index"
         >
-          <div>图片</div>
           <div>
-            <div style="font-size:14px;font-weight:700;">{{data.title}}</div>
-            <div style="font-size:12px;">catia</div>
-            <div style="font-size:12px;">catia</div>
+            <img :src="'data:image/jpg;base64,'+data.softIcon" style="height:50px;width: 50px">
           </div>
-          <div> 
+          <div>
+            <div style="font-size:14px;font-weight:700;">{{data.softName}}</div>
+            <div style="font-size:12px;">{{data.modifier}}</div>
+            <div style="font-size:12px;">{{data.description}}</div>
+          </div>
+          <div>
             <div style="font-size:12px;" class="suffix">
             <span>评分:&emsp;</span>
             <el-rate
-              v-model="data.value"
+              v-model="data.score"
               disabled
               show-score
               text-color="#ccc">
@@ -28,19 +30,17 @@
             <div style="font-size:12px;">月销量:{{data.value}}笔</div>
           </div>
           <div>
-            <el-button
-                size="mini"
-                name="select"
-              >
-               已购买
-              </el-button>
-            <div style="font-size:12px;">交付方式:{{data.way}}</div>
+            <el-button v-if="data.isBought" size="mini" disabled>
+              已购买
+            </el-button>
+            <el-button v-if="!data.isBought" size="mini" @click="getSoft(data.id)">
+              立即获取
+            </el-button>
+            <div v-if="data.softCategory3==='1'" style="font-size:12px;">交付方式:下载</div>
+            <div v-if="data.softCategory3==='2'" style="font-size:12px;">交付方式:SAAS</div>
           </div>
           <div>
-            <el-button
-                size="mini"
-                name="select"
-              >
+            <el-button size="mini" @click="cancelCollect(data.id)">
                取消收藏
             </el-button>
           <div style="font-size:12px;">&emsp;</div>
@@ -48,49 +48,64 @@
         </div>
       </div>
     </div>
-    <div style="text-align:center;">
-    <el-pagination
-      style="margin-left:-100px;"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
-    </el-pagination>
-  </div>
   </div>
 </template>
 <script>
     export default {
       data(){
           return{
-          restaurants: [],
           state: '',
-          datas: [
-              { title: 'CATIA',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'',way:'下载'},
-              { title: 'Creo',value:'',way:'SAAS'},
-              { title: 'Creo',value:'',way:'SAAS'},
-              { title: 'Creo',value:'',way:'SAAS'},
-          ],
-          currentPage1: 5,
-          currentPage2: 5,
-          currentPage3: 5,
-          currentPage4: 4
+            collectService:[]
           }
       },
       created(){
+        this.getCollectService();
       },
-      methods:{
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
-      handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
+      methods: {
+        getCollectService() {
+          let param = {username: sessionStorage.getItem('username'), limit: 10000};
+          this.$axios.post('/soft-user/softCollectedList', param).then((res) => {
+            if (res.data.data.length > 0) this.collectService = res.data.data;
+            console.info(this.buyService);
+          }).catch((err) => {
+            console.log(err);
+          });
+        },
+        //立即获取
+        getSoft(id) {
+          let param={
+            username:sessionStorage.getItem('username'),
+            softId:id
+          };
+          this.$axios.get('/soft-auth/soft-order',{params:param}).then((res)=>{
+            this.$message({
+              message: '已成功获取该服务',
+              type: 'success'
+            });
+            this.getCollectService();
+          }).catch((err)=>{
+            console.log(err);
+          });
+
+        },
+        //取消收藏
+        cancelCollect(id) {
+          let param={
+            username:sessionStorage.getItem('username'),
+            softId:id,
+            collect:0
+          };
+          this.$axios.post('/soft-user/collectSoft',param).then((res)=>{
+            this.$message({
+              message: "已取消收藏",
+              type: 'success'
+            });
+            this.getCollectService();
+          }).catch((err)=>{
+            console.log(err);
+          });
+        }
       }
-      },
     }
 </script>
 

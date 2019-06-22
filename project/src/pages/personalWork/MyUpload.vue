@@ -59,12 +59,6 @@
           <td>{{data.status}}</td>
           <td>
             <template v-if="data.status==='NORMAL'">
-              <!--<el-button
-                size="mini"
-                name="select"
-              >
-                编辑
-              </el-button>-->
               <el-button
                 size="mini"
                 name="select"

@@ -24,6 +24,7 @@ import softDetail from '../pages/soft/softDetail.vue'
 import EnterpriseWorkbench from '../pages/enterpriseWork/EnterpriseWorkbench'
 import EnterpriseIndex from '../pages/enterpriseWork/EnterpriseIndex'
 import ServiceApproval from '../pages/enterpriseWork/ServiceApproval'
+import enterprisePurchasedServices from '../pages/enterpriseWork/PurchasedServices'
 
 import AdministratorBackstage from '../pages/administrator/AdministratorBackstage'
 import RegisterApproval from '../pages/administrator/RegisterApproval'
@@ -140,7 +141,7 @@ export default new Router({
             {
               path:'purchased-services',
               name:'PurchasedServices',
-              component:PurchasedServices
+              component:enterprisePurchasedServices
             }
 
           ]
