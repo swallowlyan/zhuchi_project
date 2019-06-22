@@ -33,7 +33,7 @@
           <td>
             <template>
               <el-rate
-                v-model="data.scope"
+                v-model="data.score"
                 disabled
                 text-color="#ff9900"
                 score-template="{value}">

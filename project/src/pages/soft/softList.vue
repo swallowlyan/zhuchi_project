@@ -238,7 +238,7 @@
           };
           this.$axios.get('/soft-auth/soft-order',{params:param}).then((res)=>{
             this.$message({
-              message: '已成功获取改服务',
+              message: '已成功获取该服务',
               type: 'success'
             });
             this.getSoft("");

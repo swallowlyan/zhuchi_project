@@ -18,7 +18,7 @@
     <div class="suffix">
       <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>企业已购服务
     </div>
-    <div>
+    <div class="work_table">
        <table
         width="90%"
         style="border-collapse:collapse;"
@@ -33,16 +33,20 @@
           <td>评分</td>
           <td>操作</td>
         </tr>
-        <tr v-for="(data, index) in datas"
+        <tr v-for="(data, index) in softData"
         style="font-size:12px;line-height:35px;"
       :key="index"
         >
-          <td>{{data.title}}</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{{data.softName}}</td>
+          <td>
+            <template>
+              <img :src="'data:image/jpg;base64,'+data.icon" style="height:30px;width: 30px">
+            </template>
+          </td>
+          <td>{{data.version}}</td>
+          <td>{{data.jiaofu}}</td>
+          <td>{{data.bought}}</td>
+          <td>{{data.end}}</td>
           <td><el-rate
             v-model="data.value"
             disabled
@@ -63,49 +67,28 @@
         </tr>
       </table>
     </div>
-    <div style="text-align:center;">
-    <el-pagination
-      style="margin-left:-100px;"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
-    </el-pagination>
-  </div>
   </div>
 </template>
 <script>
     export default {
       data(){
           return{
-          restaurants: [],
           state: '',
-          datas: [
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-          ],
-          currentPage1: 5,
-          currentPage2: 5,
-          currentPage3: 5,
-          currentPage4: 4
+            softData:[]
           }
       },
-      created(){
+      mounted(){
+        this.searchData();
       },
       methods:{
-
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
-      handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
-      }
+        searchData(){
+          let param={username:"admin"};
+          this.$axios.get('/wc-group/group-softs',{params:param}).then((res)=>{
+            if((typeof res.data.data!=="string")&&res.data.data.length>0)this.softData=res.data.data;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        }
       },
     }
 </script>
@@ -120,5 +103,10 @@ tr:nth-child(odd) {
 }
 .line_style div{
  margin:10px 0;
+}
+.work_table{
+  padding: 20px;
+  max-height: 450px;
+  overflow: auto
 }
 </style>

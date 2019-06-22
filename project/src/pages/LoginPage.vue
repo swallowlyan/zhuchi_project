@@ -12,7 +12,7 @@
                 <el-form-item label="密码" prop="password">
                   <el-input v-model="userForm.password" type="password" placeholder="请输入密码"></el-input>
                 </el-form-item>
-                <el-form-item label="验证码" prop="verificationCode">
+                <el-form-item label="验证码">
                   <el-input v-model="userForm.verificationCode" placeholder="请输入验证码"></el-input>
                 </el-form-item>
               </el-form>
@@ -56,18 +56,18 @@
 <script>
   export default {
     name: "LoginPage",
-    data(){
+    data() {
       return {
-        activeName:"userLogin",
-      userForm:{
-        name:"",
-        password:"",
-        verificationCode:""
-      },
-        enterpriseForm:{
-          name:"",
-          password:"",
-          verificationCode:""
+        activeName: "userLogin",
+        userForm: {
+          name: "",
+          password: "",
+          verificationCode: ""
+        },
+        enterpriseForm: {
+          name: "",
+          password: "",
+          verificationCode: ""
         },
         formRule: {
           name: [{required: true, message: '请输入用户名', trigger: 'blur'}],
@@ -76,8 +76,37 @@
         }
       }
     },
-    methods:{
-      submitForm(form){
+    methods: {
+      submitForm(form) {
+            let param={};
+            if(form==="userForm"){//用户登录
+              param=this.userForm;
+            }else{//企业
+              param=this.enterpriseForm;
+            }
+            this.$axios.post("login", param).then((response) => {
+              // console.log(response.data);
+              if (response.data.code === 0) {
+                sessionStorage.setItem('username', response.data.data.username);
+                sessionStorage.setItem('uid', response.data.data.id);
+                sessionStorage.setItem('userToken', response.headers.authorization);
+                sessionStorage.setItem('roleId', response.data.data.roleId);
+                sessionStorage.setItem('nickname', response.data.data.nickname);
+                // console.log(response.data);
+                if (response.data.data.roleId === 1) {
+                  this.$router.push('/');
+                } else if (response.data.data.roleId === 2) {
+                  this.$router.push('/');
+                } else {
+                  this.$router.push('/');
+                }
+              } else {
+                this.$message.error(response.data.message);
+              }
+            })
+              .catch((err) => {
+                console.log(err);
+              })
 
       }
     }

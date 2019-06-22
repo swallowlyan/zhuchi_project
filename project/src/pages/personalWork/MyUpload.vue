@@ -46,31 +46,35 @@
           <td>{{data.softName}}</td>
           <td>
             <template>
-              <img :src="'data:image/jpg;base64,'+data.icon" style="height:30px;width: 30px">
+              <img :src="'data:image/jpg;base64,'+data.softIcon" style="height:30px;width: 30px">
             </template>
           </td>
-          <td>{{data.version}}</td>
+          <td>{{data.softVersion}}</td>
+          <td>{{data.softMenuName}}</td>
+          <td>{{data.softCategoryName}}</td>
+          <td>{{data.softCategory2Name}}</td>
+          <td>{{data.softCategory3Name}}</td>
+          <td>{{data.description}}</td>
           <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>{{data.state}}</td>
+          <td>{{data.status}}</td>
           <td>
-            <template >
-              <el-button
+            <template v-if="data.status==='NORMAL'">
+              <!--<el-button
                 size="mini"
                 name="select"
               >
                 编辑
-              </el-button>
+              </el-button>-->
               <el-button
                 size="mini"
                 name="select"
+                @click="delSoft(data.id)"
               >
                 下架
               </el-button>
+            </template>
+            <template v-if="data.status==='DEL'">
+              已下架
             </template>
           </td>
         </tr>
@@ -91,9 +95,28 @@
       },
       methods:{
         searchUploadData(){
-          let param={username:"admin",limit:100000};
-          this.$axios.get('/soft-detail/my-upload',{params:param}).then((res)=>{
+          let param={username:"admin"};
+          this.$axios.post('/soft-detail/my-upload',param).then((res)=>{
             if((typeof res.data.data!=="string")&&res.data.data.length>0)this.uploadData=res.data.data;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
+        delSoft(softId){//
+          this.$axios.post('/soft-detail/del',{id:softId}).then((res)=>{
+            if(res.data.message==="成功"){
+              this.$message({
+                message: '已成功下架该服务',
+                type: 'success'
+              });
+              this.searchUploadData();
+            }else{
+              this.$message({
+                message: res.data.message,
+                type: 'error'
+              });
+            }
+
           }).catch((err)=>{
             console.log(err);
           });

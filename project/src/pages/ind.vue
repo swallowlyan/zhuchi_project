@@ -27,7 +27,11 @@
               <el-dropdown-item icon="el-icon-circle-check-outline">
                 <router-link  to="/personal-workbench" >个人工作台</router-link></el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">设置中心</el-dropdown-item>
-              <el-dropdown-item icon="el-icon-circle-check-outline">注销</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-circle-check-outline">
+                <router-link :to="{path:'/login'}">
+                  注销
+                </router-link>
+                </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-col>

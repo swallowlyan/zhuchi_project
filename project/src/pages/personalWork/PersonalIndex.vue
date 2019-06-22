@@ -44,7 +44,7 @@
             <div style="height:350px">
               <div class="suffix_s">
                 <div>|</div><span>已购买服务</span>
-                  <div class="suffix" style="position:absolute;right:10px;">
+                  <!--<div class="suffix" style="position:absolute;right:10px;">
                   <el-input
                     style="width:240px;"
                     popper-class="my-autocomplete"
@@ -56,7 +56,7 @@
                       class="el-icon-search"
                       @click="handleIconClick">
                     </i>
-                  </div>
+                  </div>-->
                 </div>
               <div class="spe" style="border-bottom:1px dashed #aaa;">
                   <div style="text-align:center;width:25%;"
@@ -73,10 +73,10 @@
     </el-col>
     <el-col :span="6">
       <el-card >
-        <div style="height:765px">
+        <div style="height:765px;">
           <div class="suffix_s">
             <span>我的云空间</span>
-            <div class="suffix" style="position:absolute;right:5px;">
+            <!--<div class="suffix" style="position:absolute;right:5px;">
               <el-input
                 style="width:150px;"
                 popper-class="my-autocomplete"
@@ -88,11 +88,16 @@
                   class="el-icon-search"
                   @click="handleIconClick">
                 </i>
+            </div>-->
+          </div>
+          <div style="height:740px;overflow: auto">
+            <div style="text-align:center;width:25%;margin:20px 10px;"
+                 v-for="(data, index) in fileList"
+                 :key="index">
+              <div>
+                <i style="margin-right:8px;" class="fa fa-file-o"></i>{{data.objectName}}</div>
             </div>
           </div>
-          <div style="margin-top:50px;">
-
-        </div>
         </div>
       </el-card>
     </el-col >
@@ -107,32 +112,12 @@
             commonService:[],
             historyService:[],
             buyService:[],
-            datas_a: [
-              { title: '!!!ABAQUS',value:'ABAQUS'},
-              { title: '!!!ABAQUS',value:'ABAQUS',},
-              { title: '!!!ABAQUS',value:'ABAQUS',},
-              { title: '!!!ABAQUS',value:'ABAQUS',},
-            ],
-            datas_b: [
-              { title: '!!!ABAQUS',value:'ABAQUS'},
-              { title: '!!!ABAQUS',value:'ABAQUS',},
-              { title: '!!!ABAQUS',value:'ABAQUS',},
-              { title: '!!!ABAQUS',value:'ABAQUS',},
-              { title: '!!!ABAQUS',value:'ABAQUS'},
-              { title: '!!!ABAQUS',value:'ABAQUS',},
-              { title: '!!!ABAQUS',value:'ABAQUS',},
-              { title: '!!!ABAQUS',value:'ABAQUS',},
-            ],
-            datas_c: [
-              { title: 'Creo'},
-              { title: 'Creo'},
-              { title: 'Creo'},
-              { title: 'Creo'},
-            ],
+            fileList:[]
           }
       },
       created(){
-        this.getCommonService();this.getHistoryService();this.getBuyService();
+        this.getCommonService();this.getHistoryService();
+        this.getBuyService();this.getFileList();
       },
       methods:{
         getCommonService(){
@@ -155,6 +140,14 @@
           let param={username:"admin",limit:8};
           this.$axios.get('/wc-index/available-softs',{params:param}).then((res)=>{
             if(res.data.data.length>0)this.buyService=res.data.data;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
+        getFileList(){
+          let param={username:"admin"};
+          this.$axios.get('/file/list-files',{params:param}).then((res)=>{
+            if(res.data.data.length>0)this.fileList=res.data.data;
           }).catch((err)=>{
             console.log(err);
           });
