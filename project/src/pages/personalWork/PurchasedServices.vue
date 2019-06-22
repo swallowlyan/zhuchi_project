@@ -3,52 +3,55 @@
     <div class="suffix">
       <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>已购买服务
     </div>
-    <div>
-      <el-table
-        :data="buyService"
-        style="width: 100%">
-        <el-table-column prop="softName" label="服务名" width="120"></el-table-column>
-        <el-table-column prop="softIcon" label="软件图标" width="120">
-          <template slot-scope="scope">
-            <img :src="'data:image/jpg;base64,'+scope.row.icon" style="height:30px;width: 30px">
-          </template>
-        </el-table-column>
-        <el-table-column prop="version" label="版本号" width="90"></el-table-column>
-        <el-table-column prop="jiaofu" label="交付方式" width="100"></el-table-column>
-        <el-table-column prop="bought" label="购买时间" width="150"></el-table-column>
-        <el-table-column prop="end" label="到期时间" width="150"></el-table-column>
-        <el-table-column prop="score" label="评分" width="150">
-          <template slot-scope="scope">
-          <el-rate
-            v-model="scope.row.scope"
-            disabled
-            text-color="#ff9900"
-            score-template="{value}">
-          </el-rate>
-          </template>
-        </el-table-column>
-        <el-table-column prop="address" label="操作" width="200">
-          <template slot-scope="scope">
-            <el-button type="text" size="mini">续费</el-button>
-            <el-button type="text" size="mini">暂停</el-button>
-            <el-button type="text" size="mini">退款</el-button>
-            <el-button type="text" size="mini">重新下载</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+    <div  style="padding: 20px;max-height: 450px;overflow: auto">
+      <table width="90%" style="border-collapse:collapse">
+        <tr style="font-weight:700;font-size:14px;line-height:35px;">
+          <td>服务名</td>
+          <td>软件图标</td>
+          <td>版本号</td>
+          <td>交付方式</td>
+          <td>购买时间</td>
+          <td>到期时间</td>
+          <td>评分</td>
+          <td>操作</td>
+        </tr>
+
+        <tr v-for="(data, index) in buyService"
+            style="font-size:12px;line-height:35px;"
+            :key="index"
+        >
+          <td>{{data.softName}}</td>
+          <td>
+            <template>
+              <img :src="'data:image/jpg;base64,'+data.icon" style="height:30px;width: 30px">
+            </template>
+          </td>
+          <td>{{data.version}}</td>
+          <td>{{data.jiaofu}}</td>
+          <td>{{data.bought}}</td>
+          <td>{{data.end}}</td>
+          <td>
+            <template>
+              <el-rate
+                v-model="data.scope"
+                disabled
+                text-color="#ff9900"
+                score-template="{value}">
+              </el-rate>
+            </template>
+          </td>
+          <td>
+            <template>
+              <el-button type="text" size="mini">续费</el-button>
+              <el-button type="text" size="mini">暂停</el-button>
+              <el-button type="text" size="mini">退款</el-button>
+              <el-button type="text" size="mini">重新下载</el-button>
+            </template>
+          </td>
+        </tr>
+
+      </table>
     </div>
-    <div style="text-align:center;">
-    <el-pagination
-      style="margin-left:-100px;"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
-    </el-pagination>
-  </div>
   </div>
 </template>
 <script>
@@ -83,13 +86,7 @@
           }).catch((err)=>{
             console.log(err);
           });
-        },
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
-      handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
-      }
+        }
       },
     }
 </script>

@@ -3,7 +3,7 @@
     <div class="suffix">
       <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>企业上传服务
     </div>
-    <div>
+    <div style="padding: 20px;max-height: 450px;overflow: auto">
     <router-link :to="{path:'/enterprise-workbench/upload-service'}">
       <el-button type="primary">上传服务</el-button>
     </router-link></div>
