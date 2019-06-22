@@ -86,6 +86,7 @@
     export default {
       data(){
           return{
+            username:sessionStorage.getItem('username'),
             searchVal: '',
             uploadData:[]
           }
@@ -95,7 +96,7 @@
       },
       methods:{
         searchUploadData(){
-          let param={username:"admin"};
+          let param={username:this.username};
           this.$axios.post('/soft-detail/my-upload',param).then((res)=>{
             if((typeof res.data.data!=="string")&&res.data.data.length>0)this.uploadData=res.data.data;
           }).catch((err)=>{

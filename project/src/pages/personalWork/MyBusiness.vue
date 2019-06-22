@@ -73,6 +73,7 @@
     export default {
       data(){
           return{
+            username:sessionStorage.getItem('username'),
           state: '',
             softData:[]
           }
@@ -82,7 +83,7 @@
       },
       methods:{
         searchData(){
-          let param={username:"admin"};
+          let param={username:this.username};
           this.$axios.get('/wc-group/group-softs',{params:param}).then((res)=>{
             if((typeof res.data.data!=="string")&&res.data.data.length>0)this.softData=res.data.data;
           }).catch((err)=>{

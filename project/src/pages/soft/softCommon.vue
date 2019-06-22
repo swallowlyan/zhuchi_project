@@ -65,14 +65,14 @@
           //查找软件
           searchSoft(){
             if(this.$route.path.indexOf("Detail")>-1){
-              this.$router.push({path: '/soft'});
+              this.$router.push({path: '/homePage/soft'});
             }else{
               this.$refs.list.getSoft();
             }
           },
         getDetailObj(obj){
             this.detailObj=obj;
-            this.$router.push({path: '/soft/softDetail'});
+            this.$router.push({path: '/homePage/soft/softDetail'});
         },
         initPage(id){
           this.$refs.list.initPage(id);

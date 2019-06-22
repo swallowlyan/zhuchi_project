@@ -115,6 +115,7 @@
         name: "softCommon",
       data(){
         return{
+          username:sessionStorage.getItem('username'),
           menuId:"",
           commonSearch:"",
           testScore:3.8,
@@ -171,7 +172,7 @@
         },
         //查找软件
         getSoft(val){
-          this.param.username="admin";
+          this.param.username=this.username;
           this.param.softName=this.searchCommon;
           this.param.softMenu=this.menuId;
           this.param.softCategory=val;
@@ -217,7 +218,7 @@
           if(ifCollect===0)collectMessage="已取消收藏";
           else collectMessage="已成功收藏";
           let param={
-            username:"admin",
+            username:this.username,
             softId:softId,
             collect:ifCollect
           };
@@ -233,7 +234,7 @@
         },
         downSoft(softId){
           let param={
-            username:"admin",
+            username:this.username,
             softId:softId
           };
           this.$axios.get('/soft-auth/soft-order',{params:param}).then((res)=>{

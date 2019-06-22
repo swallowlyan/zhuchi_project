@@ -6,7 +6,7 @@
       <el-tabs v-model="activeName">
         <el-tab-pane label="用户注册" name="userRegister">
           <el-row>
-            <el-form :model="userForm" :rules="registerRule" ref="ruleForm" label-width="100px">
+            <el-form :model="userForm" :rules="registerRule" ref="userForm" label-width="100px">
               <el-form-item label="账号" prop="username">
                 <el-input v-model="userForm.username" placeholder="请输入您的账号"></el-input>
               </el-form-item>
@@ -16,58 +16,61 @@
               <el-form-item label="电子邮箱" prop="email">
                 <el-input v-model="userForm.email" placeholder="请输入您的电子邮箱"></el-input>
               </el-form-item>
-              <el-form-item label="联系地址" prop="address">
+              <el-form-item label="联系地址">
                 <el-input v-model="userForm.address" placeholder="请输入您的联系地址"></el-input>
               </el-form-item>
               <el-form-item label="姓名" prop="nickname">
                 <el-input v-model="userForm.nickname" placeholder="请输入您的姓名"></el-input>
               </el-form-item>
-              <el-form-item label="身份证号" prop="userCode">
+              <el-form-item label="身份证号">
                 <el-input v-model="userForm.userCode" placeholder="请输入您的身份证号"></el-input>
               </el-form-item>
-              <el-form-item label="手机号" prop="phone">
+              <el-form-item label="手机号"prop="phone">
                 <el-input v-model="userForm.phone" placeholder="请输入您的手机号"></el-input>
               </el-form-item>
-              <el-form-item label="验证码" prop="verificationCode">
+              <!--<el-form-item label="验证码">
                 <el-input v-model="userForm.verificationCode" placeholder="请输入验证码"></el-input>
-              </el-form-item>
+              </el-form-item>-->
             </el-form>
             <el-row><el-col :span="13" :offset="5">
-              <el-button type="primary" @click="submitForm('userForm')">立即注册</el-button>
+              <el-button type="primary" @click="userRegister('userForm')">立即注册</el-button>
             </el-col>
             </el-row>
           </el-row>
         </el-tab-pane>
         <el-tab-pane label="企业注册" name="enterpriseRegister">
           <el-row>
-            <el-form :model="userForm" :rules="registerRule" ref="ruleForm" label-width="100px">
+            <el-form :model="enterpriseForm" :rules="enterpriseRule" ref="enterpriseForm" label-width="120px">
               <el-form-item label="账号" prop="username">
-                <el-input v-model="userForm.username" placeholder="请输入您的账号"></el-input>
+                <el-input v-model="enterpriseForm.username" placeholder="请输入您的账号"></el-input>
               </el-form-item>
               <el-form-item label="密码" prop="passwd">
-                <el-input v-model="userForm.passwd" type="password" placeholder="请输入您的密码"></el-input>
+                <el-input v-model="enterpriseForm.passwd" type="password" placeholder="请输入您的密码"></el-input>
               </el-form-item>
               <el-form-item label="电子邮箱" prop="email">
-                <el-input v-model="userForm.email" placeholder="请输入您的电子邮箱"></el-input>
+                <el-input v-model="enterpriseForm.email" placeholder="请输入您的电子邮箱"></el-input>
               </el-form-item>
-              <el-form-item label="联系地址" prop="address">
-                <el-input v-model="userForm.address" placeholder="请输入您的联系地址"></el-input>
+              <el-form-item label="姓名">
+                <el-input v-model="enterpriseForm.name" placeholder="请输入您的姓名"></el-input>
               </el-form-item>
-              <el-form-item label="姓名" prop="nickname">
-                <el-input v-model="userForm.nickname" placeholder="请输入您的姓名"></el-input>
+              <el-form-item label="企业名" prop="nickname">
+                <el-input v-model="enterpriseForm.nickname" placeholder="请输入您的手机号"></el-input>
               </el-form-item>
-              <el-form-item label="身份证号" prop="userCode">
-                <el-input v-model="userForm.userCode" placeholder="请输入您的身份证号"></el-input>
+              <el-form-item label="企业信用代码" prop="orgId">
+                <el-input v-model="enterpriseForm.orgId" placeholder="请输入您的企业信用代码"></el-input>
+              </el-form-item>
+              <el-form-item label="联系地址">
+                <el-input v-model="enterpriseForm.addr" placeholder="请输入您的联系地址"></el-input>
               </el-form-item>
               <el-form-item label="手机号" prop="phone">
-                <el-input v-model="userForm.phone" placeholder="请输入您的手机号"></el-input>
+                <el-input v-model="enterpriseForm.phone" placeholder="请输入您的手机号"></el-input>
               </el-form-item>
-              <el-form-item label="验证码" prop="verificationCode">
-                <el-input v-model="userForm.verificationCode" placeholder="请输入验证码"></el-input>
-              </el-form-item>
+              <!--<el-form-item label="验证码">
+                <el-input v-model="enterpriseForm.verificationCode" placeholder="请输入验证码"></el-input>
+              </el-form-item>-->
             </el-form>
             <el-row><el-col :span="13" :offset="5">
-              <el-button type="primary" @click="submitForm('userForm')">立即注册</el-button>
+              <el-button type="primary" @click="enterpriseRegister('enterpriseForm')">立即注册</el-button>
             </el-col>
             </el-row>
           </el-row>
@@ -84,6 +87,7 @@
         name: "signPage",
       data(){
           return {
+            activeName: "userRegister",
             userForm:{
               username:"",
               passwd:"",
@@ -98,9 +102,10 @@
               username:"",
               passwd:"",
               email:"",
-              address:"",
+              name:"",
+              addr:"",
               nickname:"",
-              userCode:"",
+              orgId:"",
               phone:"",
               verificationCode:""
             },
@@ -115,12 +120,23 @@
               nickname: [{required: true, message: '请输入您的姓名', trigger: 'blur'}],
               userCode: [{required: true, message: '请输入您的身份证号码', trigger: 'blur'}],
               phone: [{required: true, message: '请输入您的手机号', trigger: 'blur'}],
-              verificationCode: [{required: true, message: '请输入验证码', trigger: 'blur'}],
-        }
+        },
+            enterpriseRule: {
+              username: [{required: true, message: '请输入您的账号', trigger: 'blur'}],
+              passwd: [{required: true, message: '请输入您的密码', trigger: 'blur'}],
+              email: [
+                {required: true, message: '请输入您的邮箱', trigger: 'blur'},
+                { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+              ],
+              address: [{required: true, message: '请输入您的地址', trigger: 'blur'}],
+              nickname: [{required: true, message: '请输入您的企业名称', trigger: 'blur'}],
+              orgId: [{required: true, message: '请输入您的企业信用代码', trigger: 'blur'}],
+              phone: [{required: true, message: '请输入您的手机号', trigger: 'blur'}],
+            }
           }
       },
       methods:{
-        submitForm(formName){
+        userRegister(formName){
           /*this.$refs[formName].validate((valid) => {
             if (valid) {*/
               //username校验
@@ -200,6 +216,87 @@
               return false;
             }
           });*/
+        },
+        enterpriseRegister(formName){
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+              //username校验
+              this.$axios.get('/sysuser/check-username',
+                {params:{
+                    username:this.enterpriseForm.username
+                  }
+                }).then((res)=>{
+                if(res.data.data==="CHECK_NO_EXIST"){
+                  //email校验
+                  this.$axios.get('/sysuser/check',
+                    {params:{
+                        column:"email",
+                        value:this.enterpriseForm.email
+                      }
+                    }).then((res)=>{
+                    if(res.data.data==="CHECK_NO_EXIST"){
+                      //phone校验
+                      this.$axios.get('/sysuser/check',
+                        {params:{
+                            column:"phone",
+                            value:this.enterpriseForm.phone
+                          }
+                        }).then((res)=>{
+                        if(res.data.data==="CHECK_NO_EXIST"){
+                          //重复验证已通过，提交信息
+                          this.$axios.post('/sysuser/org-reg',this.enterpriseForm).then((res)=>{
+                            if(res.data.message==="成功"){
+                              this.$message({
+                                showClose: true,
+                                message: "注册成功",
+                                type: 'success'
+                              });
+                              this.$router.push('/');
+                            }else{
+                              this.$message({
+                                showClose: true,
+                                message: "注册失败",
+                                type: 'error'
+                              });
+                            }
+                          }).catch((err)=>{
+                            console.log(err);
+                          });
+                        }else{
+                          this.$message({
+                            showClose: true,
+                            message: "手机号已存在，请重新输入",
+                            type: 'error'
+                          });
+                        }
+                      }).catch((err)=>{
+                        console.log(err);
+                      });
+                    }else{
+                      this.$message({
+                        showClose: true,
+                        message: "邮箱已存在，请重新输入",
+                        type: 'error'
+                      });
+                    }
+                  }).catch((err)=>{
+                    console.log(err);
+                  });
+                }else{
+                  this.$message({
+                    showClose: true,
+                    message: "账号已存在，请重新输入",
+                    type: 'error'
+                  });
+                }
+              }).catch((err)=>{
+                console.log(err);
+              });
+            } else {
+              console.log('error submit!!');
+              return false;
+            }
+          });
         }
       }
     }

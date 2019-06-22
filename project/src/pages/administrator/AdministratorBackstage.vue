@@ -43,11 +43,11 @@
             username:'',
             roleId:'',
             buttons: [
-              { title: '用户注册审批',index:'1',url:'index'},
-              { title: '服务发布审批', index:'2',url:'approval-service'},
-              { title: '服务类别配置',index:'3',url:'category-configuration'},
-              { title: '综合统计分析', index:'4',url:'comprehensive-statistics'},
-              { title: '平台用户管理',index:'5',url:'user-management'},
+              { title: '用户注册审批',index:'1',url:'/homePage/administrator-backstage/index'},
+              { title: '服务发布审批', index:'2',url:'/homePage/administrator-backstage/approval-service'},
+              { title: '服务类别配置',index:'3',url:'/homePage/administrator-backstage/category-configuration'},
+              { title: '综合统计分析', index:'4',url:'/homePage/administrator-backstage/comprehensive-statistics'},
+              { title: '平台用户管理',index:'5',url:'/homePage/administrator-backstage/user-management'},
             ],
           }
       },
@@ -59,7 +59,7 @@
 
       methods:{
         getUsername(){
-          this.username = sessionStorage.getItem("nickname");
+          this.username = sessionStorage.getItem('username');
           // console.log(this.username);
         },
 

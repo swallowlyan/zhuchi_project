@@ -52,7 +52,7 @@
         backToHome(){
             // console.log(this.roleId);
           if (this.roleId == 1){
-            this.$router.push('/main-page/manager/');
+            this.$router.push('/homePage');
           } else if (this.roleId == 2) {
             this.$router.push('/main-page/senior-user/');
           } else {

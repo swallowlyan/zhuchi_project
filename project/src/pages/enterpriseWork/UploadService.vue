@@ -113,7 +113,7 @@
     export default {
       data(){
           return{
-            username:'',
+            username:sessionStorage.getItem('username'),
             roleId:'',
             fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
             serviceTypeList:[],
@@ -124,7 +124,7 @@
             ifDown:true,
             uploadFormData:new FormData(),
             uploadForm:{
-              username:"admin",
+              username:sessionStorage.getItem('username'),
               softName:'',softMenu:'',description:'',
               softCategory:'',softCategory2:'',softCategory3:'',
               softSupply:'',softFunDes:'',
@@ -180,7 +180,7 @@
           });
         },
         getUsername(){
-          this.username = sessionStorage.getItem("nickname");
+          this.username = sessionStorage.getItem('username');
           // console.log(this.username);
         },
         getRoleId(){

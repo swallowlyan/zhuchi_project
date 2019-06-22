@@ -18,6 +18,7 @@
     export default {
       data(){
           return{
+            username:sessionStorage.getItem('username'),
             commonData:[],
             ifNullData:true
           }
@@ -27,7 +28,7 @@
       },
       methods:{
         getCommonData(){
-          let param={username:"admin",limit:5};
+          let param={username:this.username,limit:5};
           this.$axios.get('/wc-index/recent-softs',{params:param}).then((res)=>{
             if((typeof res.data.data!=="string")&&res.data.data.length>0){
               this.commonData=res.data.data;

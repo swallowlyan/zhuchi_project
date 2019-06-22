@@ -4,7 +4,7 @@
     <el-row>
       <el-col :span="24">
         <el-carousel :interval="5000"  indicator-position="none" arrow="always">
-          <el-carousel-item v-for="item in dataImg" :key="item">
+          <el-carousel-item v-for="(item,index) in dataImg" :key="item">
             <div class="grid-content">
               <el-row>
                 <div>
@@ -64,7 +64,7 @@
     <el-row>
       <el-col :span="12" :offset="6">
         <el-carousel :interval="4000" type="card" indicator-position="outside" height="400px" arrow="always">
-          <el-carousel-item v-for="item in dataImg2" :key="item">
+          <el-carousel-item v-for="(item,index) in dataImg2" :key="item">
             <img :src="item.src">
           </el-carousel-item>
         </el-carousel>
@@ -77,7 +77,7 @@
     <el-row>
       <el-col :span="12" :offset="6">
         <el-carousel :interval="4000" type="card" indicator-position="outside" height="400px" arrow="always">
-          <el-carousel-item v-for="item in dataImg2" :key="item">
+          <el-carousel-item v-for="(item,index) in dataImg2" :key="item">
             <img :src="item.src">
           </el-carousel-item>
         </el-carousel>
@@ -90,7 +90,7 @@
     <el-row>
       <el-col :span="12" :offset="6">
         <el-carousel :interval="4000" type="card" indicator-position="outside" height="400px" arrow="always">
-          <el-carousel-item v-for="item in dataImg2" :key="item">
+          <el-carousel-item v-for="(item,index) in dataImg2" :key="item">
             <img :src="item.src">
           </el-carousel-item>
         </el-carousel>

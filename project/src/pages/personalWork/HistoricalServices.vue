@@ -52,6 +52,7 @@
     export default {
       data(){
           return{
+            username:sessionStorage.getItem('username'),
             historyData: []
           }
       },
@@ -60,7 +61,7 @@
       },
       methods:{
         getHistoryData(){
-          let param={username:"admin",limit:100000};
+          let param={username:this.username,limit:100000};
           this.$axios.get('/wc-index/recent-softs',{params:param}).then((res)=>{
             if((typeof res.data.data!=="string")&&res.data.data.length>0)this.historyData=res.data.data;
           }).catch((err)=>{

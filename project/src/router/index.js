@@ -43,6 +43,18 @@ export default new Router({
       children:[
         {
           path:'',
+          name:'LoginPage',
+          component:LoginPage,
+          children:[]
+        },
+        {
+          path:'/register',
+          name:'registerPage',
+          component:registerPage,
+          children:[]
+        },
+        {
+          path:'homePage',
           name:'homePage',
           component:homePage
         },
@@ -180,20 +192,9 @@ export default new Router({
               component:softDetail
             }
           ]
-        },
-        {
-          path:'/login',
-          name:'LoginPage',
-          component:LoginPage,
-          children:[]
-        },
-        {
-          path:'/register',
-          name:'registerPage',
-          component:registerPage,
-          children:[]
         }
       ]
     },
+
   ]
 })
