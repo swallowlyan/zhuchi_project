@@ -3,31 +3,13 @@
     <div class="suffix">
       <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>运营管理
     </div>
-    <div class="suffix">
-      <div style="text-align:center;">
-        <i class="fa fa-users fa-3x"></i>
-        <div>客户管理组件</div>
-      </div>
-      <div style="text-align:center;">
-        <i class="fa fa-clipboard fa-3x"></i>
-        <div>销售物流监控组件</div>
-      </div>
+    <div class="suffix" v-if="ifNullData">
+      <h1>无使用记录</h1>
     </div>
-    <div class="suffix">
-      <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>仓储物流
-    </div>
-    <div class="suffix">
+    <div class="suffix" v-for="(data, index) in commonData">
       <div style="text-align:center;">
-        <i class="fa fa-bar-chart fa-3x"></i>
-        <div>仓储质量监控组件</div>
-      </div>
-      <div style="text-align:center;">
-        <i class="fa fa-line-chart fa-3x"></i>
-        <div>仓库成本监控组件</div>
-      </div>
-       <div style="text-align:center;">
-        <i class="fa fa-file-text-o fa-3x"></i>
-        <div>出库任务统计追踪组件</div>
+        <img :src="'data:image/jpg;base64,'+data.icon" style="height:50px;width: 50px">
+        <div>{{data.softName}}</div>
       </div>
     </div>
   </div>
@@ -36,11 +18,25 @@
     export default {
       data(){
           return{
+            commonData:[],
+            ifNullData:true
           }
       },
-      created(){
+      mounted(){
+        this.getCommonData();
       },
       methods:{
+        getCommonData(){
+          let param={username:"admin",limit:5};
+          this.$axios.get('/wc-index/recent-softs',{params:param}).then((res)=>{
+            if((typeof res.data.data!=="string")&&res.data.data.length>0){
+              this.commonData=res.data.data;
+              this.ifNullData=false;
+            }else{this.ifNullData=true;}
+          }).catch((err)=>{
+            console.log(err);
+          });
+        }
       },
     }
 </script>

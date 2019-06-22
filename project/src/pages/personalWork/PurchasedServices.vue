@@ -3,7 +3,7 @@
     <div class="suffix">
       <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>已购买服务
     </div>
-    <div  style="padding: 20px;max-height: 450px;overflow: auto">
+    <div class="work_table">
       <table width="90%" style="border-collapse:collapse">
         <tr style="font-weight:700;font-size:14px;line-height:35px;">
           <td>服务名</td>
@@ -58,20 +58,7 @@
     export default {
       data(){
           return{
-          restaurants: [],
-          state: '',
-          datas: [
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-          ],
-          currentPage1: 5,
-          currentPage2: 5,
-          currentPage3: 5,
-          currentPage4: 4,
-            buyService:[],
+            buyService:[]
           }
       },
       mounted(){
@@ -101,5 +88,10 @@ tr:nth-child(odd) {
 }
 .line_style div{
  margin:10px 0;
+}
+.work_table{
+  padding: 20px;
+  max-height: 450px;
+  overflow: auto
 }
 </style>
