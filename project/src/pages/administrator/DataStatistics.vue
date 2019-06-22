@@ -27,9 +27,10 @@
           <div style="font-size:20px;font-weight:700;margin:0px 14px 0px -23px">|</div>
           <span style="font-weight:700;font-size:12px;">企业数据明细</span>
       </div>
-      <div  class="special">
+      <div  class="special" style="height:400px;width:90%;">
+      <el-scrollbar style="height:100%;">
         <table
-          width="90%"
+          width="100%"
           style="border-collapse:collapse;"
         >
         <tr style="font-weight:700;font-size:14px;line-height:35px;">
@@ -39,12 +40,12 @@
           <td>非结构化数据（单位：tb）</td>
           <td>操作</td>
         </tr>
-        <tr v-for="(data, index) in datas_b"
+        <tr v-for="(data, index) in enterpriseList"
         style="font-size:12px;line-height:35px;"
-      :key="index"
+        :key="index"
         >
-          <td>{{data.title}}</td>
-          <td>{{data.value}}</td>
+          <td>{{data.name}}</td>
+          <td></td>
           <td></td>
           <td></td>
           <td>
@@ -65,19 +66,8 @@
           </td>
         </tr>
       </table>
+      </el-scrollbar>
     </div>
-    <div style="text-align:center;" class="special">
-    <el-pagination
-      style="margin-left:-110px;"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
-    </el-pagination>
-  </div>
 
     </el-row>
   </div>
@@ -99,26 +89,26 @@
             ],
             radio1:'总用户数',
              state: '',
-          datas_b: [
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
-              { title: 'Creo',value:'5',way:'SAAS'},
+          enterpriseList: [
           ],
-          currentPage1: 5,
-          currentPage2: 5,
-          currentPage3: 5,
-          currentPage4: 4
           }
       },
 
       mounted(){
+        this.getenterpriseList();
         this.draw();
       },
 
       methods:{
+        getenterpriseList(){
+        this.$axios.get('/wc-group/groups').then((res)=>{
+          this.enterpriseList=res.data.data;
+          this.total=res.data.data.total;
+            console.log( this.enterpriseList);
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
         draw(){
           let myChart = this.$echarts.init(document.getElementById('main'));
         // 指定图表的配置项和数据
@@ -194,5 +184,8 @@ tr:nth-child(odd) {
 }
 .special{
   padding:5px 0px;
+}
+.el-scrollbar__wrap {
+  overflow-x: hidden;
 }
 </style>

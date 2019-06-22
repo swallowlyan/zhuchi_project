@@ -159,22 +159,10 @@
           inputValue: '',
           inputValue_b: '',
           inputVisible_b: false,
-          datas: [
-              { title: 'Creo',state:'已上架'},
-              { title: 'Creo',state:'已上架'},
-              { title: 'Creo',state:'已上架'},
-              { title: 'Creo',state:'已上架'},
-              { title: 'Creo',state:'已上架'},
-          ],
-          currentPage1: 5,
-          currentPage2: 5,
-          currentPage3: 5,
-          currentPage4: 4,
           param:{
             fieldName:'',
             industryName:''
           },
-
           total: 0,
           size: 7,
           page: 1,
@@ -214,7 +202,6 @@
         }).then((res)=>{
           this.softList=res.data.data.records;
           this.total=res.data.data.total
-            console.log( this.softList);
           }).catch((err)=>{
             console.log(err);
           });

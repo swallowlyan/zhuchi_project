@@ -47,15 +47,15 @@
           <td>用户状态</td>
           <td>操作</td>
         </tr>
-        <tr v-for="(data, index) in datas_b"
+        <tr v-for="(data, index) in userList"
         style="font-size:12px;line-height:35px;"
       :key="index"
         >
-          <td>{{data.user}}</td>
+          <td>{{data.nickname}}</td>
           <td>{{data.data}}</td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{{data.username}}</td>
+          <td>{{data.phone}}</td>
+          <td>{{data.groupName}}</td>
           <td></td>
           <td>
             <template >
@@ -83,15 +83,13 @@
       </table>
     </div>
     <div style="text-align:center;" class="special">
-    <el-pagination
-      style="margin-left:-110px;"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
+      <el-pagination
+      style="margin-left:-100px;"
+      @current-change="getuserList"
+      :current-page.sync="page"
+      :page-size="size"
+      layout="total, prev, pager, next, jumper"
+      :total="total">
     </el-pagination>
   </div>
 
@@ -115,26 +113,32 @@
             ],
             radio1:'总用户数',
              state: '',
-          datas_b: [
-               { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'张三'},
-              { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'李红'},
-              { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'张三'},
-              { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'王丽'},
-              { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'张三'},
-              { title: 'Creo',data:'2019-06-15',way:'SAAS',user:'洛洛'},
+          userList: [
+              
           ],
-          currentPage1: 5,
-          currentPage2: 5,
-          currentPage3: 5,
-          currentPage4: 4
+          total: 0,
+          size: 7,
+          page: 1,
           }
       },
 
       mounted(){
+        this.getuserList()
         this.draw();
       },
 
       methods:{
+          getuserList(){
+        this.$axios.post('/sysuser/list-all',{
+          size:this.size,
+          current:this.page,
+        }).then((res)=>{
+          this.userList=res.data.data.records;
+          this.total=res.data.data.total;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
         draw(){
           let myChart = this.$echarts.init(document.getElementById('main'));
         // 指定图表的配置项和数据
