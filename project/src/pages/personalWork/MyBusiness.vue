@@ -5,14 +5,14 @@
     </div>
      <img src="../../assets/common/logo_zhuchi.png" >
      <div class="suffix">
-      当前企业：株洲齿轮有限责任公司
+      当前企业：{{business.name}}
      </div>
      <div class="suffix">
-      加入时间：2019年6月11日
+      加入时间：{{business.enteringTime}}
      </div>
       <div class="suffix">
         <el-button type="primary">变更企业</el-button>
-        <el-button type="primary">离开企业</el-button>
+        <el-button type="primary" @click="">离开企业</el-button>
      </div>
 
     <div class="suffix">
@@ -56,12 +56,9 @@
           </td>
           <td>
             <template >
-                <el-button
-                size="mini"
-                name="select"
-              >
+              <el-link type="primary" size="mini" :href="data.fileUrl">
                 下载软件
-              </el-button>
+              </el-link>
             </template>
           </td>
         </tr>
@@ -75,6 +72,7 @@
           return{
             username:sessionStorage.getItem('username'),
           state: '',
+            business:{},
             softData:[]
           }
       },
@@ -82,10 +80,18 @@
         this.searchData();
       },
       methods:{
-        searchData(){
-          let param={username:this.username};
-          this.$axios.get('/wc-group/group-softs',{params:param}).then((res)=>{
-            if((typeof res.data.data!=="string")&&res.data.data.length>0)this.softData=res.data.data;
+        getBusiness(){//获取企业信息
+          let param={username:sessionStorage.getItem('username')};
+          this.$axios.get('/wc-group/advince-user-group',{params:param}).then((res)=>{
+            this.business=res.data.data;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
+        searchData(){//已购买服务
+          let param={username:sessionStorage.getItem('username'),limit:10000};
+          this.$axios.get('/wc-index/available-softs',{params:param}).then((res)=>{
+            if(res.data.data.length>0)this.softData=res.data.data;
           }).catch((err)=>{
             console.log(err);
           });

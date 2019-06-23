@@ -36,8 +36,11 @@
               <el-dropdown-item icon="el-icon-circle-check-outline" :style="{display:roleId?'none':''}">
                 <router-link  to="/personal-workbench">个人工作台</router-link>
               </el-dropdown-item>
-              <el-dropdown-item icon="el-icon-circle-check-outline" :style="{display:roleId?'':'none'}">
+              <el-dropdown-item icon="el-icon-circle-check-outline" :style="{display:userType==='SENIOR'?'':'none'}">
                 <router-link  to="/enterprise-workbench">企业工作台</router-link>
+              </el-dropdown-item>
+              <el-dropdown-item icon="el-icon-circle-check-outline" :style="{display:userType==='SUPER'?'':'none'}">
+                <router-link  to="/enterprise-workbench">管理员工作台</router-link>
               </el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">设置中心</el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">
@@ -65,6 +68,7 @@
       return{
         roleId:"",
         username:"",
+        userType:"",
         enterpriseId:"",
         pageTitle:"",
         menuList:[],
@@ -89,6 +93,7 @@
       $route(to,from){
         this.roleId=sessionStorage.getItem('roleId');
         this.username=sessionStorage.getItem('username');
+        this.userType=sessionStorage.getItem('userType');
         this.enterpriseId=sessionStorage.getItem('enterpriseId');
         if(to.path.indexOf("/soft")>-1||to.path.indexOf("/homePage")>-1){
           this.ifMenu=true;

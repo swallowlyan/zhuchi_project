@@ -102,8 +102,8 @@
       </el-form>
       <div v-if="ifDown" style="margin-left:220px;" id="upload_btn"><el-button type="primary" @click="submitUpload('uploadForm')">提交</el-button></div>
       <div v-if="ifSAAS">
-        <div style="margin-left:220px;"><el-button type="primary">云化服务</el-button></div>
-        <div style="margin-left:220px;"><el-button type="primary">安装</el-button></div>
+        <div style="margin-left:220px;"><el-button type="primary" @click="openWin">云化服务</el-button></div>
+        <div style="margin-left:220px;"><el-button type="primary" @click="installSoft">安装</el-button></div>
       </div>
         </el-col>
       </el-row>
@@ -272,6 +272,12 @@
         },
          handleChange(file, fileList) {
           this.fileList = fileList.slice(-3);
+        },
+        openWin(){//云化服务
+
+        },
+        installSoft(){//安装
+
         }
       },
     }

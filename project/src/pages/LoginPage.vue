@@ -5,7 +5,7 @@
         <el-card class="box-card">
           <el-tabs v-model="activeName">
             <el-tab-pane label="个人用户登录" name="userLogin">
-              <el-form :model="userForm" :rules="formRule" ref="ruleForm" label-width="100px">
+              <el-form :model="userForm" :rules="formRule" ref="userForm" label-width="100px">
                 <el-form-item label="用户名" prop="username">
                   <el-input v-model="userForm.username" placeholder="请输入用户名"></el-input>
                 </el-form-item>
@@ -26,7 +26,7 @@
                 </el-row>
             </el-tab-pane>
             <el-tab-pane label="企业用户登录" name="enterpriseLogin">
-              <el-form :model="enterpriseForm" :rules="formRule" ref="ruleForm" label-width="100px">
+              <el-form :model="enterpriseForm" :rules="formRule" ref="enterpriseForm" label-width="100px">
                 <el-form-item label="用户名" prop="username">
                   <el-input v-model="enterpriseForm.username" placeholder="请输入用户名"></el-input>
                 </el-form-item>
@@ -43,6 +43,23 @@
               </el-row>
               <el-row><el-col :span="13" :offset="5">
                 <router-link  to="/register" ><el-button>立即注册</el-button></router-link>
+              </el-col>
+              </el-row>
+            </el-tab-pane>
+            <el-tab-pane label="管理员登录" name="adminLogin">
+              <el-form :model="adminForm" :rules="formRule" ref="adminForm" label-width="100px">
+                <el-form-item label="用户名" prop="username">
+                  <el-input v-model="adminForm.username" placeholder="请输入用户名"></el-input>
+                </el-form-item>
+                <el-form-item label="密码" prop="password">
+                  <el-input v-model="adminForm.password" type="password" placeholder="请输入密码"></el-input>
+                </el-form-item>
+                <el-form-item label="验证码">
+                  <el-input v-model="adminForm.verificationCode" placeholder="请输入验证码"></el-input>
+                </el-form-item>
+              </el-form>
+              <el-row><el-col :span="13" :offset="5">
+                <el-button type="primary" @click="submitForm('adminForm')">登录</el-button>
               </el-col>
               </el-row>
             </el-tab-pane>
@@ -69,6 +86,11 @@
           password: "",
           verificationCode: ""
         },
+        adminForm: {
+          username: "",
+          password: "",
+          verificationCode: ""
+        },
         formRule: {
           username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
           password: [{required: true, message: '请输入密码', trigger: 'blur'}],
@@ -81,17 +103,18 @@
             let param={};
             if(form==="userForm"){//用户登录
               param=this.userForm;
-            }else{//企业
+            }else if(form==="enterpriseForm"){//企业
               param=this.enterpriseForm;
-            }
+            }else param=this.adminForm;
             this.$axios.post("login", param).then((response) => {
               let ifPerson=true;
               if (response.data.code === 0) {
                 //个人用户
                 sessionStorage.setItem('username',param.username);
-                if(response.data.data!==null){//企业用户
+                if(response.data.data!==null){//企业用户|管理员用户
                   sessionStorage.setItem('roleId',response.data.data.roleId);
-                  sessionStorage.setItem('enterpriseId',response.data.data.id);
+                  sessionStorage.setItem('userType',response.data.data.userType);
+                  if(response.data.data.userType==="SENIOR")sessionStorage.setItem('enterpriseId',response.data.data.groupId);
                 }
                 this.$router.push('/homePage');
                /* if (response.data.data.roleId === 1) {
