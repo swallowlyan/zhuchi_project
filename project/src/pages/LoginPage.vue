@@ -1,5 +1,5 @@
 <template>
-  <div class="login-page">
+  <div class="login-page" :style="{height:heightData}">
     <el-row>
       <el-col :span="6" :offset="12" style="margin-top:50px;margin-bottom: 50px">
         <el-card class="box-card">
@@ -45,7 +45,8 @@
         userForm: {
           username: "",
           password: "",
-          result: ""
+          result: "",
+          heightData:0,
         },
         formRule: {
           username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
@@ -56,8 +57,17 @@
     },
     mounted(){
       this.changeCodeImg();
+      this.resize();
+     window.addEventListener('resize', this.resize);
     },
+    beforeDestroy() {
+    window.removeEventListener('resize', this.resize);
+  },
     methods: {
+      resize() {
+      const r = Math.max(document.documentElement.clientHeight, 768);
+      this.heightData = r - 120 + 'px';
+    },
       changeCodeImg(){
         let num=Math.ceil(Math.random()*10);
         this.imgCodeUrl = "/api/genVerCode?" + num;
@@ -100,8 +110,8 @@
   .login-page{
     width:100%;
     height:100%;
-    background-size:100% 100%;
-    background: url("../assets/login_bg.jpg");
+    background-size:100% 100%!important; 
+    background: url("../assets/login_bg.jpg") no-repeat;
   }
   .box-card{background-color: #ffffff}
   .el-row button{width: 100%;margin: 10px 0px}
