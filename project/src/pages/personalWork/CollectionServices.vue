@@ -66,7 +66,6 @@
           let param = {username: sessionStorage.getItem('username'), limit: 10000};
           this.$axios.post('/soft-user/softCollectedList', param).then((res) => {
             if (res.data.data.length > 0) this.collectService = res.data.data;
-            console.info(this.buyService);
           }).catch((err) => {
             console.log(err);
           });

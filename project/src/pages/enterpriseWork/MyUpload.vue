@@ -80,7 +80,6 @@
     export default {
       data(){
         return{
-          username:"",
           searchVal: '',
           uploadData:[]
         }

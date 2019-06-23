@@ -122,7 +122,7 @@
       },
       methods:{
         getCommonService(){
-          let param={username:this.username,limit:6};
+          let param={username:sessionStorage.getItem('username'),limit:6};
           this.$axios.get('/wc-index/recent-softs',{params:param}).then((res)=>{
             if(res.data.data.length>0)this.commonService=res.data.data;
           }).catch((err)=>{
@@ -130,7 +130,7 @@
           });
         },
         getHistoryService(){
-          let param={username:this.username,limit:8};
+          let param={username:sessionStorage.getItem('username'),limit:8};
           this.$axios.get('/wc-index/recent-softs',{params:param}).then((res)=>{
             if(res.data.data.length>0)this.historyService=res.data.data;
           }).catch((err)=>{
@@ -138,7 +138,7 @@
           });
         },
         getBuyService(){
-          let param={username:this.username,limit:8};
+          let param={username:sessionStorage.getItem('username'),limit:8};
           this.$axios.get('/wc-index/available-softs',{params:param}).then((res)=>{
             if(res.data.data.length>0)this.buyService=res.data.data;
           }).catch((err)=>{
@@ -146,7 +146,7 @@
           });
         },
         getFileList(){
-          let param={username:this.username};
+          let param={username:sessionStorage.getItem('username')};
           this.$axios.get('/file/list-files',{params:param}).then((res)=>{
             if(res.data.data.length>0)this.fileList=res.data.data;
           }).catch((err)=>{

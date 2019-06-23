@@ -48,10 +48,13 @@
               <el-row >
                 <el-col :span="2" class="softImg">
                     <el-button type="text" @click="toDetail(item)">
-                      <img :src="'data:image/jpg;base64,'+item.softIcon" height="80" width="80">
+                      <img v-if="item.softIcon===''||item.softIcon===null||item.softIcon===undefined"
+                        src="../../assets/common/logo_zhuchi.png" height="80" width="80">
+                      <img v-if="item.softIcon!==''&&item.softIcon!==null&&item.softIcon!==undefined"
+                           :src="'data:image/jpg;base64,'+item.softIcon" height="80" width="80">
                     </el-button>
                 </el-col>
-                <el-col :span="5" class="softInfo">
+                <el-col :span="5" :offset="1" class="softInfo">
                   <el-row v-if="item.softCategory3Id==='1'">
                     <a :href="item.fileUrl">
                     <h3 class="softName">{{item.softName}}</h3>
@@ -65,7 +68,7 @@
                   <el-row><span class="company">{{item.creator}}</span></el-row>
                   <el-row><span class="info">{{item.description}}</span></el-row>
                 </el-col>
-                <el-col :span="5" style="margin-top: 10px">
+                <el-col :span="5" :offset="1" style="margin-top: 10px">
                   <el-row>
                     <el-col :span="6">评分：</el-col>
                     <el-col :span="16"><el-rate
@@ -84,7 +87,7 @@
                 <el-col :span="3" v-if="item.collect===true">
                   <el-button type="text" @click="collectSoft(item.id,0)"><i class="fa fa-heart"></i>取消收藏</el-button>
                 </el-col>
-                <el-col :span="4" style="margin-top: 5px">
+                <el-col :span="3" style="margin-top: 5px">
                   <el-row v-if="item.auth==='true'">
                     <el-button type="button"size="medium" disabled>已获取</el-button>
                   </el-row>
@@ -123,7 +126,6 @@
         name: "softCommon",
       data(){
         return{
-          username:"",
           menuId:"",
           commonSearch:"",
           testScore:3.8,
@@ -176,7 +178,7 @@
         },
         //查找软件
         getSoft(val){
-          this.param.username=this.username;
+          this.param.username=sessionStorage.getItem('username');
           this.param.softName=this.searchCommon;
           this.param.softMenu=this.menuId;
           this.param.softCategory=val;
@@ -222,7 +224,7 @@
           if(ifCollect===0)collectMessage="已取消收藏";
           else collectMessage="已成功收藏";
           let param={
-            username:this.username,
+            username:sessionStorage.getItem('username'),
             softId:softId,
             collect:ifCollect
           };
@@ -239,7 +241,7 @@
         //立即获取
         downSoft(softId){
           let param={
-            username:this.username,
+            username:sessionStorage.getItem('username'),
             softId:softId
           };
           this.$axios.get('/soft-auth/soft-order',{params:param}).then((res)=>{
@@ -261,7 +263,7 @@
             background: 'rgba(0, 0, 0, 0.7)'
           });
           this.$axios.post('/send-request/use-desktop',{
-            username:this.username,
+            username:sessionStorage.getItem('username'),
             softwareId:softId,
           }).then((res)=>{
             // console.log(res);

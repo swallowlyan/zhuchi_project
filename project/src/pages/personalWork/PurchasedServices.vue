@@ -85,7 +85,7 @@
             background: 'rgba(0, 0, 0, 0.7)'
           });
           this.$axios.post('/send-request/use-desktop',{
-            username:this.username,
+            username:sessionStorage.getItem('username'),
             softwareId:softId,
           }).then((res)=>{
             // console.log(res);

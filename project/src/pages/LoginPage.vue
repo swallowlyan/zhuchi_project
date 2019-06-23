@@ -57,6 +57,9 @@
     mounted(){
       this.changeCodeImg();
     },
+    created(){
+      this.changeCodeImg();
+    },
     methods: {
       changeCodeImg(){
         let num=Math.ceil(Math.random()*10);
@@ -66,7 +69,6 @@
             this.$axios.post("login", this.userForm).then((response) => {
               if (response.data.code === 0) {
                 sessionStorage.setItem('userToken',response.headers.authorization);
-                console.info(response.headers.authorization);
                 //个人用户
                 sessionStorage.setItem('username',this.userForm.username);
                 if(response.data.data!==null){//企业用户|管理员用户

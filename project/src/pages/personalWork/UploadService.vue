@@ -223,9 +223,8 @@
                 event.preventDefault();
                 let param = new window.FormData();
                 Object.keys(this.uploadForm).forEach((item) => {
-                  if(item==="username")param.append(item,this.username);
+                  if(item==="username")param.append(item,sessionStorage.getItem('username'));
                   else param.append(item,this.uploadForm[item]);
-
                 });
                 let config = {
                   headers: {
@@ -319,7 +318,7 @@
             background: 'rgba(0, 0, 0, 0.7)'
           });
           this.$axios.post('/soft-detail/install-soft',{
-            username:this.username,
+            username:sessionStorage.getItem("username"),
             softId:this.softId,
             cldSessionId:this.cldSessionId
           }).then((res)=>{

@@ -87,6 +87,7 @@
     watch:{
       $route(to,from){
         this.getStatusParam();
+        if(to.path==="/homePage")this.getMenu();
       }
     },
     methods:{

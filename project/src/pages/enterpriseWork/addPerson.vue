@@ -100,7 +100,6 @@
             positionType:"COMMON"
           };
           this.$axios.post('/sysuser/user-group',param).then((res)=>{
-            console.info(res.data);
             if(res.data.message==="成功"){
               this.$message({
                 message: '添加成功',
