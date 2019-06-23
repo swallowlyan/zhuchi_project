@@ -1,5 +1,5 @@
 <template>
-  <div class="register-page">
+  <div class="register-page":style="{height:heightData}">
     <el-row>
     <el-col :span="8" :offset="7" style="margin-top:50px;margin-bottom: 50px">
     <el-card class="box-card">
@@ -136,6 +136,7 @@
               phone:"",
               verificationCode:""
             },
+            heightData:0,
             enterpriseForm:{
               username:"",
               passwd:"",
@@ -179,7 +180,18 @@
             }
           }
       },
+       mounted(){
+          this.resize();
+        window.addEventListener('resize', this.resize);
+        },
+      beforeDestroy() {
+        window.removeEventListener('resize', this.resize);
+      },
       methods:{
+        resize() {
+          const r = Math.max(document.documentElement.clientHeight, 768);
+          this.heightData = r - 120 + 'px';
+         },
         userRegister(formName){
           /*this.$refs[formName].validate((valid) => {
             if (valid) {*/
@@ -350,8 +362,8 @@
   .register-page{
     width:100%;
     height:100%;
-    background-size:100% 100%;
-    background: url("../assets/login_bg.jpg");
+    background-size:100% 100%!important;
+    background: url("../assets/login_bg.jpg") no-repeat;
   }
   .box-card{background-color: #ffffff}
   .el-row button{width: 100%;margin: 10px 0px}

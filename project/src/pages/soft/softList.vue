@@ -61,9 +61,9 @@
                     </a>
                   </el-row>
                   <el-row v-if="item.softCategory3Id!=='1'">
-                    <el-button type="text" @click="toSAAS(item.id)">
+                    <div style="cursor: pointer" @click="toSAAS(item.id)">
                       <h3 class="softName">{{item.softName}}</h3>
-                    </el-button>
+                    </div>
                   </el-row>
                   <el-row><span class="company">{{item.creator}}</span></el-row>
                   <el-row><span class="info">{{item.description}}</span></el-row>
