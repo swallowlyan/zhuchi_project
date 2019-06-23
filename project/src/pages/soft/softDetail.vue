@@ -135,7 +135,7 @@
       props: {
         detail:{
           type:Object,
-          default(){return {'55':"o"}}
+          default(){return {}}
         }
       },
       mounted(){

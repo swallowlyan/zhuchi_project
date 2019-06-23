@@ -8,21 +8,21 @@
               <el-row class="type">
                 <el-col :span="3"><span>领域分类：</span></el-col>
                 <el-col :span="2"><el-button type="text" @click="getSoft('')">全部</el-button></el-col>
-                <el-col :span="3" v-for="(item,index) in areaTypeList":key="item">
+                <el-col :span="3" v-for="(item,index) in areaTypeList":key="index">
                   <el-button type="text" @click="getSoft(item.id)">{{item.fieldName}}</el-button>
                 </el-col>
               </el-row>
               <el-row class="type">
                 <el-col :span="3"><span>行业分类：</span></el-col>
                 <el-col :span="2"><el-button type="text"@click="getSoft('')">全部</el-button></el-col>
-                <el-col :span="3" v-for="(item,index) in industryTypeList">
+                <el-col :span="3" v-for="(item,index) in industryTypeList" :key="index">
                   <el-button type="text" @click="getSoft(item.id)">{{item.industryName}}</el-button>
                 </el-col>
               </el-row>
               <el-row class="type">
                 <el-col :span="3"><span>交付方式：</span></el-col>
                 <el-col :span="2"><el-button type="text"@click="getSoft('')">全部</el-button></el-col>
-                <el-col :span="3" v-for="(item,index) in payTypeList">
+                <el-col :span="3" v-for="(item,index) in payTypeList" :key="index">
                   <el-button type="text" @click="getSoft(item.id)">{{item.deliverType}}</el-button>
                 </el-col>
               </el-row>
@@ -44,7 +44,7 @@
             </div>
             <div class="softContent">
               <!--softInfo-->
-              <div v-for="(item,index) in softList">
+              <div v-for="(item,index) in softList" :key="index">
               <el-row >
                 <el-col :span="2" class="softImg">
                     <el-button type="text" @click="toDetail(item)">
@@ -146,14 +146,10 @@
           searchCommon:{
             type:String,
             default(){return ""}
-          },
-        menuId_pro:{
-          type:Number,
-          default(){return 0}
-        }
+          }
       },
       mounted(){
-        this.initPage(this.menuId_pro);
+        this.initPage();
       },
       methods:{
           //获取分类
@@ -193,10 +189,9 @@
             console.log(err);
           });
         },
-        initPage(id){
-          this.username=sessionStorage.getItem('username');
+        initPage(){
+          this.menuId=sessionStorage.getItem('menuId');
           this.getAreaType();this.getIndustryType();this.getPayType();
-          this.menuId=id;
           this.getSoft("");
         },
         handleSizeChange(val) {

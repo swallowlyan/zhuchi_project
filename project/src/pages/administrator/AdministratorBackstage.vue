@@ -11,7 +11,7 @@
       background-color="#447edf"
       text-color="#fff"
       active-text-color="#fff">
-      <div  v-for="(button, index) in buttons">
+      <div  v-for="(button, index) in buttons" :key="index">
       <router-link :to="button.url">
         <el-menu-item :index="button.index"
         :key="index">

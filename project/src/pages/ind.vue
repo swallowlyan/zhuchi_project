@@ -22,7 +22,7 @@
           <el-col :span="3" class="managerArea">
             <router-link to="/homePage">首页</router-link>
           </el-col>
-          <el-col :span="3" class="managerArea" v-for="(item) in menuList">
+          <el-col :span="3" class="managerArea" v-for="(item,index) in menuList" :key="index">
             <el-button  type="text" @click="toPage(item.name,item.id)">{{item.name}}</el-button></el-col>
         </el-col>
         <el-col :span="1" class="managerArea"  style="float: right;" :style="{display:ifLogin?'':'none'}">
@@ -56,7 +56,7 @@
       </el-header>
     <!-- 身体 -->
       <el-main style="padding: 0px 20px">
-          <router-view :getIfPerson="getIfPerson" :menuName="menuName" :menuId_pro="menuId_pro"  ref="listPage"/>
+          <router-view :getIfPerson="getIfPerson"  ref="listPage"/>
       </el-main>
     </el-container>
   </div>
@@ -74,7 +74,6 @@
         pageTitle:"",
         menuList:[],
         menuName:"",
-        menuId_pro:"",
         ifPerson:true,
         ifMenu:true,
         ifLogin:true
@@ -99,11 +98,12 @@
        this.roleId=sessionStorage.getItem('roleId');
      },
       toPage(name,id){
-       this.menuName=name;this.menuId_pro=id;
+        sessionStorage.setItem('menuId',id);
+        sessionStorage.setItem('menuName',name);
        if(name==="首页")this.$router.push("/homePage");
        else {
          if(this.$route.path.indexOf("soft")>-1&&this.$route.path.indexOf("Detail")<0){
-           this.$refs.listPage.initPage(id);
+           this.$refs.listPage.initPage();
          }else{
            this.$router.push({path: '/soft'});
          }

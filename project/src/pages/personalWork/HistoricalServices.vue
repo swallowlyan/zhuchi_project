@@ -25,8 +25,8 @@
           </td>
           <td>{{data.version}}</td>
           <td>{{data.jiaofu}}</td>
-          <td>{{data.jiaofu}}</td>
-          <td>{{data.jiaofu}}</td>
+          <td>{{data.total_duration}}</td>
+          <td>{{data.recent_time}}</td>
           <td>
             <template >
               <el-button v-if="data.jiaofu==='下载'" type="text" size="mini" @click="downSoft(data.fileUrl)">重新下载</el-button>

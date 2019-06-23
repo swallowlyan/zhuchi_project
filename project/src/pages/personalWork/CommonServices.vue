@@ -6,7 +6,7 @@
     <div class="suffix" v-if="ifNullData">
       <h1>无使用记录</h1>
     </div>
-    <div class="suffix" v-for="(data, index) in commonData">
+    <div class="suffix" v-for="(data, index) in commonData"  :key="data">
       <div style="text-align:center;">
         <img :src="'data:image/jpg;base64,'+data.icon" style="height:50px;width: 50px">
         <div>{{data.softName}}</div>

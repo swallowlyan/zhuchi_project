@@ -30,7 +30,7 @@
           </el-row>
         </el-col>
       </el-row>
-      <router-view ref="list" :searchCommon="searchInput" :menuName="menuName" :menuId_pro="menuId_pro" v-on:getObj="getDetailObj" :detail="detailObj"></router-view>
+      <router-view ref="list" :searchCommon="searchInput" v-on:getObj="getDetailObj" :detail="detailObj"></router-view>
     </div>
 </template>
 <script>
@@ -48,18 +48,12 @@
               {label:"交付方式",value:"2"}
             ],
             searchVal:"",
+            menuName:"",
             detailObj:{}
           }
       },
-      props:{
-        menuName:{
-          type:String,
-          default(){return ""}
-        },
-        menuId_pro:{
-          type:Number,
-          default(){return 0}
-        }
+      created(){
+        this.menuName=sessionStorage.getItem('menuName');
       },
       methods:{
           //查找软件
@@ -74,8 +68,9 @@
             this.detailObj=obj;
             this.$router.push({path: '/soft/softDetail'});
         },
-        initPage(id){
-          this.$refs.list.initPage(id);
+        initPage(){
+          this.menuName=sessionStorage.getItem('menuName');
+          this.$refs.list.initPage();
         }
       }
     }
