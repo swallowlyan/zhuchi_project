@@ -73,37 +73,15 @@
         </el-form-item>
     <div class="demo-input-suffix"><span>上传图标:</span>
       <input class="file" name="icon" type="file" accept="image/png,image/gif,image/jpeg" @change="iconSelect"/>
-      <!--<el-upload class="upload-demo"
-                 ref="upload"
-                 :action="uploadFileUrl"
-                 :headers="uploadHeader"
-                 :data="uploadForm"
-                 :on-change="iconSelect"
-                 :auto-upload="false"
-                 :multiple="false"
-                 accept=".jpg,.jpeg,.png,.gif,.bmp,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP"
-      >
-      <el-button slot="trigger" size="small" type="primary">选取图标</el-button>
-    <div slot="tip" class="el-upload__tip">只能上传图片文件</div>
-    </el-upload>--></div>
-    <div class="demo-input-suffix"><span>上传服务:</span>
+      </div>
+    <div v-if="ifDown" class="demo-input-suffix"><span>上传服务:</span>
       <input class="file" name="file" type="file"  @change="fileSelect"/>
-      <!--<el-upload class="upload-demo"
-      ref="upload"
-      :action="uploadFileUrl"
-      :headers="uploadHeader"
-      :data="uploadForm"
-      :on-change="fileSelect"
-      :auto-upload="false":multiple="false"
-      >
-        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-    </el-upload>-->
   </div>
       </el-form>
-      <div v-if="ifDown" style="margin-left:220px;" id="upload_btn"><el-button type="primary" @click="submitUpload('uploadForm')">提交</el-button></div>
+      <div style="margin-left:220px;" id="upload_btn"><el-button type="primary" @click="submitUpload('uploadForm')" :disabled="!ifSubmit">提交</el-button></div>
       <div v-if="ifSAAS">
-        <div style="margin-left:220px;"><el-button type="primary" @click="openWin">云化服务</el-button></div>
-        <div style="margin-left:220px;"><el-button type="primary" @click="installSoft">安装</el-button></div>
+        <div style="margin-left:220px;"><el-button type="primary" @click="openWin" :disabled="!ifOpenWin">云化服务</el-button></div>
+        <div style="margin-left:220px;"><el-button type="primary" @click="installSoft" :disabled="!ifInstall">安装</el-button></div>
       </div>
         </el-col>
       </el-row>
@@ -120,8 +98,15 @@
             areaTypeList:[],
             industryTypeList:[],
             payTypeList:[],
+            ifSubmit:true,
             ifSAAS:false,
             ifDown:true,
+            ifOpenWin:false,
+            ifInstall:false,
+            UL:"",
+            id:"",
+            softId:"",
+            cldSessionId:"",
             uploadFormData:new FormData(),
             uploadForm:{
               username:"",
@@ -229,35 +214,50 @@
         submitUpload(formName){
           this.$refs[formName].validate((valid) => {
             if (valid) {
-              event.preventDefault();
-              let param = new window.FormData();
-              Object.keys(this.uploadForm).forEach((item) => {
-                if(item==="username")param.append(item,this.username);
-                else param.append(item,this.uploadForm[item]);
+              if(this.uploadForm.icon===""||this.uploadForm.icon===undefined){
+                this.$message({
+                  message: "请选择图标，进行上传",
+                  type: 'error'
+                });
+              }else{//开始上传
+                event.preventDefault();
+                let param = new window.FormData();
+                Object.keys(this.uploadForm).forEach((item) => {
+                  if(item==="username")param.append(item,this.username);
+                  else param.append(item,this.uploadForm[item]);
 
-              });
-              let config = {
-                headers: {
-                  'Content-Type': 'multipart/form-data'
-                }
-              };
-              this.$axios.post('/soft-detail/create',param,config).then((res)=>{
-                if(res.data.message==="成功"){
-                  this.$message({
-                    message: '上传成功',
-                    type: 'success'
-                  });
-                  this.$refs[formName].resetFields();
-                }else{
-                  this.$message({
-                    message: '上传失败',
-                    type: 'error'
-                  });
-                }
-
-              }).catch((err)=>{
-                console.log(err);
-              });
+                });
+                let config = {
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+                };
+                this.$axios.post('/soft-detail/create',param,config).then((res)=>{
+                  let message="";
+                  if(res.data.message==="成功"){
+                    if(this.ifSAAS){
+                      message="上传成功,请点击“云化服务”进行云化服务";
+                      this.softId=res.data.data;
+                      this.ifSubmit=false;
+                      this.ifOpenWin=true;
+                    }else{
+                      message="上传成功";
+                      this.$refs[formName].resetFields();
+                    }
+                    this.$message({
+                      message: message,
+                      type: 'success'
+                    });
+                  }else{
+                    this.$message({
+                      message: "上传失败",
+                      type: 'error'
+                    });
+                  }
+                }).catch((err)=>{
+                  console.log(err);
+                });
+              }
             }else {
               console.log('error submit!!');
               return false;
@@ -274,10 +274,77 @@
           this.fileList = fileList.slice(-3);
         },
         openWin(){//云化服务
-
+          //loading
+          const loading = this.$loading({
+            lock: true,
+            text: '正在打开云桌面……',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          });
+          this.$axios.post('/send-request/install-desktop').then((res)=>{
+            if(res.data.success === true){
+              this.ifOpenWin=false;
+              this.ifInstall=true;
+              this.UL = res.data.osurl;
+              this.id  = res.data.id;
+              this.cldSessionId = res.data.sessionId;
+              setTimeout(()=>{
+                window.open(this.UL);
+                loading.close();
+              },25000);
+              /* this.setId(this.id);
+               this.setCldSessionId(this.cldSessionId);*/
+            }else{
+              loading.close();
+              this.$message({
+                message: '进入云桌面失败，请稍后再试',
+                type: 'error'
+              });
+            }
+          }).catch(()=>{
+            loading.close();
+            this.$message({
+              message: '请求失败',
+              type: 'error'
+            });
+          })
         },
         installSoft(){//安装
-
+          this.username=sessionStorage.getItem("username");
+          //loading
+          const loading = this.$loading({
+            lock: true,
+            text: '正在安装软件……',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          });
+          this.$axios.post('/soft-detail/install-soft',{
+            username:this.username,
+            softId:this.softId,
+            cldSessionId:this.cldSessionId
+          }).then((res)=>{
+            loading.close();
+            if(res.data.message === "成功"){
+              this.$message({
+                message: '安装成功',
+                type: 'success'
+              });
+              this.ifSubmit=true;
+              this.ifSAAS=false;this.ifDown=true;
+              this.ifOpenWin=false;this.ifInstall=false;
+              this.$refs['uploadForm'].resetFields();
+            }else{
+              this.$message({
+                message: '安装失败',
+                type: 'error'
+              });
+            }
+          }).catch(()=>{
+            this.$message({
+              message: '请求失败',
+              type: 'error'
+            });
+          })
         }
       },
     }

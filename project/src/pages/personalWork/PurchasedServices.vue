@@ -45,7 +45,8 @@
               <el-button type="text" size="mini">续费</el-button>
               <el-button type="text" size="mini">暂停</el-button>
               <el-button type="text" size="mini">退款</el-button>
-              <el-button type="text" size="mini">重新下载</el-button>
+              <el-button v-if="data.jiaofu==='下载'" type="text" size="mini" @click="downSoft(data.fileUrl)">重新下载</el-button>
+              <el-button v-if="data.jiaofu==='SAAS'" type="text" size="mini" @click="openWin(data.softId)">进入软件</el-button>
             </template>
           </td>
         </tr>
@@ -70,6 +71,37 @@
           this.$axios.get('/wc-index/available-softs',{params:param}).then((res)=>{
             if(res.data.data.length>0)this.buyService=res.data.data;
           }).catch((err)=>{
+            console.log(err);
+          });
+        },
+        downSoft(url){
+          window.open(url);
+        },
+        openWin(softId){//云服务
+          const loading = this.$loading({
+            lock: true,
+            text: '正在打开软件……',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          });
+          this.$axios.post('/send-request/use-desktop',{
+            username:this.username,
+            softwareId:softId,
+          }).then((res)=>{
+            // console.log(res);
+            if(res.data.success === true){
+              setTimeout(()=>{
+                window.open(res.data.desktopAddr);
+                loading.close();
+              },5000);
+            }else {
+              loading.close();
+              alert('打开软件失败，请重试或联系管理员！');
+            }
+            // console.log(res.data);
+          }).catch((err)=>{
+            loading.close();
+            alert('打开软件失败，请重试或联系管理员！');
             console.log(err);
           });
         }

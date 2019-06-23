@@ -11,8 +11,8 @@
       加入时间：{{business.enteringTime}}
      </div>
       <div class="suffix">
-        <el-button type="primary">变更企业</el-button>
-        <el-button type="primary" @click="">离开企业</el-button>
+        <el-button type="primary" :disabled="!ifChange">变更企业</el-button>
+        <el-button type="primary" @click="removeBusiness()">离开企业</el-button>
      </div>
 
     <div class="suffix">
@@ -56,9 +56,8 @@
           </td>
           <td>
             <template >
-              <el-link type="primary" size="mini" :href="data.fileUrl">
-                下载软件
-              </el-link>
+              <el-button v-if="data.jiaofu==='下载'" type="text" size="mini" @click="downSoft(data.fileUrl)">下载软件</el-button>
+              <el-button v-if="data.jiaofu==='SAAS'" type="text" size="mini" @click="openWin(data.softId)">进入软件</el-button>
             </template>
           </td>
         </tr>
@@ -72,12 +71,13 @@
           return{
             username:sessionStorage.getItem('username'),
           state: '',
-            business:{},
+            ifChange:true,
+            business:{name:"---",enteringTime:"---"},
             softData:[]
           }
       },
       mounted(){
-        this.searchData();
+        this.searchData();this.getBusiness();
       },
       methods:{
         getBusiness(){//获取企业信息
@@ -93,6 +93,51 @@
           this.$axios.get('/wc-index/available-softs',{params:param}).then((res)=>{
             if(res.data.data.length>0)this.softData=res.data.data;
           }).catch((err)=>{
+            console.log(err);
+          });
+        },
+        removeBusiness(){//离开企业
+          this.$axios.post('/sysuser/user-group-remove',
+            {username:sessionStorage.getItem('username')}).then((res)=>{
+            if(res.data.message==="成功"){
+              this.ifChange=false;
+              this.$message({
+                message: '已成功离开该企业',
+                type: 'success'
+              });
+            }
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
+        downSoft(url){
+          window.open(url);
+        },
+        openWin(softId){//云服务
+          const loading = this.$loading({
+            lock: true,
+            text: '正在打开软件……',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          });
+          this.$axios.post('/send-request/use-desktop',{
+            username:this.username,
+            softwareId:softId,
+          }).then((res)=>{
+            // console.log(res);
+            if(res.data.success === true){
+              setTimeout(()=>{
+                window.open(res.data.desktopAddr);
+                loading.close();
+              },5000);
+            }else {
+              loading.close();
+              alert('打开软件失败，请重试或联系管理员！');
+            }
+            // console.log(res.data);
+          }).catch((err)=>{
+            loading.close();
+            alert('打开软件失败，请重试或联系管理员！');
             console.log(err);
           });
         }

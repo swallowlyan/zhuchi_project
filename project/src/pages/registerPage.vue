@@ -86,6 +86,44 @@
     export default {
         name: "signPage",
       data(){
+        let checkUsername = (rule, value, callback) => {
+          if (!value) {
+            return callback(new Error('请输入您的账号'));
+          } else {
+            const reg = /^[A-Za-z0-9]+$/;
+            if (reg.test(value)) {
+              callback();
+            } else {
+              return callback(new Error('账号由数字和英文字母组成，请重新输入'));
+            }
+          }
+        };
+        let checkPwd = (rule, value, callback) => {
+          if (!value) {
+            return callback(new Error('请输入您的密码'));
+          } else {
+            const reg = /^(\w){6,20}$/;
+            if (reg.test(value)) {
+              callback();
+            } else {
+              return callback(new Error('密码由6-20个字母、数字、下划线组成，请重新输入'));
+            }
+          }
+        };
+        let checkPhone = (rule, value, callback) => {
+          if (!value) {
+            return callback(new Error('请输入您的手机号'));
+          } else {
+            const reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
+            console.log(reg.test(value));
+            if (reg.test(value)) {
+              callback();
+            } else {
+              return callback(new Error('请输入正确的手机号'));
+            }
+          }
+        };
+
           return {
             activeName: "userRegister",
             userForm:{
@@ -110,8 +148,10 @@
               verificationCode:""
             },
             registerRule: {
-              username: [{required: true, message: '请输入您的账号', trigger: 'blur'}],
-              passwd: [{required: true, message: '请输入您的密码', trigger: 'blur'}],
+              username: [{required: true, message: '请输入您的账号', trigger: 'blur'},
+                {validator: checkUsername,trigger: 'blur'}],
+              passwd: [{required: true, message: '请输入您的密码', trigger: 'blur'},
+                {validator: checkPwd,trigger: 'blur'}],
               email: [
                 {required: true, message: '请输入您的邮箱', trigger: 'blur'},
                 { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
@@ -119,11 +159,14 @@
               address: [{required: true, message: '请输入您的地址', trigger: 'blur'}],
               nickname: [{required: true, message: '请输入您的姓名', trigger: 'blur'}],
               userCode: [{required: true, message: '请输入您的身份证号码', trigger: 'blur'}],
-              phone: [{required: true, message: '请输入您的手机号', trigger: 'blur'}],
+              phone: [{required: true, message: '请输入您的手机号', trigger: 'blur'},
+                {validator: checkPhone,trigger: 'blur'}],
         },
             enterpriseRule: {
-              username: [{required: true, message: '请输入您的账号', trigger: 'blur'}],
-              passwd: [{required: true, message: '请输入您的密码', trigger: 'blur'}],
+              username: [{required: true, message: '请输入您的账号', trigger: 'blur'},
+                {validator: checkUsername,trigger: 'blur'}],
+              passwd: [{required: true, message: '请输入您的密码', trigger: 'blur'},
+                {validator: checkPwd,trigger: 'blur'}],
               email: [
                 {required: true, message: '请输入您的邮箱', trigger: 'blur'},
                 { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
@@ -131,7 +174,8 @@
               address: [{required: true, message: '请输入您的地址', trigger: 'blur'}],
               nickname: [{required: true, message: '请输入您的企业名称', trigger: 'blur'}],
               orgId: [{required: true, message: '请输入您的企业信用代码', trigger: 'blur'}],
-              phone: [{required: true, message: '请输入您的手机号', trigger: 'blur'}],
+              phone: [{required: true, message: '请输入您的手机号', trigger: 'blur'},
+                {validator: checkPhone,trigger: 'blur'}],
             }
           }
       },

@@ -7,7 +7,7 @@
           <!--<router-link :to="{path:'/homePage'}">-->
         <img src="../assets/common/logo_zhuchi.png" alt="logo" style="float: left;margin:10px;width: 150px">
           <!--</router-link>-->
-      <span id="welcomeTitle" class="managerArea">欢迎，{{username}}</span>
+      <span id="welcomeTitle" class="managerArea">欢迎  {{username}}</span>
       <div class="division"></div>
       <div class="title">
         <h3>{{pageTitle}}</h3>
@@ -31,9 +31,10 @@
         <i class="el-icon-s-unfold"></i>
       </span>
             <el-dropdown-menu slot="dropdown" class="dropMenu">
-              <el-dropdown-item icon="el-icon-circle-check-outline">资源库首页</el-dropdown-item>
+              <!--<el-dropdown-item icon="el-icon-circle-check-outline">资源库首页</el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">我的订单</el-dropdown-item>
-              <el-dropdown-item icon="el-icon-circle-check-outline" :style="{display:roleId?'none':''}">
+              <el-dropdown-item icon="el-icon-circle-check-outline">设置中心</el-dropdown-item>-->
+              <el-dropdown-item icon="el-icon-circle-check-outline" :style="{display:userType==='COMMON'?'':'none'}">
                 <router-link  to="/personal-workbench">个人工作台</router-link>
               </el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline" :style="{display:userType==='SENIOR'?'':'none'}">
@@ -42,7 +43,7 @@
               <el-dropdown-item icon="el-icon-circle-check-outline" :style="{display:userType==='SUPER'?'':'none'}">
                 <router-link  to="/enterprise-workbench">管理员工作台</router-link>
               </el-dropdown-item>
-              <el-dropdown-item icon="el-icon-circle-check-outline">设置中心</el-dropdown-item>
+
               <el-dropdown-item icon="el-icon-circle-check-outline">
                 <el-button type="text" @click="logOut">注销</el-button>
                 </el-dropdown-item>
@@ -67,7 +68,7 @@
   data(){
       return{
         roleId:"",
-        username:"",
+        username:"登录系统",
         userType:"",
         enterpriseId:"",
         pageTitle:"",
