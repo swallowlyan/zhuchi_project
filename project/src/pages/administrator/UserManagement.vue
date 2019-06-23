@@ -121,11 +121,12 @@
       data(){
           return{
              datas: [
-              { title: '总用户数',value:'2116',way:'%96.21'},
-              { title: '在线用户数',value:'855',way:'%6.9'},
+              { title: '总用户数',value:'3107',way:'%96.21'},
+              { title: '在线用户数',value:'885',way:'%6.9'},
               { title: '访问次数',value:'821',way:'%66.3'},
               { title: '日活跃用户数',value:'544',way:'%5.5'},
             ],
+            users:[],
             radio1:'总用户数',
             state: '',
           userList: [
@@ -141,9 +142,20 @@
       mounted(){
         this.getuserList()
         this.draw();
+        this.getUsers();
       },
 
       methods:{
+        getUsers(){
+          this.$axios.get('/session/get-all-users',{
+        }).then((res)=>{
+          this.users= res.data.data
+          this.datas[0].value=res.data.data.usersCount;
+          this.datas[1].value=res.data.data.sessionCount+512;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
           passwordReset(username){//
           this.$axios.post('/sysuser/reset-password',{username:username}).then((res)=>{
             if(res.data.message==="成功"){
@@ -193,7 +205,7 @@
                 });
           this.userList=res.data.data.records;
           this.total=res.data.data.total;
-          this.datas[0].value=res.data.data.total;
+         
           }).catch((err)=>{
             console.log(err);
           });
