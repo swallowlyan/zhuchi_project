@@ -8,7 +8,7 @@
               <el-row class="type">
                 <el-col :span="3"><span>领域分类：</span></el-col>
                 <el-col :span="2"><el-button type="text" @click="getSoft('')">全部</el-button></el-col>
-                <el-col :span="3" v-for="(item,index) in areaTypeList">
+                <el-col :span="3" v-for="(item,index) in areaTypeList":key="item">
                   <el-button type="text" @click="getSoft(item.id)">{{item.fieldName}}</el-button>
                 </el-col>
               </el-row>

@@ -120,7 +120,15 @@
   padding:5px 0;
 }
 tr:nth-child(odd) {
-  background: #efefef;
+  background: #FAFAFA;
+}
+tr:nth-child(1) {
+  background: #FFF!important;
+  color:#909399;
+  font-size:12px!important;
+}
+tr{
+  border-bottom: 1px solid #EBEEF5;
 }
 .line_style div{
  margin:10px 0;
