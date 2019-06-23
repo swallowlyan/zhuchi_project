@@ -31,25 +31,25 @@
       </el-col>
       <el-col :span="4">
         <el-row><h1><i class="fa fa-home"></i></h1></el-row>
-        <el-row><h2>云化软件<span class="num">39</span>款</h2></el-row>
+        <el-row><h2>云化软件<span class="num">{{softCount}}</span>款</h2></el-row>
       </el-col>
       <el-col :span="4">
         <el-row><h1><i class="fa fa-share-alt"></i></h1></el-row>
-        <el-row><div style="font-weight: normal;width: 90px;float: left;margin-left: 50px">机理模型及微服务组件</div><span class="num">39</span><span>个</span></el-row>
+        <el-row><div style="font-weight: normal;width: 90px;float: left;margin-left: 50px">机理模型及微服务组件</div><span class="num">{{serviceCount}}</span><span>个</span></el-row>
       </el-col>
       <el-col :span="4">
         <el-row><h1><i class="fa fa-buysellads"></i></h1></el-row>
-        <el-row><h2>工业APP<span class="num">139</span>款</h2></el-row>
+        <el-row><h2>工业APP<span class="num">{{appCount}}</span>款</h2></el-row>
       </el-col>
     </el-row>
     <el-row class="Introduction">
       <el-col :span="4" :offset="4">
         <el-row><h1><i class="fa fa-users"></i></h1></el-row>
-        <el-row><h2>用户<span class="num">3900</span>人</h2></el-row>
+        <el-row><h2>用户<span class="num">{{userCount}}</span>人</h2></el-row>
       </el-col>
       <el-col :span="4">
         <el-row><h1><i class="fa fa-user-md"></i></h1></el-row>
-        <el-row><h2>开发者<span class="num">39</span>名</h2></el-row>
+        <el-row><h2>开发者<span class="num">{{developCount}}</span>名</h2></el-row>
       </el-col>
       <el-col :span="4">
         <el-row><h1><i class="fa fa-bar-chart"></i></h1></el-row>
@@ -57,7 +57,7 @@
       </el-col>
       <el-col :span="4">
         <el-row><h1><i class="fa fa-code"></i></h1></el-row>
-        <el-row><h2>通用算法等<span class="num">139</span>个</h2></el-row>
+        <el-row><h2>通用算法等<span class="num">{{algorithmCount}}</span>个</h2></el-row>
       </el-col>
     </el-row>
     <el-divider><h1>工业软件</h1></el-divider>
@@ -132,8 +132,38 @@
               {
                 src:require("../assets/carousel/carousel_3.jpg"),
                 name:""
-              }]
+              }],
+            softCount:0,
+            serviceCount:0,
+            appCount:0,
+            userCount:0,
+            developCount:0,
+            algorithmCount:0
           }
+      },
+      created(){
+        this.getHomePageData();
+      },
+      methods:{
+        getHomePageData(){
+          this.$axios.get('/wc-index/index-moudles').then((res)=>{
+            if(res.data.data.length>0){
+              let service=0,mechanism=0;
+              res.data.data.forEach((item) => {
+                if(item.name==="工业软件")this.softCount=item.count;
+                else if(item.name==="工业APP")this.appCount=item.count;
+                else if(item.name==="算法模型")this.algorithmCount=item.count;
+                else if(item.name==="用户")this.userCount=item.count;
+                else if(item.name==="开发者")this.developCount=item.count;
+                else if(item.name==="机理模型")mechanism=item.count;
+                else if(item.name==="微服务组件")service=item.count;
+              });
+              this.serviceCount=service+mechanism;
+            }
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
       }
     }
 </script>

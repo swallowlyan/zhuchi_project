@@ -198,7 +198,7 @@
         this.$axios.post('/soft-detail/get-all-softs', {
           size:this.size,
           current:this.page,
-          username:'admin'
+          username:sessionStorage.getItem('username')
         }).then((res)=>{
           this.softList=res.data.data.records;
           this.total=res.data.data.total
@@ -257,7 +257,7 @@
           }).catch((err)=>{
             console.log(err);
           });
-        
+
       },
 
       showInput() {
@@ -277,7 +277,7 @@
             console.log(err);
           });
         }
-    
+
         this.inputVisible = false;
         this.inputValue = '';
       },
@@ -287,7 +287,7 @@
           }).catch((err)=>{
             console.log(err);
           });
-        
+
       },
 
       showInput_b() {
@@ -307,7 +307,7 @@
             console.log(err);
           });
         }
-    
+
         this.inputVisible_b= false;
         this.inputValue_b= '';
       },

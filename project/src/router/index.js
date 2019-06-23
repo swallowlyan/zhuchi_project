@@ -47,13 +47,15 @@ export default new Router({
           path:'',
           name:'LoginPage',
           component:LoginPage,
-          children:[]
+          children:[],
+          meta:"false"
         },
         {
           path:'/register',
           name:'registerPage',
           component:registerPage,
-          children:[]
+          children:[],
+          meta:"false"
         },
         {
           path:'homePage',

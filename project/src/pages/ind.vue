@@ -14,7 +14,8 @@
       </div>
     <div class="bg_header">
       <el-row style="margin: 0px">
-        <el-col :span="1" class="managerArea" :style="{display:ifMenu?'none':''}"
+        <el-col :span="1" class="managerArea"
+                :style="{display:$route.meta=='false'||ifMenu?'none':''}"
                 style="font-size: 26px;margin-top: 5px;margin-left: -85px">
           <router-link to="/homePage"><i class="fa fa-home"></i></router-link>
         </el-col>
@@ -127,6 +128,7 @@
           else if(this.$route.path.indexOf("/administrator")>-1)this.pageTitle="管理员工作台";
         }
         if(this.$route.path==="/"){
+          this.pageTitle="工业互联网平台";
           this.ifLogin=false;
         }else this.ifLogin=true;
       },
