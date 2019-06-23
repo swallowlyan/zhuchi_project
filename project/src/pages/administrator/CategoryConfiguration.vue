@@ -101,7 +101,7 @@
         >
           <td>{{soft.softName}}</td>
           <td> <img :src="'data:image/jpg;base64,'+soft.softIcon
-          " style="height:50px;width: 50px"></td>
+          " style="height:50px;width: 50px;padding-top:12px;"></td>
           <td>{{soft.softVersion}}</td>
           <td>{{soft.softMenu}}</td>
           <td>{{soft.softCategoryName}}</td>
@@ -164,7 +164,7 @@
             industryName:''
           },
           total: 0,
-          size: 7,
+          size: 5,
           page: 1,
           }
       },
