@@ -55,7 +55,7 @@
           }
       },
 
-      created(){
+      mounted(){
           this.getUsername();
           this.getRoleId();
       },

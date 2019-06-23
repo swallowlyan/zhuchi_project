@@ -58,7 +58,7 @@
             collectService:[]
           }
       },
-      created(){
+      mounted(){
         this.getCollectService();
       },
       methods: {

@@ -73,7 +73,7 @@
         default(){return false}
         }
       },
-      created(){
+      mounted(){
           this.searchPerson({
             current:1,
             size:5,

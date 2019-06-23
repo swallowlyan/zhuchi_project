@@ -54,6 +54,9 @@
         }
       }
     },
+    mounted(){
+      this.changeCodeImg();
+    },
     methods: {
       changeCodeImg(){
         let num=Math.ceil(Math.random()*10);
@@ -62,12 +65,14 @@
       submitForm() {
             this.$axios.post("login", this.userForm).then((response) => {
               if (response.data.code === 0) {
+                sessionStorage.setItem('userToken',response.headers.authorization);
+                console.info(response.headers.authorization);
                 //个人用户
                 sessionStorage.setItem('username',this.userForm.username);
                 if(response.data.data!==null){//企业用户|管理员用户
                   sessionStorage.setItem('roleId',response.data.data.roleId);
                   sessionStorage.setItem('userType',response.data.data.userType);
-                  if(response.data.data.userType==="SENIOR")sessionStorage.setItem('enterpriseId',response.data.data.groupId);
+                  sessionStorage.setItem('enterpriseId',response.data.data.groupId);
                 }
                 this.$router.push('/homePage');
                /* if (response.data.data.roleId === 1) {

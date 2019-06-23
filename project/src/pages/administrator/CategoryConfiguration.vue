@@ -168,7 +168,7 @@
           page: 1,
           }
       },
-      created(){
+      mounted(){
         this.getAreaType();
         this.getindustry();
         this.getdeliver();

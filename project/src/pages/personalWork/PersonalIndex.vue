@@ -116,7 +116,7 @@
             fileList:[]
           }
       },
-      created(){
+      mounted(){
         this.getCommonService();this.getHistoryService();
         this.getBuyService();this.getFileList();
       },

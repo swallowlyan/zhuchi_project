@@ -80,7 +80,7 @@
         ifLogin:true
       }
     },
-    created(){
+    mounted(){
       this.getMenu();
       this.getStatusParam();
   },

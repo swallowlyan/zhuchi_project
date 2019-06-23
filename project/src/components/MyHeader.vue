@@ -33,7 +33,7 @@
           }
       },
 
-      created(){
+      mounted(){
           if(this.roleId == 1){
             this.isShow='display:none;';
           }else {

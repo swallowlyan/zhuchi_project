@@ -52,7 +52,7 @@
             detailObj:{}
           }
       },
-      created(){
+      mounted(){
         this.menuName=sessionStorage.getItem('menuName');
       },
       methods:{

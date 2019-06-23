@@ -141,7 +141,7 @@
             algorithmCount:0
           }
       },
-      created(){
+      mounted(){
         this.getHomePageData();
       },
       methods:{
