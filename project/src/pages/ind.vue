@@ -82,32 +82,11 @@
     },
     created(){
       this.getMenu();
-      this.pageTitle="工业互联网平台";
-      if(this.$route.path.indexOf("/soft")>-1||this.$route.path.indexOf("/homePage")>-1){
-        this.ifMenu=true;
-      }else this.ifMenu=false;
-      if(this.$route.path==="/"){
-        this.ifLogin=false;
-      }else this.ifLogin=true;
+      this.getStatusParam();
   },
     watch:{
       $route(to,from){
-        this.roleId=sessionStorage.getItem('roleId');
-        this.username=sessionStorage.getItem('username');
-        this.userType=sessionStorage.getItem('userType');
-        this.enterpriseId=sessionStorage.getItem('enterpriseId');
-        if(to.path.indexOf("/soft")>-1||to.path.indexOf("/homePage")>-1){
-          this.ifMenu=true;
-          this.pageTitle="工业互联网平台";
-        }else{
-          this.ifMenu=false;
-          if(to.path.indexOf("/enterprise")>-1)this.pageTitle="企业工作台";
-          else if(to.path.indexOf("/personal-workbench")>-1)this.pageTitle="个人工作台";
-          else if(to.path.indexOf("/administrator")>-1)this.pageTitle="管理员工作台";
-        }
-        if(to.path==="/"){
-          this.ifLogin=false;
-        }else this.ifLogin=true;
+        this.getStatusParam();
       }
     },
     methods:{
@@ -132,6 +111,24 @@
       },
       getIfPerson(val){
        this.ifPerson=val;
+      },
+      getStatusParam(){
+        this.roleId=sessionStorage.getItem('roleId');
+        this.username=sessionStorage.getItem('username');
+        this.userType=sessionStorage.getItem('userType');
+        this.enterpriseId=sessionStorage.getItem('enterpriseId');
+        if(this.$route.path.indexOf("/soft")>-1||this.$route.path.indexOf("/homePage")>-1){
+          this.ifMenu=true;
+          this.pageTitle="工业互联网平台";
+        }else{
+          this.ifMenu=false;
+          if(this.$route.path.indexOf("/enterprise")>-1)this.pageTitle="企业工作台";
+          else if(this.$route.path.indexOf("/personal-workbench")>-1)this.pageTitle="个人工作台";
+          else if(this.$route.path.indexOf("/administrator")>-1)this.pageTitle="管理员工作台";
+        }
+        if(this.$route.path==="/"){
+          this.ifLogin=false;
+        }else this.ifLogin=true;
       },
       logOut(){
         sessionStorage.clear();

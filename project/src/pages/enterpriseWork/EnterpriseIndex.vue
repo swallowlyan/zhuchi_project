@@ -106,8 +106,9 @@
           return{
             ifOpenDialog:false,
             personList:[],
+            userTotal:0,
         datas: [
-          { title: '总用户数',value:'525',way:'%96.21'},
+          { title: '总用户数',value:this.userTotal,way:'%96.21'},
           { title: '活跃用户数',value:'855',way:'%6.9'},
           { title: '访问次数',value:'821',way:'%66.3'},
           { title: '用户提交次数',value:'544',way:'%5.5'},
@@ -148,7 +149,8 @@
         searchPerson(){
           let param={groupId:sessionStorage.getItem('enterpriseId')};
           this.$axios.get('/sysuser/group-users',{params:param}).then((res)=>{
-            console.info(res.data.data);
+            this.userTotal=res.data.data.length;
+            this.datas[0].value=res.data.data.length;
             this.personList=res.data.data;
           }).catch((err)=>{
             console.log(err);
