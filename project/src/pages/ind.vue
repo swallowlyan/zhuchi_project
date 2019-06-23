@@ -38,10 +38,10 @@
                 <router-link  to="/personal-workbench">个人工作台</router-link>
               </el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline" :style="{display:userType==='SENIOR'?'':'none'}">
-                <router-link  to="/enterprise-workbench">企业工作台</router-link>
+                <router-link  to="/enterprise-workbench/index">企业工作台</router-link>
               </el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline" :style="{display:userType==='SUPER'?'':'none'}">
-                <router-link  to="/enterprise-workbench">管理员工作台</router-link>
+                <router-link  to="/administrator-backstage/index">管理员工作台</router-link>
               </el-dropdown-item>
 
               <el-dropdown-item icon="el-icon-circle-check-outline">
