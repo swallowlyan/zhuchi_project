@@ -12,8 +12,11 @@
                 <el-form-item label="密码" prop="password">
                   <el-input v-model="userForm.password" type="password" placeholder="请输入密码"></el-input>
                 </el-form-item>
-                <el-form-item label="验证码">
-                  <el-input v-model="userForm.verificationCode" placeholder="请输入验证码"></el-input>
+                <el-form-item label="验证码"  prop="result">
+                  <el-input placeholder="请输入验证码" v-model="userForm.result" style="float: left;width: 55%"></el-input>
+                    <span style="display: inline-block;border: 1px solid #D7D7D7;float: left;height: 35px" @click="changeCodeImg()">
+                    <img :src="imgCodeUrl" style="width: 80px;height: 35px;cursor: pointer;"/>
+                  </span>
                 </el-form-item>
               </el-form>
               <el-row><el-col :span="13" :offset="5">
@@ -38,20 +41,25 @@
     data() {
       return {
         activeName: "userLogin",
+        imgCodeUrl:"/api/genVerCode",
         userForm: {
           username: "",
           password: "",
-          verificationCode: ""
+          result: ""
         },
         formRule: {
           username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
           password: [{required: true, message: '请输入密码', trigger: 'blur'}],
-          verificationCode: [{required: true, message: '请输入验证码', trigger: 'blur'}],
+          result: [{required: true, message: '请输入验证码', trigger: 'blur'}],
         }
       }
     },
     methods: {
-      submitForm(form) {
+      changeCodeImg(){
+        let num=Math.ceil(Math.random()*10);
+        this.imgCodeUrl = "/api/genVerCode?" + num;
+      },
+      submitForm() {
             this.$axios.post("login", this.userForm).then((response) => {
               if (response.data.code === 0) {
                 //个人用户
@@ -92,7 +100,6 @@
   }
   .box-card{background-color: #ffffff}
   .el-row button{width: 100%;margin: 10px 0px}
-  .managerArea{display: none}
 </style>
 <style>
 
