@@ -19,13 +19,13 @@
           <div style="font-size:20px;font-weight:700;margin:0px 14px 0px -23px">|</div>
           <span style="font-weight:700;font-size:12px;">数据图</span>
         </div>
-        <el-radio-group v-model="radio1"size="small">
+        <el-radio-group v-model="radio1"size="mini"style="position:absolute;z-index:99;">
           <el-radio-button label="总用户数"></el-radio-button>
           <el-radio-button label="在线用户数"></el-radio-button>
           <el-radio-button label="访问次数"></el-radio-button>
           <el-radio-button label="日活跃用户数"></el-radio-button>
         </el-radio-group>
-        <div id="main" style="width:100%;height:260px;margin-top:-30px;"></div>
+        <div id="main" style="width:100%;height:240px;"></div>
       </el-col>
     </el-row>
     <el-row style="margin-top:10px;">
@@ -34,55 +34,70 @@
           <span style="font-weight:700;font-size:12px;">用户管理</span>
       </div>
       <div  class="special">
-        <table
-          width="90%"
-          style="border-collapse:collapse;"
-        >
-        <tr style="font-weight:700;font-size:14px;line-height:35px;">
-          <td>姓名</td>
-          <td>注册时间</td>
-          <td>账号</td>
-          <td>手机号</td>
-          <td>所属部门</td>
-          <td>用户状态</td>
-          <td>操作</td>
-        </tr>
-        <tr v-for="(data, index) in userList"
-        style="font-size:12px;line-height:35px;"
-      :key="index"
-        >
-          <td>{{data.nickname}}</td>
-          <td>{{data.data}}</td>
-          <td>{{data.username}}</td>
-          <td>{{data.phone}}</td>
-          <td>{{data.groupName}}</td>
-          <td></td>
-          <td>
-            <template >
-              <el-button
-                size="mini"
-                name="select"
-              >
-                编辑
-              </el-button>
-              <el-button
-                size="mini"
-                name="select"
-              >
-                禁用
-              </el-button>
-              <el-button
-                size="mini"
-                name="select"
-              >
-                重置密码
-              </el-button>
-            </template>
-          </td>
-        </tr>
-      </table>
+       <el-table :data="userList" 
+        :stripe="true"
+        style="width:90%;font-size:12px;margin-top:-15px;">
+            <el-table-column label="姓名" width="130px">
+               <template slot-scope="scope">
+                    <el-input size="mini" placeholder="请输入内容" v-show="scope.row.show" v-model="scope.row.nickname"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.nickname}}</span>
+                </template>
+            </el-table-column>
+              <el-table-column label="注册时间"width="150px">
+              <template slot-scope="scope">
+                <span>{{scope.row.created}}</span>
+              </template>
+            </el-table-column>
+            </el-table-column>
+              <el-table-column label="账号" width="110px">
+              <template slot-scope="scope">
+                <span>{{scope.row.username}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="手机号" width="150px">
+                <template slot-scope="scope">
+                    <el-input size="mini" placeholder="请输入内容" v-show="scope.row.show" v-model="scope.row.phone"></el-input>
+                    <span v-show="!scope.row.show">{{scope.row.phone}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column label="所属部门" width="110px">
+                <template slot-scope="scope">
+                    <!--<el-input size="mini" placeholder="请输入内容" v-show="scope.row.show" v-model="scope.row.groupName"></el-input>-->
+                    <span >{{scope.row.groupName}}</span>
+                </template>
+            </el-table-column>
+             </el-table-column>
+              <el-table-column label="状态" width="80px">
+              <template slot-scope="scope">
+                <span>{{scope.row.status}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                 <el-button v-show="!scope.row.show" @click="scope.row.show =true"  size="mini" type="primary">编辑</el-button>
+                    <el-button @click="scope.row.show =false,saveUser(scope.row.phone,scope.row.nickname,scope.row.username)"  size="mini"type="primary"  v-show="scope.row.show" >保存</el-button>
+                    <el-button
+                    type="primary"
+                      size="mini"
+                      name="select"
+                      v-if="scope.row.status==='NORMAL'"
+                      @click="disable(scope.row.username)"
+                    > 禁用</el-button>
+                     <el-button size="mini" plain disabled v-if="scope.row.status==='LOCKED'">
+                      已禁用
+                    </el-button>
+                    <el-button
+                      size="mini"
+                      name="select"
+                      @click="passwordReset(scope.row.username)"
+                    >
+                      重置密码
+                    </el-button>
+              </template>
+            </el-table-column>
+        </el-table>
     </div>
-    <div style="text-align:center;" class="special">
+    <div style="text-align:center;margin-top:-20px;" class="special">
       <el-pagination
       style="margin-left:-100px;"
       @current-change="getuserList"
@@ -112,10 +127,11 @@
               { title: '日活跃用户数',value:'544',way:'%5.5'},
             ],
             radio1:'总用户数',
-             state: '',
+            state: '',
           userList: [
               
           ],
+          tabledatas:[],
           total: 0,
           size: 7,
           page: 1,
@@ -128,13 +144,67 @@
       },
 
       methods:{
-          getuserList(){
+          passwordReset(username){//
+          this.$axios.post('/sysuser/reset-password',{username:username}).then((res)=>{
+            if(res.data.message==="成功"){
+              this.$message({
+                message: '密码重置成功',
+                type: 'success'
+              });
+             this.getsoftlist();
+            }else{
+              this.$message({
+                message: res.data.message,
+                type: 'error'
+              });
+            }
+
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
+       disable(username){//
+          this.$axios.post('/sysuser/disable',{username:username}).then((res)=>{
+            if(res.data.message==="成功"){
+              this.$message({
+                message: '用户已被禁用',
+                type: 'success'
+              });
+             this.getsoftlist();
+            }else{
+              this.$message({
+                message: res.data.message,
+                type: 'error'
+              });
+            }
+
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
+        getuserList(){
         this.$axios.post('/sysuser/list-all',{
           size:this.size,
           current:this.page,
         }).then((res)=>{
+           let list = res.data.data.records
+           list.forEach(element => {
+                    element["show"] = false
+                });
           this.userList=res.data.data.records;
           this.total=res.data.data.total;
+          this.datas[0].value=res.data.data.total;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
+        saveUser(p,n,u){
+          this.$axios.post('/sysuser/update',{
+          nickname:n,
+          phone:p,
+          username:u,
+        }).then((res)=>{
+          this.getuserList();
           }).catch((err)=>{
             console.log(err);
           });
@@ -181,12 +251,20 @@
   padding:5px 0;
 }
 tr:nth-child(odd) {
-  background: #efefef;
+  background: #FAFAFA;
+}
+tr:nth-child(1) {
+  background: #FFF!important;
+  color:#909399;
+  font-size:12px!important;
+}
+tr{
+  border-bottom: 1px solid #EBEEF5;
 }
 .line_style div{
  margin:10px 0;
 }
 .special{
-  padding:5px 0px;
+  padding:5px 0px 0px;
 }
 </style>
