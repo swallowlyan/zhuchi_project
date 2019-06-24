@@ -15,14 +15,14 @@
     <div class="bg_header">
       <el-row style="margin: 0px">
         <el-col :span="1" class="managerArea"
-                :style="{display:ifMenu?'none':''}"
+                :style="{display:$route.meta.ifHome==='none'?'none':''}"
                 style="font-size: 26px;margin-top: 5px;margin-left: -85px">
-          <router-link to="/homePage"><i class="fa fa-home"></i></router-link>
+          <router-link to="/"><i class="fa fa-home"></i></router-link>
         </el-col>
         <!--:style="{display:$route.meta=='false'||ifMenu?'none':''}"-->
-        <el-col :span="15" style="margin-top: 8px" :style="{display:ifMenu?'':'none'}">
+        <el-col :span="15" style="margin-top: 8px" :style="{display:$route.meta.ifMenu==='show'?'':'none'}">
           <el-col :span="3" class="managerArea">
-            <router-link to="/homePage"><el-button  type="text">首页</el-button></router-link>
+            <router-link to="/"><el-button  type="text">首页</el-button></router-link>
           </el-col>
           <el-col :span="3" class="managerArea" v-for="(item,index) in menuList" :key="index">
             <el-button  type="text" @click="toPage(item.name,item.id)">{{item.name}}</el-button></el-col>
@@ -46,7 +46,7 @@
                 <router-link  to="/administrator-backstage/index">管理员工作台</router-link>
               </el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">
-                <router-link v-if="username===null" to="/">登录</router-link>
+                <router-link v-if="username===null" to="/login">登录</router-link>
                 <el-button v-if="username!==null" type="text" @click="logOut">注销</el-button>
                 </el-dropdown-item>
             </el-dropdown-menu>
@@ -131,7 +131,6 @@
         menuList:[],
         menuName:"",
         ifPerson:true,
-        ifMenu:true,
         ifLogin:true
       }
     },
@@ -174,23 +173,16 @@
         this.username=sessionStorage.getItem('username');
         this.userType=sessionStorage.getItem('userType');
         this.enterpriseId=sessionStorage.getItem('enterpriseId');
-        if(this.$route.path.indexOf("/soft")>-1||this.$route.path.indexOf("/homePage")>-1){
-          this.ifMenu=true;
-          this.pageTitle="工业互联网平台";
-        }else{
-          this.ifMenu=false;
-          if(this.$route.path.indexOf("/enterprise")>-1)this.pageTitle="企业工作台";
+        this.pageTitle="工业互联网平台";
+        if(this.$route.path.indexOf("/enterprise")>-1)this.pageTitle="企业工作台";
           else if(this.$route.path.indexOf("/personal-workbench")>-1)this.pageTitle="个人工作台";
           else if(this.$route.path.indexOf("/administrator")>-1)this.pageTitle="管理员工作台";
-        }
-        if(this.$route.path==="/"){
-          this.pageTitle="工业互联网平台";
-          this.ifLogin=false;
-        }else this.ifLogin=true;
+        if(this.$route.path==="/login") this.ifLogin=false;
+        else this.ifLogin=true;
       },
       logOut(){
         sessionStorage.clear();
-        this.$router.push({path: '/'});
+        this.$router.push({path: '/login'});
       }
     },
   }

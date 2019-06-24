@@ -27,7 +27,7 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-button v-if="ifGet==='false'" type="button" size="medium" class="detail_down" @click="downSoft()">立即获取</el-button>
+        <el-button v-if="ifGet==='false'||ifGet===undefined" type="button" size="medium" class="detail_down" @click="downSoft()">立即获取</el-button>
         <el-button v-if="ifGet==='true'" type="button" size="medium" class="detail_down" disabled>已获取</el-button>
       </el-row>
   </el-col>
@@ -161,7 +161,7 @@
           },
         //立即获取
         downSoft(){
-            if(sessionStorage.getItem("key") === null){
+            if(sessionStorage.getItem("username") === null){
               this.$message({
                 message: "请登录用户,进行获取",
                 type: 'warning'
@@ -184,7 +184,7 @@
         },
         //收藏/取消收藏
         collectSoft(softId,ifCollect){
-          if(sessionStorage.getItem("key") === null){
+          if(sessionStorage.getItem("username") === null){
             this.$message({
               message: "请登录用户,进行收藏",
               type: 'warning'
@@ -203,7 +203,8 @@
                 message: collectMessage,
                 type: 'success'
               });
-              this.ifCollect = true;
+              if(ifCollect===0)this.ifCollect = false;
+              else this.ifCollect = true;
             }).catch((err) => {
               console.log(err);
             });

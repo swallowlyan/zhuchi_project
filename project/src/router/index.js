@@ -45,7 +45,7 @@ export default new Router({
       component:Ind,
       children:[
         {
-          path:'',
+          path:'login',
           name:'LoginPage',
           component:LoginPage,
           children:[]
@@ -57,10 +57,14 @@ export default new Router({
           children:[]
         },
         {
-          path:'homePage',
+          path:'',
           name:'homePage',
           component:homePage,
-          meta:{ifFooter:"show"},
+          meta:{
+            ifFooter:"show",
+            ifMenu:"show",
+            ifHome:"none"
+            },
         },
 
         {
@@ -71,17 +75,17 @@ export default new Router({
             {
               path:'',
               name:'PersonalIndex',
-              component:PersonalIndex
+              component:PersonalIndex,
             },
             {
               path:'my-upload',
               name:'MyUpload',
-              component:MyUpload
+              component:MyUpload,
             },
             {
               path:'my-business',
               name:'MyBusiness',
-              component:MyBusiness
+              component:MyBusiness,
             },
             {
               path:'upload-service',
@@ -149,6 +153,11 @@ export default new Router({
               path:'purchased-services',
               name:'PurchasedServices',
               component:enterprisePurchasedServices
+            },
+            {
+              path:'servicesRunningList',
+              name:'servicesRunningList',
+              component:servicesRunningList
             }
 
           ]
@@ -188,6 +197,11 @@ export default new Router({
               name:'CategoryConfiguration',
               component:CategoryConfiguration
             },
+            {
+              path:'servicesRunningList',
+              name:'servicesRunningList',
+              component:servicesRunningList
+            }
           ]
         },
         {
@@ -200,13 +214,13 @@ export default new Router({
               path:'',
               name:'softList',
               component:softList,
-              meta:{ifFooter:"show"}
+              meta:{ifFooter:"show",ifMenu:"show",ifHome:"none"}
             },
             {
               path:'softDetail',
               name:'softDetail',
               component:softDetail,
-              meta:{ifFooter:"show"}
+              meta:{ifFooter:"show",ifMenu:"show",ifHome:"none"}
             }
           ]
         }

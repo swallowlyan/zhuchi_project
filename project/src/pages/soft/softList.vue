@@ -98,7 +98,7 @@
                   <el-row v-if="item.auth==='true'">
                     <el-button type="button"size="medium" disabled>已获取</el-button>
                   </el-row>
-                  <el-row v-if="item.auth==='false'">
+                  <el-row v-if="item.auth==='false'||item.auth===undefined">
                     <el-button type="button" size="medium" @click="downSoft(item.id)">点击获取</el-button>
                   </el-row>
                   <el-row style="margin-top: 10px">
@@ -257,7 +257,7 @@
         },
         //立即获取
         downSoft(softId){
-          if(sessionStorage.getItem("key") === null){
+          if(sessionStorage.getItem("username") === null){
             this.$message({
               message: "请登录用户,进行获取",
               type: 'warning'

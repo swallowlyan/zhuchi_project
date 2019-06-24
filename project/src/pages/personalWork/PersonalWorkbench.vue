@@ -47,7 +47,7 @@
               { title: '历史服务', index:'2',url:'/personal-workbench/historical-services'},
               { title: '已购买服务',index:'3',url:'/personal-workbench/purchased-services'},
               { title: '已收藏服务', index:'4',url:'/personal-workbench/collection-services'},
-              { title: '全部上架服务',index:'5',url:'/homePage'},
+              { title: '全部上架服务',index:'5',url:'/'},
               { title: '运行软件列表',index:'10',url:'/personal-workbench/servicesRunningList'},
               { title: '我的上传' ,index:'6',url:'/personal-workbench/my-upload'},
               { title: '我的数据',index:'7',url:''},

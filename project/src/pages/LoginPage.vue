@@ -85,7 +85,7 @@
                   sessionStorage.setItem('userType',response.data.data.userType);
                   sessionStorage.setItem('enterpriseId',response.data.data.groupId);
                 }
-                this.$router.push('/homePage');
+                this.$router.push('/');
                /* if (response.data.data.roleId === 1) {
                   this.$router.push('/');
                 } else if (response.data.data.roleId === 2) {
