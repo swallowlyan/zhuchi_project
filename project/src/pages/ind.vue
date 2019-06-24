@@ -18,7 +18,7 @@
 
       <div class="division"></div>
       <div class="title">
-        <h3>{{pageTitle}}</h3>
+        <h3 style="white-space:nowrap!important;">{{pageTitle}}</h3>
       </div>
     <div class="bg_header">
       <el-row style="margin: 0px">
