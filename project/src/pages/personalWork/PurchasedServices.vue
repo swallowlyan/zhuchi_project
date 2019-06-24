@@ -9,6 +9,7 @@
           <td>服务名</td>
           <td>软件图标</td>
           <td>版本号</td>
+          <td>状态</td>
           <td>交付方式</td>
           <td>购买时间</td>
           <td>到期时间</td>
@@ -27,6 +28,8 @@
             </template>
           </td>
           <td>{{data.version}}</td>
+          <td v-if="data.status==='NORMAL'">正常</td>
+          <td v-if="data.status==='DEL'">已下架</td>
           <td>{{data.jiaofu}}</td>
           <td>{{data.bought}}</td>
           <td>{{data.end}}</td>
@@ -42,11 +45,13 @@
           </td>
           <td>
             <template>
-              <el-button type="text" size="mini">续费</el-button>
-              <el-button type="text" size="mini">暂停</el-button>
-              <el-button type="text" size="mini">退款</el-button>
-              <el-button v-if="data.jiaofu==='下载'" type="text" size="mini" @click="downSoft(data.fileUrl)">重新下载</el-button>
-              <el-button v-if="data.jiaofu==='SAAS'" type="text" size="mini" @click="openWin(data.softId)">进入软件</el-button>
+              <el-button type="text" size="mini" :disabled="data.status==='DEL'">续费</el-button>
+              <el-button type="text" size="mini" :disabled="data.status==='DEL'">暂停</el-button>
+              <el-button type="text" size="mini" :disabled="data.status==='DEL'">退款</el-button>
+              <el-button v-if="data.jiaofu==='下载'" type="text" size="mini"
+                         @click="downSoft(data.fileUrl)" :disabled="data.status==='DEL'">重新下载</el-button>
+              <el-button v-if="data.jiaofu==='SAAS'" type="text" size="mini"
+                         @click="openWin(data.softId)" :disabled="data.status==='DEL'">进入软件</el-button>
             </template>
           </td>
         </tr>

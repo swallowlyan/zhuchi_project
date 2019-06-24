@@ -56,7 +56,8 @@
           <td>{{data.softCategory3Name}}</td>
           <td>{{data.description}}</td>
           <td></td>
-          <td>{{data.status}}</td>
+          <td v-if="data.status==='NORMAL'">正常</td>
+          <td v-if="data.status==='DEL'">已下架</td>
           <td>
             <template v-if="data.status==='NORMAL'">
               <el-button
