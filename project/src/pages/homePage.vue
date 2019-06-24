@@ -27,7 +27,7 @@
     <el-row class="Introduction">
       <el-col :span="4" :offset="4">
         <el-row><h1><i class="el-icon-monitor"></i></h1></el-row>
-        <el-row><h2>接入设备<span class="num">3900</span>台</h2></el-row>
+        <el-row><h2>接入设备<span class="num">13009</span>台</h2></el-row>
       </el-col>
       <el-col :span="4">
         <el-row><h1><i class="fa fa-home"></i></h1></el-row>

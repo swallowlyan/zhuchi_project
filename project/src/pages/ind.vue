@@ -7,7 +7,15 @@
           <!--<router-link :to="{path:'/homePage'}">-->
         <img src="../assets/common/logo_zhuchi.png" alt="logo" style="float: left;margin:10px;width: 150px">
           <!--</router-link>-->
-      <span id="welcomeTitle" class="managerArea">欢迎  {{username}}</span>
+      <div v-if="username===null" id="noLogin">
+        <router-link to="/login">
+        <el-button type="text">登录</el-button></router-link>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <router-link to="/register">
+          <el-button type="text">注册</el-button></router-link>
+      </div>
+      <span v-if="username!==null" id="welcomeTitle" class="managerArea">欢迎  {{username}}</span>
+
       <div class="division"></div>
       <div class="title">
         <h3>{{pageTitle}}</h3>
@@ -46,8 +54,7 @@
                 <router-link  to="/administrator-backstage/index">管理员工作台</router-link>
               </el-dropdown-item>
               <el-dropdown-item icon="el-icon-circle-check-outline">
-                <router-link v-if="username===null" to="/login">登录</router-link>
-                <el-button v-if="username!==null" type="text" @click="logOut">注销</el-button>
+                <el-button type="text" @click="logOut">注销</el-button>
                 </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -177,7 +184,9 @@
         if(this.$route.path.indexOf("/enterprise")>-1)this.pageTitle="企业工作台";
           else if(this.$route.path.indexOf("/personal-workbench")>-1)this.pageTitle="个人工作台";
           else if(this.$route.path.indexOf("/administrator")>-1)this.pageTitle="管理员工作台";
-        if(this.$route.path==="/login") this.ifLogin=false;
+        if(this.$route.path==="/login"
+          ||this.$route.path==="/register"
+          ||this.username===null) this.ifLogin=false;
         else this.ifLogin=true;
       },
       logOut(){
@@ -218,10 +227,15 @@
 }
 #welcomeTitle {
   float: right;
-  margin-right: 10%;
+  margin-right: 5%;
   margin-top: 25px;
   color: gray;
   font-weight: bold;
+}
+#noLogin{
+  float: right;
+  margin-right: 10%;
+  margin-top: 25px;
 }
 .bg_header>div{
   margin: 6px;
