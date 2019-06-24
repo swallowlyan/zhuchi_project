@@ -9,21 +9,21 @@
                 <el-col :span="3"><span>领域分类：</span></el-col>
                 <el-col :span="2"><el-button type="text" @click="getSoft('')">全部</el-button></el-col>
                 <el-col :span="3" v-for="(item,index) in areaTypeList":key="index">
-                  <el-button type="text" @click="getSoft(item.id)">{{item.fieldName}}</el-button>
+                  <el-button  :class="{active:active==index}" type="text" @click="getSoft(item.id,index)">{{item.fieldName}}</el-button>
                 </el-col>
               </el-row>
               <el-row class="type">
                 <el-col :span="3"><span>行业分类：</span></el-col>
                 <el-col :span="2"><el-button type="text"@click="getSoft('')">全部</el-button></el-col>
                 <el-col :span="3" v-for="(item,index) in industryTypeList" :key="index">
-                  <el-button type="text" @click="getSoft(item.id)">{{item.industryName}}</el-button>
+                  <el-button type="text" :class="{active:active_b==index}" @click="getSoft_b(item.id,index)">{{item.industryName}}</el-button>
                 </el-col>
               </el-row>
               <el-row class="type">
                 <el-col :span="3"><span>交付方式：</span></el-col>
                 <el-col :span="2"><el-button type="text"@click="getSoft('')">全部</el-button></el-col>
                 <el-col :span="3" v-for="(item,index) in payTypeList" :key="index">
-                  <el-button type="text" @click="getSoft(item.id)">{{item.deliverType}}</el-button>
+                  <el-button type="text" :class="{active:active_c==index}" @click="getSoft_c(item.id,index)">{{item.deliverType}}</el-button>
                 </el-col>
               </el-row>
             </el-card>
@@ -144,6 +144,9 @@
           currentPage:0,
           pageSize:0,
           total:0,
+          active:-1,
+          active_b:-1,
+          active_c:-1,
           param:{
             current:1,
             size:5,
@@ -185,7 +188,38 @@
           });
         },
         //查找软件
-        getSoft(val){
+        getSoft(val,i){
+          this.active=i;
+          if(sessionStorage.getItem('username')!==null)this.param.username=sessionStorage.getItem('username');
+          this.param.softName=this.searchCommon;
+          this.param.softMenu=this.menuId;
+          this.param.softCategory=val;
+          this.$axios.post('/soft-detail/search-softs',this.param).then((res)=>{
+            this.total=res.data.data.total;
+            this.currentPage=res.data.data.current;
+            this.pageSize=res.data.data.size;
+            this.softList=res.data.data.records;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
+          getSoft_b(val,i){
+          this.active_b=i;
+          if(sessionStorage.getItem('username')!==null)this.param.username=sessionStorage.getItem('username');
+          this.param.softName=this.searchCommon;
+          this.param.softMenu=this.menuId;
+          this.param.softCategory=val;
+          this.$axios.post('/soft-detail/search-softs',this.param).then((res)=>{
+            this.total=res.data.data.total;
+            this.currentPage=res.data.data.current;
+            this.pageSize=res.data.data.size;
+            this.softList=res.data.data.records;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
+          getSoft_c(val,i){
+          this.active_c=i;
           if(sessionStorage.getItem('username')!==null)this.param.username=sessionStorage.getItem('username');
           this.param.softName=this.searchCommon;
           this.param.softMenu=this.menuId;
@@ -326,4 +360,7 @@
   }
   .softContent span{font-size: 13px}
   el-card__header button{padding: 0px}
+  .active{
+    color:#666!important;
+  }
 </style>
