@@ -57,9 +57,63 @@
         </div>
       </el-header>
     <!-- 身体 -->
-      <el-main style="padding: 0px 20px">
+      <el-main style="padding: 0px 20px;margin-bottom: 50px">
           <router-view :getIfPerson="getIfPerson"  ref="listPage"/>
       </el-main>
+      <el-footer height="280px" :style="{display:$route.meta.ifFooter==='show'?'':'none'}">
+        <el-row class="footer" >
+          <el-col :span="5" :offset="3">
+            <el-row style="margin: 10px">
+              <el-col :span="6">
+                <h1 style="font-size: 40px"><i class="el-icon-headset"></i></h1>
+              </el-col>
+              <el-col :span="14"><el-row class="footer_title"><span>客服热线</span></el-row>
+                <el-row><h3 style="font-weight: normal">0532-123456</h3></el-row>
+              </el-col>
+            </el-row>
+            <el-row style="margin: 10px">
+              <el-col :span="6">
+                <h1 style="font-size: 40px"><i class="el-icon-message"></i></h1>
+              </el-col>
+              <el-col :span="14"><el-row class="footer_title"><span>电子邮箱</span></el-row>
+                <el-row><h3 style="font-weight: normal">qdiscas@iscas.com</h3></el-row>
+              </el-col>
+            </el-row>
+          </el-col>
+          <el-col :span="1" >
+            <el-divider direction="vertical" style="height: 135px"></el-divider>
+          </el-col>
+          <el-col :span="14">
+            <el-row>
+              <el-col :span="5">
+                <el-row class="footer_title"><h5>服务与支持</h5></el-row>
+                <el-row class="footer_content"><small>常见问题</small></el-row>
+                <el-row class="footer_content"><small>用户手册</small></el-row>
+                <el-row class="footer_content"><small>在线咨询</small></el-row>
+                <el-row class="footer_content"><small>企业认证</small></el-row>
+                <el-row class="footer_content"><small>产品建议与反馈</small></el-row>
+              </el-col>
+              <el-col :span="5">
+                <el-row class="footer_title"><h5>账户管理</h5></el-row>
+                <el-row class="footer_content"><small>充值管理</small></el-row>
+                <el-row class="footer_content"><small>线下汇款</small></el-row>
+                <el-row class="footer_content"><small>合同申请</small></el-row>
+                <el-row class="footer_content"><small>索取发票</small></el-row>
+              </el-col>
+              <el-col :span="5">
+                <el-row class="footer_title"><h5>关于我们</h5></el-row>
+                <el-row class="footer_content"><small>公司概况</small></el-row>
+                <el-row class="footer_content"><small>网站导航</small></el-row>
+              </el-col>
+              <el-col :span="7">
+                <el-row class="footer_title"><h5>关注株齿工业互联网平台</h5></el-row>
+                <el-row><img src="../assets/code.png" width="120" height="120"/></el-row>
+              </el-col>
+            </el-row>
+
+          </el-col>
+        </el-row>
+      </el-footer>
     </el-container>
   </div>
 </template>
@@ -186,5 +240,15 @@
   padding:0px;
 }
 .dropMenu a{color: #606266}
-
+.footer{
+  height: 280px;
+  padding: 80px;
+  background: #2E3033;
+  color: #ffffff;
+}
+.footer_title{margin-bottom: 10px}
+.footer_content{
+  margin: 5px 0px;
+  color:rgb(183, 183, 183)
+}
 </style>

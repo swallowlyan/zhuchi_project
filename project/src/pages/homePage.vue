@@ -64,39 +64,56 @@
     <el-row>
       <el-col :span="12" :offset="6">
         <el-carousel :interval="4000" type="card" indicator-position="outside" height="400px" arrow="always">
-          <el-carousel-item v-for="(item,index) in dataImg2" :key="index">
-            <img :src="item.src">
+          <el-carousel-item v-for="(item,index) in soft1_img" :key="index">
+            <div class="grid-content">
+              <el-col :md="12" :offset="6">
+                <div>
+                  <img :src="item.src" width="100%" height="100%"/>
+                </div>
+              </el-col>
+            </div>
           </el-carousel-item>
         </el-carousel>
       </el-col>
       <el-col :span="2">
-        <el-link style="margin-top: 350px;margin-left: 30px">查看更多</el-link>
+        <el-button type="text" @click="toPage('工业软件','1')"
+                    style="margin-top: 300px;margin-left: 30px">查看更多</el-button>
       </el-col>
     </el-row>
     <el-divider><h1>工业APP</h1></el-divider>
     <el-row>
       <el-col :span="12" :offset="6">
         <el-carousel :interval="4000" type="card" indicator-position="outside" height="400px" arrow="always">
-          <el-carousel-item v-for="(item,index) in dataImg2" :key="index">
-            <img :src="item.src">
+          <el-carousel-item v-for="(item,index) in soft2_img" :key="index">
+            <el-col :md="12" :offset="6">
+              <div>
+                <img :src="item.src" width="100%" height="100%"/>
+              </div>
+            </el-col>
           </el-carousel-item>
         </el-carousel>
       </el-col>
       <el-col :span="2">
-        <el-link style="margin-top: 350px;margin-left: 30px">查看更多</el-link>
+        <el-button type="text" @click="toPage('工业APP','2')"
+                   style="margin-top: 300px;margin-left: 30px">查看更多</el-button>
       </el-col>
     </el-row>
     <el-divider><h1>工业资源</h1></el-divider>
     <el-row>
       <el-col :span="12" :offset="6">
         <el-carousel :interval="4000" type="card" indicator-position="outside" height="400px" arrow="always">
-          <el-carousel-item v-for="(item,index) in dataImg2" :key="index">
-            <img :src="item.src">
+          <el-carousel-item v-for="(item,index) in soft2_img" :key="index">
+            <el-col :md="12" :offset="6">
+              <div>
+                <img :src="item.src" width="100%" height="100%"/>
+              </div>
+            </el-col>
           </el-carousel-item>
         </el-carousel>
       </el-col>
       <el-col :span="2">
-        <el-link style="margin-top: 350px;margin-left: 30px">查看更多</el-link>
+        <el-button type="text" @click="toPage('机理模型','3')"
+                   style="margin-top: 300px;margin-left: 30px">查看更多</el-button>
       </el-col>
     </el-row>
     <el-row>
@@ -121,16 +138,46 @@
                 src:require("../assets/carousel/carousel_3.jpg"),
                 name:""
               }],
-            dataImg2:[{
-              src:require("../assets/carousel/carousel_1.jpg"),
-              name:""
-            },
+            soft1_img:[
               {
-                src:require("../assets/carousel/carousel_2.jpg"),
+                src:require("../assets/soft1_img/v2_ptbrfu.jpg"),
                 name:""
               },
               {
-                src:require("../assets/carousel/carousel_3.jpg"),
+                src:require("../assets/soft1_img/v2_ptdms6.jpg"),
+                name:""
+              },
+              {
+                src:require("../assets/soft1_img/v2_ptdmsa.jpg"),
+                name:""
+              },
+              {
+                src:require("../assets/soft1_img/v2_ptdmsr.jpg"),
+                name:""
+              },
+              {
+                src:require("../assets/soft1_img/v2_ptdmt8.jpg"),
+                name:""
+              }
+            ],
+            soft2_img:[{
+              src:require("../assets/soft2_img/v2_pt674w.jpg"),
+              name:""
+            },
+              {
+                src:require("../assets/soft2_img/v2_pt675f.jpg"),
+                name:""
+              },
+              {
+                src:require("../assets/soft2_img/v2_pt675i.jpg"),
+                name:""
+              },
+              {
+                src:require("../assets/soft2_img/v2_pt675s.jpg"),
+                name:""
+              },
+              {
+                src:require("../assets/soft2_img/v2_pt677p.jpg"),
                 name:""
               }],
             softCount:0,
@@ -164,6 +211,11 @@
             console.log(err);
           });
         },
+        toPage(name,id){
+          sessionStorage.setItem('menuId',id);
+          sessionStorage.setItem('menuName',name);
+          this.$router.push({path: '/soft'});
+        }
       }
     }
 </script>

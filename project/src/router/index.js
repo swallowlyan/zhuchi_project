@@ -48,20 +48,19 @@ export default new Router({
           path:'',
           name:'LoginPage',
           component:LoginPage,
-          children:[],
-          meta:"false"
+          children:[]
         },
         {
           path:'/register',
           name:'registerPage',
           component:registerPage,
-          children:[],
-          meta:"false"
+          children:[]
         },
         {
           path:'homePage',
           name:'homePage',
-          component:homePage
+          component:homePage,
+          meta:{ifFooter:"show"},
         },
 
         {
@@ -195,16 +194,19 @@ export default new Router({
           path:'soft',
           name:'soft',
           component:softCommon,
+          meta:{ifFooter:"show"},
           children:[
             {
               path:'',
               name:'softList',
-              component:softList
+              component:softList,
+              meta:{ifFooter:"show"}
             },
             {
               path:'softDetail',
               name:'softDetail',
-              component:softDetail
+              component:softDetail,
+              meta:{ifFooter:"show"}
             }
           ]
         }
