@@ -45,6 +45,7 @@
             buttons: [
               { title: '用户注册审批',index:'1',url:'/administrator-backstage/index'},
               { title: '服务发布审批', index:'2',url:'/administrator-backstage/approval-service'},
+              { title: '运行软件列表',index:'10',url:'/personal-workbench/servicesRunningList'},
               { title: '服务类别配置',index:'3',url:'/administrator-backstage/category-configuration'},
               { title: '综合统计分析', index:'4',url:'/administrator-backstage/comprehensive-statistics'},
               { title: '平台用户管理',index:'5',url:'/administrator-backstage/user-management'},

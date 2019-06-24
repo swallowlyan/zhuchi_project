@@ -3,7 +3,7 @@
       <el-row type="flex" class="header-row">
         <el-col :span="4"><a href="javascript:void (0)" @click="backToHome"><img src="../assets/u149.png"/></a></el-col>
         <el-col :span="1"><img src="../assets/u147.png"/></el-col>
-        <el-col :span="12"><h1 class="head-title">企业软件云统一管理平台</h1></el-col>
+        <el-col :span="12"><h1 class="head-title">工业互联网平台</h1></el-col>
         <el-col :span="2" :offset="2">
           <!--<a href="javascript:void (0)" @click="$goRoute('/main-page/person-info-manage/person-info')"><span>潍柴员工A</span></a>-->
           <!--<img src="../assets/u143.png"/>-->

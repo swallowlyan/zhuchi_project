@@ -16,6 +16,7 @@ import CommonServices from '../pages/personalWork/CommonServices'
 import MyUpload from '../pages/personalWork/MyUpload'
 import enterUpload from '../pages/enterpriseWork/MyUpload'
 import MyBusiness from '../pages/personalWork/MyBusiness'
+import servicesRunningList from '../pages/personalWork/servicesRunningList'
 
 import softList from '../pages/soft/softList.vue'
 import softCommon from '../pages/soft/softCommon.vue'
@@ -112,6 +113,11 @@ export default new Router({
               path:'common-services',
               name:'CommonServices',
               component:CommonServices
+            },
+            {
+              path:'servicesRunningList',
+              name:'servicesRunningList',
+              component:servicesRunningList
             }
           ]
         },

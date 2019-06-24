@@ -47,6 +47,7 @@
               { title: '企业已购服务', index:'2',url:'/enterprise-workbench/purchased-services'},
               { title: '企业上传服务',index:'3',url:'/enterprise-workbench/my-upload'},
               { title: '企业上传审批', index:'4',url:'/enterprise-workbench/service-approval'},
+              { title: '运行软件列表',index:'10',url:'/personal-workbench/servicesRunningList'},
               { title: '全部上架服务',index:'5',url:''},
               { title: '企业数据空间' ,index:'6',url:''},
               { title: '企业订单',index:'7',url:''},

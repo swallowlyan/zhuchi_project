@@ -56,12 +56,19 @@
                 </el-col>
                 <el-col :span="5" :offset="1" class="softInfo">
                   <el-row v-if="item.softCategory3Id==='1'">
-                    <a :href="item.fileUrl">
-                    <h3 class="softName">{{item.softName}}</h3>
+                    <a v-if="username!== null" :href="item.fileUrl">
+                      <h3 class="softName">{{item.softName}}</h3>
+                    </a>
+                    <a v-if="username === null">
+                      <h3 class="softName">{{item.softName}}</h3>
                     </a>
                   </el-row>
                   <el-row v-if="item.softCategory3Id!=='1'">
-                    <div style="cursor: pointer" @click="toSAAS(item.id)">
+                    <div v-if="username!==null"
+                               style="cursor: pointer" @click="toSAAS(item.id)">
+                    <h3 class="softName">{{item.softName}}</h3>
+                  </div>
+                    <div v-if="username===null">
                       <h3 class="softName">{{item.softName}}</h3>
                     </div>
                   </el-row>
@@ -81,10 +88,10 @@
                   <el-row style="margin-top: 15px;"><span class="saleCount">月销量10件</span></el-row>
                 </el-col>
                 <el-col :span="3"><h3 class="money" style="margin: 10px 0px">￥500000</h3></el-col>
-                <el-col :span="3" v-if="item.collect!==true">
+                <el-col :span="3" v-if="!item.collect">
                   <el-button type="text" @click="collectSoft(item.id,1)"><i class="fa fa-heart-o"></i>点击收藏</el-button>
                 </el-col>
-                <el-col :span="3" v-if="item.collect===true">
+                <el-col :span="3" v-if="item.collect">
                   <el-button type="text" @click="collectSoft(item.id,0)"><i class="fa fa-heart"></i>取消收藏</el-button>
                 </el-col>
                 <el-col :span="3" style="margin-top: 5px">
@@ -127,6 +134,7 @@
       data(){
         return{
           menuId:"",
+          username:null,
           commonSearch:"",
           testScore:3.8,
           areaTypeList:[],
@@ -178,7 +186,7 @@
         },
         //查找软件
         getSoft(val){
-          this.param.username=sessionStorage.getItem('username');
+          if(sessionStorage.getItem('username')!==null)this.param.username=sessionStorage.getItem('username');
           this.param.softName=this.searchCommon;
           this.param.softMenu=this.menuId;
           this.param.softCategory=val;
@@ -193,6 +201,7 @@
         },
         initPage(){
           this.menuId=sessionStorage.getItem('menuId');
+          this.username=sessionStorage.getItem('username');
           this.getAreaType();this.getIndustryType();this.getPayType();
           this.getSoft("");
         },
@@ -220,39 +229,54 @@
         },
         //收藏/取消收藏
         collectSoft(softId,ifCollect){
-          let collectMessage="";
-          if(ifCollect===0)collectMessage="已取消收藏";
-          else collectMessage="已成功收藏";
-          let param={
-            username:sessionStorage.getItem('username'),
-            softId:softId,
-            collect:ifCollect
-          };
-          this.$axios.post('/soft-user/collectSoft',param).then((res)=>{
+          if(sessionStorage.getItem("username") === null){
             this.$message({
-              message: collectMessage,
-              type: 'success'
+              message: "请登录用户,进行收藏",
+              type: 'warning'
             });
-            this.getSoft("");
-          }).catch((err)=>{
-            console.log(err);
-          });
+          }else{
+            let collectMessage="";
+            if(ifCollect===0)collectMessage="已取消收藏";
+            else collectMessage="已成功收藏";
+            let param={
+              username:sessionStorage.getItem('username'),
+              softId:softId,
+              collect:ifCollect
+            };
+            this.$axios.post('/soft-user/collectSoft',param).then((res)=>{
+              this.$message({
+                message: collectMessage,
+                type: 'success'
+              });
+              this.getSoft("");
+            }).catch((err)=>{
+              console.log(err);
+            });
+          }
+
         },
         //立即获取
         downSoft(softId){
-          let param={
-            username:sessionStorage.getItem('username'),
-            softId:softId
-          };
-          this.$axios.get('/soft-auth/soft-order',{params:param}).then((res)=>{
+          if(sessionStorage.getItem("key") === null){
             this.$message({
-              message: '已成功获取该服务',
-              type: 'success'
+              message: "请登录用户,进行获取",
+              type: 'warning'
             });
-            this.getSoft("");
-          }).catch((err)=>{
-            console.log(err);
-          });
+          }else{
+            let param={
+              username:sessionStorage.getItem('username'),
+              softId:softId
+            };
+            this.$axios.get('/soft-auth/soft-order',{params:param}).then((res)=>{
+              this.$message({
+                message: '已成功获取该服务',
+                type: 'success'
+              });
+              this.getSoft("");
+            }).catch((err)=>{
+              console.log(err);
+            });
+          }
         },
         //云服务
         toSAAS(softId){

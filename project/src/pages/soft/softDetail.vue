@@ -22,10 +22,14 @@
           </el-rate></el-col>
         </el-col>
         <el-col :span="6" :offset="4">
-          <el-button type="text"><i class="fa fa-heart-o"></i></el-button>点击收藏
+          <el-button v-if="!ifCollect" type="text" @click="collectSoft(softId,1)" style="color: #ffffff"><i class="fa fa-heart-o"></i>点击收藏</el-button>
+          <el-button v-if="ifCollect" type="text" @click="collectSoft(softId,0)" style="color: #ffffff"><i class="fa fa-heart"></i>取消收藏</el-button>
         </el-col>
       </el-row>
-      <el-row><el-button type="button" size="medium" class="detail_down">立即获取</el-button></el-row>
+      <el-row>
+        <el-button v-if="ifGet==='false'" type="button" size="medium" class="detail_down" @click="downSoft()">立即获取</el-button>
+        <el-button v-if="ifGet==='true'" type="button" size="medium" class="detail_down" disabled>已获取</el-button>
+      </el-row>
   </el-col>
     <el-col :span="4" :offset="1" class="detail_info">
       <el-card class="box-card">
@@ -125,11 +129,14 @@
       data(){
           return {
             detailScore:3.5,
+            softId:"",
             softImg:"",
             softTitle:"",
             softDescription:"",
             creator:"",
-            createTime:""
+            createTime:"",
+            ifGet:"",
+            ifCollect:false
           }
       },
       props: {
@@ -143,12 +150,65 @@
       },
       methods:{
           pullInfo(){
+            this.softId=this.detail.id;
             this.softImg="data:image/jpg;base64,"+this.detail.softIcon;
             this.softTitle=this.detail.softName;
             this.softDescription=this.detail.description;
             this.createTime=this.detail.created;
             this.creator=this.detail.creator;
+            this.ifGet=this.detail.auth;
+            this.ifCollect=this.detail.collect;
+          },
+        //立即获取
+        downSoft(){
+            if(sessionStorage.getItem("key") === null){
+              this.$message({
+                message: "请登录用户,进行获取",
+                type: 'warning'
+              });
+            }else{
+              let param={
+                username:sessionStorage.getItem('username'),
+                softId:this.detail.id
+              };
+              this.$axios.get('/soft-auth/soft-order',{params:param}).then((res)=>{
+                this.$message({
+                  message: '已成功获取该服务',
+                  type: 'success'
+                });
+                this.ifGet="true";
+              }).catch((err)=>{
+                console.log(err);
+              });
+            }
+        },
+        //收藏/取消收藏
+        collectSoft(softId,ifCollect){
+          if(sessionStorage.getItem("key") === null){
+            this.$message({
+              message: "请登录用户,进行收藏",
+              type: 'warning'
+            });
+          }else {
+            let collectMessage = "";
+            if (ifCollect === 0) collectMessage = "已取消收藏";
+            else collectMessage = "已成功收藏";
+            let param = {
+              username: sessionStorage.getItem('username'),
+              softId: softId,
+              collect: ifCollect
+            };
+            this.$axios.post('/soft-user/collectSoft', param).then((res) => {
+              this.$message({
+                message: collectMessage,
+                type: 'success'
+              });
+              this.ifCollect = true;
+            }).catch((err) => {
+              console.log(err);
+            });
           }
+        },
       }
     }
 </script>
