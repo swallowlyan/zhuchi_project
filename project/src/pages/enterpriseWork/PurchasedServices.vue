@@ -24,7 +24,10 @@
           <td>{{data.softName}}</td>
           <td>
             <template>
-              <img :src="'data:image/jpg;base64,'+data.icon" style="height:30px;width: 30px">
+              <img v-if="data.icon===''||data.icon===null||data.icon===undefined"
+                   src="../../assets/common/logo_zhuchi.png" height="30" width="30">
+              <img v-if="data.icon!==''&&data.icon!==null&&data.icon!==undefined"
+                   :src="'data:image/jpg;base64,'+data.icon" height="30" width="30">
             </template>
           </td>
           <td>{{data.version}}</td>
