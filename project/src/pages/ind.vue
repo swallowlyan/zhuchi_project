@@ -65,10 +65,11 @@
       </el-header>
     <!-- 身体 -->
       <el-main style="padding: 0px 20px;margin-bottom: 50px">
-          <router-view :getIfPerson="getIfPerson"  ref="listPage"/>
+          <router-view :getIfPerson="getIfPerson" :toDetail="toDetailObj" :homeDetail="detailObj" ref="listPage"/>
       </el-main>
+      <!--footer-->
       <el-footer height="280px" :style="{display:$route.meta.ifFooter==='show'?'':'none'}">
-        <el-row class="footer" >
+        <el-row class="footer">
           <el-col :span="5" :offset="3">
             <el-row style="margin: 10px">
               <el-col :span="6">
@@ -87,8 +88,8 @@
               </el-col>
             </el-row>
           </el-col>
-          <el-col :span="1" >
-            <el-divider direction="vertical" style="height: 135px"></el-divider>
+          <el-col :span="1" style="height: 135px">
+            <el-divider direction="vertical" style="height: 135px !important;"></el-divider>
           </el-col>
           <el-col :span="14">
             <el-row>
@@ -138,7 +139,8 @@
         menuList:[],
         menuName:"",
         ifPerson:true,
-        ifLogin:true
+        ifLogin:true,
+        detailObj:{}
       }
     },
     mounted(){
@@ -164,6 +166,7 @@
         sessionStorage.setItem('menuId',id);
         sessionStorage.setItem('menuName',name);
        if(name==="首页")this.$router.push("/homePage");
+       else if(name==="设备")window.open("http://121.42.250.244/gszy-skydev/app/potal/login.html");
        else {
          if(this.$route.path.indexOf("soft")>-1&&this.$route.path.indexOf("Detail")<0){
            this.$refs.listPage.initPage();
@@ -188,6 +191,10 @@
           ||this.$route.path==="/register"
           ||this.username===null) this.ifLogin=false;
         else this.ifLogin=true;
+      },
+      toDetailObj(obj){
+        this.detailObj=obj;
+        this.$router.push({path: '/soft/softDetail'});
       },
       logOut(){
         sessionStorage.clear();
@@ -257,4 +264,5 @@
   margin: 5px 0px;
   color:rgb(183, 183, 183)
 }
+  .el-divider--vertical{height: 135px !important;}
 </style>

@@ -143,22 +143,41 @@
         detail:{
           type:Object,
           default(){return {}}
+        },
+        homeDetail:{
+          type:Object,
+          default(){return {}}
         }
       },
       mounted(){
-          this.pullInfo();
+          this.pullInfo();this.homeToDetail();
       },
       methods:{
           pullInfo(){
-            this.softId=this.detail.id;
-            this.softImg="data:image/jpg;base64,"+this.detail.softIcon;
-            this.softTitle=this.detail.softName;
-            this.softDescription=this.detail.description;
-            this.createTime=this.detail.created;
-            this.creator=this.detail.creator;
-            this.ifGet=this.detail.auth;
-            this.ifCollect=this.detail.collect;
+            if(this.detail!=={}){
+              this.softId=this.detail.id;
+              this.softImg="data:image/jpg;base64,"+this.detail.softIcon;
+              this.softTitle=this.detail.softName;
+              this.softDescription=this.detail.description;
+              this.createTime=this.detail.created;
+              this.creator=this.detail.creator;
+              this.ifGet=this.detail.auth;
+              this.ifCollect=this.detail.collect;
+            }
+
           },
+        homeToDetail(){
+          if(this.homeDetail!=={}){
+            this.softId=this.homeDetail.id;
+            this.softImg="data:image/jpg;base64,"+this.homeDetail.softIcon;
+            this.softTitle=this.homeDetail.softName;
+            this.softDescription=this.homeDetail.description;
+            this.createTime=this.homeDetail.created;
+            this.creator=this.homeDetail.creator;
+            this.ifGet=this.homeDetail.auth;
+            this.ifCollect=this.homeDetail.collect;
+          }
+        },
         //立即获取
         downSoft(){
             if(sessionStorage.getItem("username") === null){

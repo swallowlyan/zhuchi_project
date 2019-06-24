@@ -64,11 +64,22 @@
     <el-row>
       <el-col :span="12" :offset="6">
         <el-carousel :interval="4000" type="card" indicator-position="outside" height="400px" arrow="always">
-          <el-carousel-item v-for="(item,index) in soft1_img" :key="index">
+          <el-carousel-item v-for="(item,index) in soft2_img" :key="index" setActiveItem="toDetail(softList[index])">
             <div class="grid-content">
               <el-col :md="12" :offset="6">
-                <div>
-                  <img :src="item.src" width="100%" height="100%"/>
+                <div :style="{background:'url('+item.src+') no-repeat'}"
+                style="cursor: pointer;height:400px">
+                  <div v-if="softList[index]!==undefined">
+                    <div class="carousel_icon">
+                      <img v-if="softList[index].softIcon===undefined||softList[index].softIcon===null||softList[index].softIcon===''"
+                           src="../assets/common/logo_zhuchi.png" height="80" width="80"  @click="toDetail(softList[index])">
+                      <img v-if="softList[index].softIcon!==undefined&&softList[index].softIcon!==null&&softList[index].softIcon!==''"
+                           :src="'data:image/jpg;base64,'+softList[index].softIcon" height="80" width="80"  @click="toDetail(softList[index])">
+                    </div>
+                    <div class="carousel_title">
+                      <h2>{{softList[index].softName}}</h2>
+                    </div>
+                  </div>
                 </div>
               </el-col>
             </div>
@@ -86,8 +97,19 @@
         <el-carousel :interval="4000" type="card" indicator-position="outside" height="400px" arrow="always">
           <el-carousel-item v-for="(item,index) in soft2_img" :key="index">
             <el-col :md="12" :offset="6">
-              <div>
-                <img :src="item.src" width="100%" height="100%"/>
+              <div :style="{background:'url('+item.src+') no-repeat'}"
+                   style="cursor: pointer;height:400px" @click="toDetail(appList[index])">
+                <div v-if="appList[index]!==undefined">
+                  <div class="carousel_icon">
+                    <img v-if="appList[index].softIcon===undefined||appList[index].softIcon===null||appList[index].softIcon===''"
+                         src="../assets/common/logo_zhuchi.png" height="80" width="80">
+                    <img v-if="appList[index].softIcon!==undefined&&appList[index].softIcon!==null&&appList[index].softIcon!==''"
+                         :src="'data:image/jpg;base64,'+appList[index].softIcon" height="80" width="80">
+                  </div>
+                  <div class="carousel_title">
+                    <h2>{{appList[index].softName}}</h2>
+                  </div>
+                </div>
               </div>
             </el-col>
           </el-carousel-item>
@@ -104,8 +126,19 @@
         <el-carousel :interval="4000" type="card" indicator-position="outside" height="400px" arrow="always">
           <el-carousel-item v-for="(item,index) in soft2_img" :key="index">
             <el-col :md="12" :offset="6">
-              <div>
-                <img :src="item.src" width="100%" height="100%"/>
+              <div :style="{background:'url('+item.src+') no-repeat'}"
+                   style="cursor: pointer;height:400px" @click="toDetail(resourceList[index])">
+                <div v-if="resourceList[index]!==undefined">
+                  <div class="carousel_icon">
+                    <img v-if="resourceList[index]===undefined||resourceList[index].softIcon===null||resourceList[index].softIcon===''"
+                         src="../assets/common/logo_zhuchi.png" height="80" width="80">
+                    <img v-if="resourceList[index]!==undefined&&resourceList[index].softIcon!==null&&resourceList[index].softIcon!==''"
+                         :src="'data:image/jpg;base64,'+resourceList[index].softIcon" height="80" width="80">
+                  </div>
+                  <div class="carousel_title">
+                    <h2>{{resourceList[index].softName}}</h2>
+                  </div>
+                </div>
               </div>
             </el-col>
           </el-carousel-item>
@@ -126,6 +159,9 @@
         name: "homePage",
       data(){
           return {
+            softList:[],
+            appList:[],
+            resourceList:[],
             dataImg:[{
               src:require("../assets/carousel/carousel_1.jpg"),
               name:""
@@ -190,6 +226,7 @@
       },
       mounted(){
         this.getHomePageData();
+        this.getSoft();this.getAppSoft();this.getResourceSoft();
       },
       methods:{
         getHomePageData(){
@@ -215,6 +252,31 @@
           sessionStorage.setItem('menuId',id);
           sessionStorage.setItem('menuName',name);
           this.$router.push({path: '/soft'});
+        },
+        //查找软件
+        getSoft(){
+          this.$axios.post('/soft-detail/search-softs',{softMenu:1}).then((res)=>{
+            this.softList=res.data.data.records;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
+        getAppSoft(){
+          this.$axios.post('/soft-detail/search-softs',{softMenu:2}).then((res)=>{
+            this.appList=res.data.data.records;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
+        getResourceSoft(){
+          this.$axios.post('/soft-detail/search-softs',{softMenu:3}).then((res)=>{
+            this.resourceList=res.data.data.records;
+          }).catch((err)=>{
+            console.log(err);
+          });
+        },
+        toDetail(obj){
+          this.$emit('toDetail', obj);
         }
       }
     }
@@ -231,4 +293,6 @@
     font-weight: bolder;
     font-size: 36px;
   }
+  .carousel_icon{padding: 50px}
+  .carousel_title{text-align: center;color: #ffffff}
 </style>
