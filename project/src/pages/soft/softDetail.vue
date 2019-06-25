@@ -136,21 +136,21 @@
             creator:"",
             createTime:"",
             ifGet:"",
-            ifCollect:false
+            ifCollect:false,
+            homeDetail:null
           }
       },
       props: {
         detail:{
           type:Object,
           default(){return {}}
-        },
-        homeDetail:{
-          type:Object,
-          default(){return {}}
         }
       },
+      created(){
+        this.homeDetail=JSON.parse(sessionStorage.getItem('homeDetail'));
+      },
       mounted(){
-          this.pullInfo();this.homeToDetail();
+        this.pullInfo();this.homeToDetail();
       },
       methods:{
           pullInfo(){
@@ -164,10 +164,9 @@
               this.ifGet=this.detail.auth;
               this.ifCollect=this.detail.collect;
             }
-
           },
         homeToDetail(){
-          if(this.homeDetail!=={}){
+          if(this.homeDetail!==null){
             this.softId=this.homeDetail.id;
             this.softImg="data:image/jpg;base64,"+this.homeDetail.softIcon;
             this.softTitle=this.homeDetail.softName;
@@ -176,6 +175,8 @@
             this.creator=this.homeDetail.creator;
             this.ifGet=this.homeDetail.auth;
             this.ifCollect=this.homeDetail.collect;
+            //加载后清空session缓存
+            sessionStorage.removeItem('homeDetail');
           }
         },
         //立即获取

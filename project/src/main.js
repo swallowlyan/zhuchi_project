@@ -9,6 +9,7 @@ import qs from 'qs'
 import 'font-awesome/css/font-awesome.css'
 
 
+
 /////////////////////
 Vue.prototype.$axios = axios;
 
@@ -55,6 +56,9 @@ axios.interceptors.response.use(
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI);
+import vueSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'  //引入样式
+Vue.use(vueSwiper);
 //Vue.prototype.$loading = Loading.service;
 // Vue.prototype.$msgbox = MessageBox;
 // Vue.prototype.$alert = MessageBox.alert;

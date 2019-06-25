@@ -65,7 +65,7 @@
       </el-header>
     <!-- 身体 -->
       <el-main style="padding: 0px 20px;margin-bottom: 50px">
-          <router-view :getIfPerson="getIfPerson" :toDetail="toDetailObj" :homeDetail="detailObj" ref="listPage"/>
+          <router-view :getIfPerson="getIfPerson" v-on:toDetail="toDetailObj" ref="listPage"/>
       </el-main>
       <!--footer-->
       <el-footer height="280px" :style="{display:$route.meta.ifFooter==='show'?'':'none'}">
@@ -139,8 +139,7 @@
         menuList:[],
         menuName:"",
         ifPerson:true,
-        ifLogin:true,
-        detailObj:{}
+        ifLogin:true
       }
     },
     mounted(){
@@ -193,7 +192,10 @@
         else this.ifLogin=true;
       },
       toDetailObj(obj){
-        this.detailObj=obj;
+        sessionStorage.setItem('menuName',obj.nemuName);
+        sessionStorage.setItem('menuId',obj.menuId);
+        let detailStr = JSON.stringify(obj);
+        sessionStorage.setItem('homeDetail',detailStr);
         this.$router.push({path: '/soft/softDetail'});
       },
       logOut(){

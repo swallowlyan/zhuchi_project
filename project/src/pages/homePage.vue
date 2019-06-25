@@ -63,28 +63,29 @@
     <el-divider><h1>工业软件</h1></el-divider>
     <el-row>
       <el-col :span="12" :offset="6">
-        <el-carousel :interval="4000" type="card" indicator-position="outside" height="400px" arrow="always">
-          <el-carousel-item v-for="(item,index) in soft2_img" :key="index" setActiveItem="toDetail(softList[index])">
-            <div class="grid-content">
-              <el-col :md="12" :offset="6">
-                <div :style="{background:'url('+item.src+') no-repeat'}"
-                style="cursor: pointer;height:400px">
-                  <div v-if="softList[index]!==undefined">
-                    <div class="carousel_icon">
-                      <img v-if="softList[index].softIcon===undefined||softList[index].softIcon===null||softList[index].softIcon===''"
-                           src="../assets/common/logo_zhuchi.png" height="80" width="80"  @click="toDetail(softList[index])">
-                      <img v-if="softList[index].softIcon!==undefined&&softList[index].softIcon!==null&&softList[index].softIcon!==''"
-                           :src="'data:image/jpg;base64,'+softList[index].softIcon" height="80" width="80"  @click="toDetail(softList[index])">
-                    </div>
-                    <div class="carousel_title">
-                      <h2>{{softList[index].softName}}</h2>
-                    </div>
+        <swiper :options="swiperOption" v-if="soft2_img.length!=0">
+          <swiper-slide v-for="(item,index) in soft2_img" :key="index">
+            <el-col :md="24">
+              <div :style="{background:'url('+item.src+') no-repeat'}"
+                   style="cursor: pointer;height:400px" @click="toDetail(softList[index],'工业软件',1)">
+                <div v-if="softList[index]!==undefined">
+                  <div class="carousel_icon">
+                    <img v-if="softList[index].softIcon===undefined||softList[index].softIcon===null||softList[index].softIcon===''"
+                         src="../assets/common/logo_zhuchi.png" height="80" width="80">
+                    <img v-if="softList[index].softIcon!==undefined&&softList[index].softIcon!==null&&softList[index].softIcon!==''"
+                         :src="'data:image/jpg;base64,'+softList[index].softIcon" height="80" width="80">
+                  </div>
+                  <div class="carousel_title">
+                    <h2>{{softList[index].softName}}</h2>
                   </div>
                 </div>
-              </el-col>
-            </div>
-          </el-carousel-item>
-        </el-carousel>
+              </div>
+            </el-col>
+          </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
+          <div class="swiper-button-prev" slot="button-prev"></div>
+          <div class="swiper-button-next" slot="button-next"></div>
+        </swiper>
       </el-col>
       <el-col :span="2">
         <el-button type="text" @click="toPage('工业软件','1')"
@@ -94,11 +95,11 @@
     <el-divider><h1>工业APP</h1></el-divider>
     <el-row>
       <el-col :span="12" :offset="6">
-        <el-carousel :interval="4000" type="card" indicator-position="outside" height="400px" arrow="always">
-          <el-carousel-item v-for="(item,index) in soft2_img" :key="index">
-            <el-col :md="12" :offset="6">
+        <swiper :options="swiperOption" v-if="soft2_img.length!=0">
+          <swiper-slide v-for="(item,index) in soft2_img" :key="index">
+            <el-col :md="24">
               <div :style="{background:'url('+item.src+') no-repeat'}"
-                   style="cursor: pointer;height:400px" @click="toDetail(appList[index])">
+                   style="cursor: pointer;height:400px" @click="toDetail(appList[index],'工业APP',2)">
                 <div v-if="appList[index]!==undefined">
                   <div class="carousel_icon">
                     <img v-if="appList[index].softIcon===undefined||appList[index].softIcon===null||appList[index].softIcon===''"
@@ -112,8 +113,11 @@
                 </div>
               </div>
             </el-col>
-          </el-carousel-item>
-        </el-carousel>
+          </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
+          <div class="swiper-button-prev" slot="button-prev"></div>
+          <div class="swiper-button-next" slot="button-next"></div>
+        </swiper>
       </el-col>
       <el-col :span="2">
         <el-button type="text" @click="toPage('工业APP','2')"
@@ -123,16 +127,16 @@
     <el-divider><h1>工业资源</h1></el-divider>
     <el-row>
       <el-col :span="12" :offset="6">
-        <el-carousel :interval="4000" type="card" indicator-position="outside" height="400px" arrow="always">
-          <el-carousel-item v-for="(item,index) in soft2_img" :key="index">
-            <el-col :md="12" :offset="6">
+        <swiper :options="swiperOption" v-if="soft2_img.length!=0">
+          <swiper-slide v-for="(item,index) in soft2_img" :key="index">
+            <el-col :md="24">
               <div :style="{background:'url('+item.src+') no-repeat'}"
-                   style="cursor: pointer;height:400px" @click="toDetail(resourceList[index])">
+                   style="cursor: pointer;height:400px" @click="toDetail(resourceList[index],'机理模型',3)">
                 <div v-if="resourceList[index]!==undefined">
                   <div class="carousel_icon">
-                    <img v-if="resourceList[index]===undefined||resourceList[index].softIcon===null||resourceList[index].softIcon===''"
+                    <img v-if="resourceList[index].softIcon===undefined||resourceList[index].softIcon===null||resourceList[index].softIcon===''"
                          src="../assets/common/logo_zhuchi.png" height="80" width="80">
-                    <img v-if="resourceList[index]!==undefined&&resourceList[index].softIcon!==null&&resourceList[index].softIcon!==''"
+                    <img v-if="resourceList[index].softIcon!==undefined&&resourceList[index].softIcon!==null&&resourceList[index].softIcon!==''"
                          :src="'data:image/jpg;base64,'+resourceList[index].softIcon" height="80" width="80">
                   </div>
                   <div class="carousel_title">
@@ -141,8 +145,11 @@
                 </div>
               </div>
             </el-col>
-          </el-carousel-item>
-        </el-carousel>
+          </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
+          <div class="swiper-button-prev" slot="button-prev"></div>
+          <div class="swiper-button-next" slot="button-next"></div>
+        </swiper>
       </el-col>
       <el-col :span="2">
         <el-button type="text" @click="toPage('机理模型','3')"
@@ -159,69 +166,106 @@
         name: "homePage",
       data(){
           return {
-            softList:[],
-            appList:[],
-            resourceList:[],
-            dataImg:[{
-              src:require("../assets/carousel/carousel_1.jpg"),
-              name:""
+            softList: [],
+            appList: [],
+            resourceList: [],
+            dataImg: [{
+              src: require("../assets/carousel/carousel_1.jpg"),
+              name: ""
             },
               {
-                src:require("../assets/carousel/carousel_2.jpg"),
-                name:""
+                src: require("../assets/carousel/carousel_2.jpg"),
+                name: ""
               },
               {
-                src:require("../assets/carousel/carousel_3.jpg"),
-                name:""
+                src: require("../assets/carousel/carousel_3.jpg"),
+                name: ""
               }],
-            soft1_img:[
+            soft1_img: [
               {
-                src:require("../assets/soft1_img/v2_ptbrfu.jpg"),
-                name:""
+                src: require("../assets/soft1_img/v2_ptbrfu.jpg"),
+                name: ""
               },
               {
-                src:require("../assets/soft1_img/v2_ptdms6.jpg"),
-                name:""
+                src: require("../assets/soft1_img/v2_ptdms6.jpg"),
+                name: ""
               },
               {
-                src:require("../assets/soft1_img/v2_ptdmsa.jpg"),
-                name:""
+                src: require("../assets/soft1_img/v2_ptdmsa.jpg"),
+                name: ""
               },
               {
-                src:require("../assets/soft1_img/v2_ptdmsr.jpg"),
-                name:""
+                src: require("../assets/soft1_img/v2_ptdmsr.jpg"),
+                name: ""
               },
               {
-                src:require("../assets/soft1_img/v2_ptdmt8.jpg"),
-                name:""
+                src: require("../assets/soft1_img/v2_ptdmt8.jpg"),
+                name: ""
               }
             ],
-            soft2_img:[{
-              src:require("../assets/soft2_img/v2_pt674w.jpg"),
-              name:""
+            soft2_img: [{
+              src: require("../assets/soft2_img/v2_pt674w.jpg"),
+              name: ""
             },
               {
-                src:require("../assets/soft2_img/v2_pt675f.jpg"),
-                name:""
+                src: require("../assets/soft2_img/v2_pt675f.jpg"),
+                name: ""
               },
               {
-                src:require("../assets/soft2_img/v2_pt675i.jpg"),
-                name:""
+                src: require("../assets/soft2_img/v2_pt675i.jpg"),
+                name: ""
               },
               {
-                src:require("../assets/soft2_img/v2_pt675s.jpg"),
-                name:""
+                src: require("../assets/soft2_img/v2_pt675s.jpg"),
+                name: ""
               },
               {
-                src:require("../assets/soft2_img/v2_pt677p.jpg"),
-                name:""
+                src: require("../assets/soft2_img/v2_pt677p.jpg"),
+                name: ""
               }],
-            softCount:0,
-            serviceCount:0,
-            appCount:0,
-            userCount:0,
-            developCount:0,
-            algorithmCount:0
+            softCount: 0,
+            serviceCount: 0,
+            appCount: 0,
+            userCount: 0,
+            developCount: 0,
+            algorithmCount: 0,
+            ///////////////////////////
+            swiperOption: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+              freeMode: true,
+              //loop: true,
+              pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+              },
+              autoplay: {
+                delay: 1500,
+                disableOnInteraction: false
+              },
+              navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+              },
+              breakpoints: {
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 40
+                },
+                768: {
+                  slidesPerView: 3,
+                  spaceBetween: 30
+                },
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 20
+                },
+                320: {
+                  slidesPerView: 1,
+                  spaceBetween: 10
+                }
+              }
+            },
           }
       },
       mounted(){
@@ -275,7 +319,9 @@
             console.log(err);
           });
         },
-        toDetail(obj){
+        toDetail(obj,name,id){
+          obj.nemuName=name;
+          obj.nemuId=id;
           this.$emit('toDetail', obj);
         }
       }
@@ -293,6 +339,6 @@
     font-weight: bolder;
     font-size: 36px;
   }
-  .carousel_icon{padding: 50px}
+  .carousel_icon{padding: 75px}
   .carousel_title{text-align: center;color: #ffffff}
 </style>
