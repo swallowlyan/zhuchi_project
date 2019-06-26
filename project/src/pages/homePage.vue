@@ -18,7 +18,7 @@
     </el-row>
     <el-row>
       <el-col :span="12" :offset="10">
-        <img src="../assets/common/logo_zhuchi.png"style="margin: 20px">
+        <img src="../assets/common/logo_zhuchi.png" style="margin: 20px">
       </el-col>
       <el-col :span="12" :offset="10" style="margin-bottom: 30px">
         <h2>行业领先工业互联网平台</h2>
@@ -339,6 +339,10 @@
     font-weight: bolder;
     font-size: 36px;
   }
-  .carousel_icon{padding: 75px}
+  .carousel_icon{
+    margin: 0 auto;
+    width: 80px;
+    padding-top: 80px;
+    }
   .carousel_title{text-align: center;color: #ffffff}
 </style>

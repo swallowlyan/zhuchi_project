@@ -8,20 +8,20 @@
               <el-row class="type">
                 <el-col :span="3"><span>领域分类：</span></el-col>
                 <el-col :span="2"><el-button type="text" @click="getSoft('')">全部</el-button></el-col>
-                <el-col :span="3" v-for="(item,index) in areaTypeList":key="index">
+                <el-col :span="3" v-for="(item,index) in areaTypeList" :key="index">
                   <el-button  :class="{active:active==index}" type="text" @click="getSoft(item.id,index)">{{item.fieldName}}</el-button>
                 </el-col>
               </el-row>
               <el-row class="type">
                 <el-col :span="3"><span>行业分类：</span></el-col>
-                <el-col :span="2"><el-button type="text"@click="getSoft('')">全部</el-button></el-col>
+                <el-col :span="2"><el-button type="text" @click="getSoft('')">全部</el-button></el-col>
                 <el-col :span="3" v-for="(item,index) in industryTypeList" :key="index">
                   <el-button type="text" :class="{active:active_b==index}" @click="getSoft_b(item.id,index)">{{item.industryName}}</el-button>
                 </el-col>
               </el-row>
               <el-row class="type">
                 <el-col :span="3"><span>交付方式：</span></el-col>
-                <el-col :span="2"><el-button type="text"@click="getSoft('')">全部</el-button></el-col>
+                <el-col :span="2"><el-button type="text" @click="getSoft('')">全部</el-button></el-col>
                 <el-col :span="3" v-for="(item,index) in payTypeList" :key="index">
                   <el-button type="text" :class="{active:active_c==index}" @click="getSoft_c(item.id,index)">{{item.deliverType}}</el-button>
                 </el-col>
@@ -37,10 +37,10 @@
             <div slot="header" class="clearfix" style="height: 50px">
               <el-col :span="2" :offset="1"><span>排序：</span></el-col>
               <el-col :span="2"><el-button type="text" @click="getSoft()">默认</el-button></el-col>
-              <el-col :span="3"><el-button type="text"@click="getSoft()">总销量<i class="el-icon-top"></i></el-button></el-col>
-              <el-col :span="3"><el-button type="text"@click="getSoft()">上架时间<i class="el-icon-top"></i></el-button></el-col>
-              <el-col :span="2"><el-button type="text"@click="getSoft()">评分<i class="el-icon-top"></i></el-button></el-col>
-              <el-col :span="2"><el-button type="text"@click="getSoft()">价格<i class="el-icon-top"></i></el-button></el-col>
+              <el-col :span="3"><el-button type="text" @click="getSoft()">总销量<i class="el-icon-top"></i></el-button></el-col>
+              <el-col :span="3"><el-button type="text" @click="getSoft()">上架时间<i class="el-icon-top"></i></el-button></el-col>
+              <el-col :span="2"><el-button type="text" @click="getSoft()">评分<i class="el-icon-top"></i></el-button></el-col>
+              <el-col :span="2"><el-button type="text" @click="getSoft()">价格<i class="el-icon-top"></i></el-button></el-col>
             </div>
             <div class="softContent">
               <!--softInfo-->
@@ -87,7 +87,7 @@
                   </el-row>
                   <el-row style="margin-top: 15px;"><span class="saleCount">月销量10件</span></el-row>
                 </el-col>
-                <el-col :span="3"><h3 class="money" style="margin: 10px 0px">￥500000</h3></el-col>
+                <el-col :span="3"><h3 class="money" style="margin: 10px 0px">￥0</h3></el-col>
                 <el-col :span="3" v-if="!item.collect">
                   <el-button type="text" @click="collectSoft(item.id,1)"><i class="fa fa-heart-o"></i>点击收藏</el-button>
                 </el-col>
@@ -96,7 +96,7 @@
                 </el-col>
                 <el-col :span="3" style="margin-top: 5px">
                   <el-row v-if="item.auth==='true'">
-                    <el-button type="button"size="medium" disabled>已获取</el-button>
+                    <el-button type="button" size="medium" disabled>已获取</el-button>
                   </el-row>
                   <el-row v-if="item.auth==='false'||item.auth===undefined">
                     <el-button type="button" size="medium" @click="downSoft(item.id)">点击获取</el-button>
