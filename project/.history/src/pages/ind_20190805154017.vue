@@ -64,7 +64,7 @@
         </div>
       </el-header>
     <!-- 身体 -->
-      <el-main style="padding: 0px 20px;">
+      <el-main style="padding: 0px 20px;margin-bottom: 50px">
           <router-view :getIfPerson="getIfPerson" v-on:toDetail="toDetailObj" ref="listPage"/>
       </el-main>
       <!--footer-->

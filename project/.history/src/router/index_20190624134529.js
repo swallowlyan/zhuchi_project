@@ -35,7 +35,6 @@ import DataStatistics from '../pages/administrator/DataStatistics'
 import ComprehensiveStatistics from '../pages/administrator/ComprehensiveStatistics'
 import CategoryConfiguration from '../pages/administrator/CategoryConfiguration'
 
-import developersHomePage from '../pages/developers/develop_homePage'
 Vue.use(Router)
 
 export default new Router({
@@ -67,7 +66,7 @@ export default new Router({
             ifHome:"none"
             },
         },
-        //个人工作台
+
         {
           path:'personal-workbench',
           name:'PersonalWorkbench',
@@ -125,7 +124,6 @@ export default new Router({
             }
           ]
         },
-        //企业工作台
         {
           path:'enterprise-workbench',
           name:'EnterpriseWorkbench',
@@ -164,7 +162,6 @@ export default new Router({
 
           ]
         },
-        //管理员工作台
         {
           path:'administrator-backstage',
           name:'AdministratorBackstage',
@@ -207,7 +204,6 @@ export default new Router({
             }
           ]
         },
-        //软件列表
         {
           path:'soft',
           name:'soft',
@@ -227,20 +223,7 @@ export default new Router({
               meta:{ifFooter:"show",ifMenu:"show",ifHome:"none"}
             }
           ]
-        },
-        //开发者平台
-        {
-          path:'developers-workbench',
-          name:'DevelopersWorkbench',
-          component:developersHomePage,
-          children:[
-            {
-              path:'',
-              name:'developersHomePage',
-              component:developersHomePage,
-              meta:{ifFooter:"show",ifMenu:"show",ifHome:"none"}
-            }]
-          }
+        }
       ]
     },
 

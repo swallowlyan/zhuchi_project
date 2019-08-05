@@ -64,7 +64,7 @@
         </div>
       </el-header>
     <!-- 身体 -->
-      <el-main style="padding: 0px 20px;">
+      <el-main style="padding: 0px 20px;margin-bottom: 50px">
           <router-view :getIfPerson="getIfPerson" v-on:toDetail="toDetailObj" ref="listPage"/>
       </el-main>
       <!--footer-->
@@ -186,7 +186,6 @@
         if(this.$route.path.indexOf("/enterprise")>-1)this.pageTitle="企业工作台";
           else if(this.$route.path.indexOf("/personal-workbench")>-1)this.pageTitle="个人工作台";
           else if(this.$route.path.indexOf("/administrator")>-1)this.pageTitle="管理员工作台";
-          else if(this.$route.path.indexOf("/developers")>-1)this.pageTitle="开发者工作台";
         if(this.$route.path==="/login"
           ||this.$route.path==="/register"
           ||this.username===null) this.ifLogin=false;

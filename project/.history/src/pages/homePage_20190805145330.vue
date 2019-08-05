@@ -114,11 +114,6 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row style="margin:20px 0px">
-      <el-card class="box-card" :body-style="{padding:'0px'}">
-        
-      </el-card>
-    </el-row>
     <!--<el-divider><h1>工业软件</h1></el-divider>
      <el-row>
       <el-col :span="12" :offset="6">
@@ -406,6 +401,7 @@
     font-weight: bolder;
     font-size: 36px;
   }
+  .el-card__body{padding: 0px !important}
   .carousel_icon{
     margin: 0 auto;
     width: 80px;

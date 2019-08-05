@@ -231,8 +231,8 @@ export default new Router({
         //开发者平台
         {
           path:'developers-workbench',
-          name:'DevelopersWorkbench',
-          component:developersHomePage,
+          name:'developersHomePage',
+          component:DevelopersWorkbench,
           children:[
             {
               path:'',

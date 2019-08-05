@@ -232,7 +232,7 @@ export default new Router({
         {
           path:'developers-workbench',
           name:'DevelopersWorkbench',
-          component:developersHomePage,
+          component:DevelopersWorkbench,
           children:[
             {
               path:'',

@@ -60,15 +60,15 @@
         <el-row><h2>通用算法等<span class="num">{{algorithmCount}}</span>个</h2></el-row>
       </el-col>
     </el-row>
-    <el-row style="margin:20px 0px">
+    <el-row>
       <el-col :span=18  :offset="3">
-        <el-card class="box-card show_line" :body-style="{padding:'0px'}">
+        <el-card class="box-card show_line">
       <el-col :span=4 class="application_bg">
         <div style="margin-top:25%">热门应用</div>
         <div style="color:#c0c4cc;margin-top:10px">APPLICATION</div>
       </el-col>
-      <el-col :span=17 class="softList">
-        <el-row style="margin-bottom:10px">
+      <el-col :span=16 class="softList">
+        <el-row>
            <el-col :span=4 v-for="(item, index) in demo_img" :key="index">
             <img :src=item.src height="60" width="70"/>
             <h5>CATIA</h5>
@@ -82,42 +82,10 @@
         </el-row>
       </el-col>
       <el-col :span="2">
-        <el-button type="text" @click="toPage('工业APP','2')" style="margin-top:150%">查看更多</el-button>
+        <el-button type="text" @click="toPage('工业APP','2')" style="">查看更多</el-button>
       </el-col>
         </el-card>
       </el-col>
-    </el-row>
-     <el-row style="margin:20px 0px">
-      <el-col :span=18  :offset="3">
-        <el-card class="box-card show_line" :body-style="{padding:'0px'}">
-      <el-col :span=4 class="recommended_bg">
-        <div style="margin-top:35%;color:#ffffff">智能推荐</div>
-        <div style="color:#ffffff;margin-top:10px">RECOMMENDATION</div>
-      </el-col>
-      <el-col :span=17 class="softList">
-        <el-row style="margin-bottom:10px">
-           <el-col :span=4 v-for="(item, index) in demo_img" :key="index">
-            <img :src=item.src height="60" width="70"/>
-            <h5>CATIA</h5>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span=4 v-for="(item, index) in demo_img" :key="index">
-            <img :src=item.src height="60" width="70"/>
-            <h5>CATIA</h5>
-          </el-col>
-        </el-row>
-      </el-col>
-      <el-col :span="2">
-        <el-button type="text" @click="toPage('工业APP','2')" style="margin-top:150%">查看更多</el-button>
-      </el-col>
-        </el-card>
-      </el-col>
-    </el-row>
-    <el-row style="margin:20px 0px">
-      <el-card class="box-card" :body-style="{padding:'0px'}">
-        
-      </el-card>
     </el-row>
     <!--<el-divider><h1>工业软件</h1></el-divider>
      <el-row>
@@ -406,6 +374,7 @@
     font-weight: bolder;
     font-size: 36px;
   }
+  .el-card__body{padding: 0px}
   .carousel_icon{
     margin: 0 auto;
     width: 80px;
@@ -415,8 +384,7 @@
   .application_bg{
     background: url("../assets/index/application_bg.jpg") no-repeat
   }
-  .show_line,.application_bg,.recommended_bg{min-height: 180px}
-  .application_bg div,.recommended_bg div,.softList h5{text-align: center}
+  .show_line,.application_bg{min-height: 180px}
+  .application_bg div,.softList h5{text-align: center}
   .softList img{margin-left: 20%}
-  .recommended_bg{background: url("../assets/index/recommended_bg.jpg")}
 </style>

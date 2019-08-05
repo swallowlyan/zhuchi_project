@@ -35,7 +35,7 @@ import DataStatistics from '../pages/administrator/DataStatistics'
 import ComprehensiveStatistics from '../pages/administrator/ComprehensiveStatistics'
 import CategoryConfiguration from '../pages/administrator/CategoryConfiguration'
 
-import developersHomePage from '../pages/developers/develop_homePage'
+import developersHomePage from '../pages/developers/homePage'
 Vue.use(Router)
 
 export default new Router({
@@ -232,13 +232,12 @@ export default new Router({
         {
           path:'developers-workbench',
           name:'DevelopersWorkbench',
-          component:developersHomePage,
+          component:PersonalWorkbench,
           children:[
             {
               path:'',
-              name:'developersHomePage',
+              name:'homePage',
               component:developersHomePage,
-              meta:{ifFooter:"show",ifMenu:"show",ifHome:"none"}
             }]
           }
       ]
