@@ -1,30 +1,30 @@
 <template>
     <div id="softList">
-      <el-row style="margin:20px 0px" v-if="ifDevice">
-        <el-col :span="5" :offset="4">
+      <el-row>
+        <el-col :span="6" :offset="4">
           <el-card shadow="hover" :body-style="{ padding: '0px' }">
               <div class="accessDevice">
-                <h3>接入设备</h3><br/>
-                <h5>让您的设备快速云化，目前已接入XXX设备</h5><br/>
-                <el-button type="warning" plain size="medium">接入我的设备</el-button>
+                <h1>接入设备</h1><br/><br/>
+                <h5>让您的设备快速云化，目前已接入XXX设备</h5><br/><br/>
+                <el-button type="warning" round>接入我的设备</el-button>
               </div>
           </el-card>
         </el-col>
-        <el-col :span="5" style="margin:0px 35px">
+        <el-col :span="6">
           <el-card shadow="hover" :body-style="{ padding: '0px' }">
-              <div class="monitoringDevice">
-                <h3>设备监控运维</h3><br/>
-                <h5>对您已接入设备进行在线监控，保障设备运行安全</h5><br/>
-                <el-button type="success" plain size="medium">接入我的设备</el-button>
+              <div class="accessDevice">
+                <h1>设备监控运维</h1><br/><br/>
+                <h5>对您已接入设备进行在线监控，保障设备运行安全</h5><br/><br/>
+                <el-button type="success" round>接入我的设备</el-button>
               </div>
           </el-card>
         </el-col>
-        <el-col :span="5">
+        <el-col :span="6">
           <el-card shadow="hover" :body-style="{ padding: '0px' }">
-              <div class="releaseDevice">
-                <h3>设备能力发布</h3><br/>
-                <h5>将您的设备进行云端共享</h5><br/>
-                 <el-button plain size="medium">接入我的设备</el-button>
+              <div class="accessDevice">
+                <h1>设备能力发布</h1><br/><br/>
+                <h5>将您的设备进行云端共享</h5><br/><br/>
+                 <el-button plain>接入我的设备</el-button>
               </div>
           </el-card>
         </el-col>
@@ -78,8 +78,7 @@
             ],
             searchVal:"",
             menuName:"",
-            detailObj:{},
-            ifDevice:true
+            detailObj:{}
           }
       },
       mounted(){
@@ -113,30 +112,4 @@
 }
   .softContent span{font-size: 13px}
   el-card__header button{padding: 0px}
-  .accessDevice{
-    background: url("../../assets/device/device_bg1.png");
-    background-size: cover;
-  }
-  .monitoringDevice{
-    background: url("../../assets/device/device_bg2.png");
-    background-size: cover;
-  }
-  .releaseDevice{
-    background: url("../../assets/device/device_bg3.png");
-    background-size: cover;
-  }
-  .accessDevice h3,.monitoringDevice h3,.releaseDevice h3{
-    margin-left: 30px;
-    padding-top: 20px;
-    color: #ffffff;
-  }
-  .accessDevice h5,.monitoringDevice h5,.releaseDevice h5{
-    margin-left: 20px;
-    color: #ffffff;
-    font-weight: normal;
-    font-size: 12px;
-  }
-  .accessDevice button,.monitoringDevice button,.releaseDevice button{
-    margin: 20px;
-  }
 </style>

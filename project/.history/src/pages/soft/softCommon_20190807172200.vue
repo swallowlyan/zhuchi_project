@@ -1,6 +1,6 @@
 <template>
     <div id="softList">
-      <el-row style="margin:20px 0px" v-if="ifDevice">
+      <el-row style="margin:20px 0px">
         <el-col :span="5" :offset="4">
           <el-card shadow="hover" :body-style="{ padding: '0px' }">
               <div class="accessDevice">
@@ -78,8 +78,7 @@
             ],
             searchVal:"",
             menuName:"",
-            detailObj:{},
-            ifDevice:true
+            detailObj:{}
           }
       },
       mounted(){

@@ -1,11 +1,11 @@
 <template>
     <div id="softList">
-      <el-row style="margin:20px 0px" v-if="ifDevice">
+      <el-row style="margin:20px 0px">
         <el-col :span="5" :offset="4">
           <el-card shadow="hover" :body-style="{ padding: '0px' }">
               <div class="accessDevice">
-                <h3>接入设备</h3><br/>
-                <h5>让您的设备快速云化，目前已接入XXX设备</h5><br/>
+                <h3>接入设备</h3><br/><br/>
+                <h5>让您的设备快速云化，目前已接入XXX设备</h5><br/><br/>
                 <el-button type="warning" plain size="medium">接入我的设备</el-button>
               </div>
           </el-card>
@@ -13,8 +13,8 @@
         <el-col :span="5" style="margin:0px 35px">
           <el-card shadow="hover" :body-style="{ padding: '0px' }">
               <div class="monitoringDevice">
-                <h3>设备监控运维</h3><br/>
-                <h5>对您已接入设备进行在线监控，保障设备运行安全</h5><br/>
+                <h3>设备监控运维</h3><br/><br/>
+                <h5>对您已接入设备进行在线监控，保障设备运行安全</h5><br/><br/>
                 <el-button type="success" plain size="medium">接入我的设备</el-button>
               </div>
           </el-card>
@@ -22,8 +22,8 @@
         <el-col :span="5">
           <el-card shadow="hover" :body-style="{ padding: '0px' }">
               <div class="releaseDevice">
-                <h3>设备能力发布</h3><br/>
-                <h5>将您的设备进行云端共享</h5><br/>
+                <h3>设备能力发布</h3><br/><br/>
+                <h5>将您的设备进行云端共享</h5><br/><br/>
                  <el-button plain size="medium">接入我的设备</el-button>
               </div>
           </el-card>
@@ -78,8 +78,7 @@
             ],
             searchVal:"",
             menuName:"",
-            detailObj:{},
-            ifDevice:true
+            detailObj:{}
           }
       },
       mounted(){
@@ -137,6 +136,6 @@
     font-size: 12px;
   }
   .accessDevice button,.monitoringDevice button,.releaseDevice button{
-    margin: 20px;
+    padding: 20px;
   }
 </style>

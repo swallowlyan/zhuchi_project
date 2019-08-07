@@ -78,8 +78,7 @@
             ],
             searchVal:"",
             menuName:"",
-            detailObj:{},
-            ifDevice:true
+            detailObj:{}
           }
       },
       mounted(){

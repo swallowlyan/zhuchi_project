@@ -79,7 +79,7 @@
             searchVal:"",
             menuName:"",
             detailObj:{},
-            ifDevice:true
+            ifDevice:false
           }
       },
       mounted(){

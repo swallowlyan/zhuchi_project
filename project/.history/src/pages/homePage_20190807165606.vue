@@ -114,7 +114,7 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row class="assembly">
+    <el-row style="margin:20px 0px" class="assembly">
       <el-card class="box-card" :body-style="{padding:'0px',background:'none'}">
         <el-row style="color:#ffffff;text-align:center;margin:50px 0px">
           <h3 style="font-weight:normal;margin-bottom:10px">组装推荐</h3>

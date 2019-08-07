@@ -114,41 +114,9 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row class="assembly">
-      <el-card class="box-card" :body-style="{padding:'0px',background:'none'}">
-        <el-row style="color:#ffffff;text-align:center;margin:50px 0px">
-          <h3 style="font-weight:normal;margin-bottom:10px">组装推荐</h3>
-          <h5 style="font-weight:normal;">RECOMMENDATION</h5>
-        </el-row>
-         <div class="container">
-<!-- animate -->
-<div v-for="(item,index) in animateArr" :key="index">
-      <div class="handle" @click="animateChange(index)" 
-      :style="{'backgroundImage': 'url(' + item.bgImg + ')'}"
-      >
-        <span class="rotate">
-          <el-row 
-          :class="{'noAnimate':!item.ifShow,'isAnimate':item.ifShow}"
-          ><h2><i :class="item.icon"></i></h2></el-row>
-          <el-row>
-            <h5>{{item.title}}</h5>
-            <h5 v-if="item.title2">{{item.title2}}</h5>
-            </el-row>
-        </span>
-        <transition enter-active-class="zoomIn" leave-active-class="fadeOut" :duration="{ enter:200, leave:50 }">
-        <div v-if="item.ifShow" class="animated slide">
-          <br/>
-          <h5>{{item.content1}}</h5>
-          <h5>{{item.content2}}</h5>
-          <br/>
-          <h5>{{item.name}}</h5><br/>
-          <h5>{{item.footer}}</h5>
-        </div>
-    </transition>
-        </div>
-</div>
-<!--animate end  -->
-</div>
+    <el-row style="margin:20px 0px">
+      <el-card class="box-card" :body-style="{padding:'0px'}">
+        
       </el-card>
     </el-row>
     <!--<el-divider><h1>工业软件</h1></el-divider>
@@ -247,8 +215,40 @@
                    style="margin-top: 300px;margin-left: 30px">查看更多</el-button>
       </el-col>
     </el-row>-->
+    <el-row>
+      <div class="container">
+<div>
+      <div class="handle" id="one" @click="animateChange($event)"><p class="rotate"></p></div>
+      <transition enter-active-class="fadeInLeft" leave-active-class="fadeOutLeft" :duration="{ enter:400, leave:200 }">
+        <h3 v-if="test1" class="animated">test111111111</h3>
+    </transition>
+
+</div>
+
+<div>      
+       <div class="handle" id="two" @click="animateChange($event)"><p class="rotate"></p></div>
+      <transition enter-active-class="fadeInLeft" leave-active-class="fadeOutLeft" :duration="{ enter:400, leave:200 }">
+        <h3 v-if="test2" class="animated">test111111111</h3>
+    </transition>
+</div>
+
+<div>   
+       <div class="handle" id="three" @click="animateChange($event)"><p class="rotate"></p></div>
+      <transition enter-active-class="fadeInLeft" leave-active-class="fadeOutLeft" :duration="{ enter:400, leave:200 }">
+        <h3 v-if="test3" class="animated">test111111111</h3>
+    </transition>
+</div>
+<div>
+      <div class="handle" id="four" @click="animateChange($event)"><p class="rotate"></p></div>
+      <transition enter-active-class="fadeInLeft" leave-active-class="fadeOutLeft" :duration="{ enter:400, leave:200 }">
+        <h3 v-if="test4" class="animated">test111111111</h3>
+    </transition>
+</div>
+</div>
+    </el-row>
   </div>
 </template>
+
 <script>
 import animate from 'animate.css'
     export default {
@@ -363,52 +363,10 @@ import animate from 'animate.css'
                 }
               }
             },
-            animateArr:[
-              {
-                ifShow:false,
-                icon:"fa fa-pie-chart",
-                bgImg:require("../assets/assembly/assembly_img1.jpg"),
-                title:"汽车零部件",
-                title2:"企业套装",
-                content1:"为您提供专业、稳定建模环境，协助您快速",
-                content2:"完成三维建模相关内容，助力高效生产",
-                name:"套装组件",
-                footer:"3Ds MAX 丨 Creo丨 Abaqus"
-                },{
-                ifShow:false,
-                icon:"fa fa-pie-chart",
-                bgImg:require("../assets/assembly/assembly_img2.jpg"),
-                title:"建模套装",
-                content1:"为您提供专业、稳定建模环境，协助您快速",
-                content2:"完成三维建模相关内容，助力高效生产",
-                name:"套装组件",
-                footer:"3Ds MAX 丨 Creo丨 Abaqus"
-                  },
-              {ifShow:false,
-                icon:"fa fa-pie-chart",
-                bgImg:require("../assets/assembly/assembly_img3.jpg"),
-                title:"建模套装",
-                content1:"为您提供专业、稳定建模环境，协助您快速",
-                content2:"完成三维建模相关内容，助力高效生产",
-                name:"套装组件",
-                footer:"3Ds MAX 丨 Creo丨 Abaqus"},
-                {ifShow:false,
-                icon:"fa fa-pie-chart",
-                bgImg:require("../assets/assembly/assembly_img4.jpg"),
-                title:"建模套装",
-                content1:"为您提供专业、稳定建模环境，协助您快速",
-                content2:"完成三维建模相关内容，助力高效生产",
-                name:"套装组件",
-                footer:"3Ds MAX 丨 Creo丨 Abaqus"},
-                {ifShow:true,
-                icon:"fa fa-pie-chart",
-                bgImg:require("../assets/assembly/assembly_img5.jpg"),
-                title:"建模套装",
-                content1:"为您提供专业、稳定建模环境，协助您快速",
-                content2:"完成三维建模相关内容，助力高效生产",
-                name:"套装组件",
-                footer:"3Ds MAX 丨 Creo丨 Abaqus"}],
-
+            test1:false,
+            test2:false,
+            test3:false,
+            test4:false
           }
       },
       mounted(){
@@ -467,21 +425,18 @@ import animate from 'animate.css'
           obj.nemuId=id;
           this.$emit('toDetail', obj);
         },
-        animateChange(index){
-          for(let i=0;i<5;i++){
-            if(i!==index)this.animateArr[i].ifShow=false;
-          }
-          this.animateArr[index].ifShow=true;
-        //   if(!e.target.siblings(".slide").is(":visible")){
-			  // e.target.addClass("select");
-				// e.target.siblings(".slide").animate({width:"show"},300);
-				// e.target.parent().siblings().children(".slide").animate({width:"hide"},300);
-				// e.target.parent().siblings().children(".handle").removeClass("select");
-				// }
-				// else{
-				// e.target.siblings(".slide").animate({width:"hide"},300);
-				// e.target.removeClass("select");
-				// }
+        animateChange(e){
+          
+          if(!e.target.siblings(".slide").is(":visible")){
+			  e.target.addClass("select");
+				e.target.siblings(".slide").animate({width:"show"},300);
+				e.target.parent().siblings().children(".slide").animate({width:"hide"},300);
+				e.target.parent().siblings().children(".handle").removeClass("select");
+				}
+				else{
+				e.target.siblings(".slide").animate({width:"hide"},300);
+				e.target.removeClass("select");
+				}
         }
       }
     }
@@ -511,40 +466,37 @@ import animate from 'animate.css'
   .application_bg div,.recommended_bg div,.softList h5{text-align: center}
   .softList img{margin-left: 20%}
   .recommended_bg{background: url("../assets/index/recommended_bg.jpg")}
-  .assembly{
-    background: url("../assets/assembly/assembly_bg.png") no-repeat;
-    background-size: cover
-    }
-    .assembly .el-card{
-      background:none
-    }
-  /* animate*/
+  /* 
+  
+  
+  
+   */
    .container{
-	width:950px;
-	height:250px;
-	margin:30px auto;
-  color: #ffffff;
+	width:700px;
+	height:500px;
+	margin:70px auto;
 }
 .handle{
 	float:left;
-	min-width:120px;
-	height:250px;
+	margin:0 2px;
+	width:50px;
+	height:500px;
 	cursor:pointer;
+	background:#F0F;
 	font:bold 24px Arial, Helvetica, sans-serif;
 	text-align:center;
 	color:#FFF;
-  background-size:cover;
-	-webkit-border-radius:5px;
-	-moz-border-radius:5px;
-	-o-border-radius:5px;
-	border-radius:5px;
+	-webkit-border-radius:25px;
+	-moz-border-radius:25px;
+	-o-border-radius:25px;
+	border-radius:25px;
 	-webkit-transition:0.3s ease-in-out;
 	-moz-transition:0.3s ease-in-out;
 	-o-transition:0.3s ease-in-out;
 	-ms-transition:0.3s ease-in-out;
 }
 .handle:hover{
-	/* background:#FC3; */
+	background:#FC3;
 	-webkit-transform:scale(1.02);
 	-moz-transform:scale(1.02);
 	-ms-transform:scale(1.02);
@@ -555,31 +507,21 @@ import animate from 'animate.css'
 }
 .slide{
 	float:left;
-	width:280px;
+	width:380px;
 	height:500px;
-	/* display:none; */
+	display:none;
 	margin:0 4px;
 	-webkit-border-radius:25px;
 	-moz-border-radius:25px;
 	-o-border-radius:25px;
 	border-radius:25px;
 }
-.slide h5{
-  font-weight: normal;
-  text-align: center;
-  font-size: 10px;
-}
 .rotate{
+	margin:50px auto;
 	-webkit-transform:rotate(90deg);
 	-moz-transform:rotate(90deg);
 	-ms-transform:rotate(90deg);
 	-o-transform:rotate(90deg);
 }
-.rotate h5{
-  font-weight: normal;
-  font-size: 14px;
-  }
-  .rotate .isAnimate{margin-top: 20px}
-  .rotate .noAnimate{margin-top: 50%;}
-   /* animate-end */
+   /*  */
 </style>

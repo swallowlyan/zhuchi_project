@@ -114,40 +114,131 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row class="assembly">
+    <el-row style="margin:20px 0px" class="assembly">
       <el-card class="box-card" :body-style="{padding:'0px',background:'none'}">
-        <el-row style="color:#ffffff;text-align:center;margin:50px 0px">
-          <h3 style="font-weight:normal;margin-bottom:10px">组装推荐</h3>
-          <h5 style="font-weight:normal;">RECOMMENDATION</h5>
+        <el-row style="font-weight:normal;color:#ffffff;text-align:center;margin:50px 0px">
+          <h3>组装推荐</h3>
+          <h5>RECOMMENDATION</h5>
         </el-row>
          <div class="container">
-<!-- animate -->
-<div v-for="(item,index) in animateArr" :key="index">
-      <div class="handle" @click="animateChange(index)" 
-      :style="{'backgroundImage': 'url(' + item.bgImg + ')'}"
+    <div>
+      <div class="handle" @click="animateChange(1)" 
+      :style="{'backgroundImage': 'url(' + assembly_img[0].src + ')'}"
       >
         <span class="rotate">
           <el-row 
-          :class="{'noAnimate':!item.ifShow,'isAnimate':item.ifShow}"
-          ><h2><i :class="item.icon"></i></h2></el-row>
+          :class="{'noAnimate':!animateArr[0].ifShow,'isAnimate':animateArr[0].ifShow}"
+          ><h2><i class="fa fa-pie-chart"></i></h2></el-row>
           <el-row>
-            <h5>{{item.title}}</h5>
-            <h5 v-if="item.title2">{{item.title2}}</h5>
+            <h5>汽车零部件</h5>
+            <h5>企业套装</h5>
             </el-row>
         </span>
         <transition enter-active-class="zoomIn" leave-active-class="fadeOut" :duration="{ enter:200, leave:50 }">
-        <div v-if="item.ifShow" class="animated slide">
+        <div v-if="animateArr[0].ifShow" class="animated slide">
           <br/>
-          <h5>{{item.content1}}</h5>
-          <h5>{{item.content2}}</h5>
+          <h5>为您提供专业、稳定建模环境，协助您快速</h5>
+          <h5>完成三维建模相关内容，助力高效生产</h5>
           <br/>
-          <h5>{{item.name}}</h5><br/>
-          <h5>{{item.footer}}</h5>
+          <h5>套装组件</h5><br/>
+          <h5>3Ds MAX 丨 Creo丨 Abaqus</h5>
         </div>
     </transition>
         </div>
+      
 </div>
-<!--animate end  -->
+<div>      
+       <div class="handle" @click="animateChange(2)"
+       :style="{'backgroundImage': 'url(' + assembly_img[1].src + ')'}"
+       >
+       <span class="rotate">
+        <el-row 
+        :class="{'noAnimate':!animateArr[1].ifShow,'isAnimate':animateArr[1].ifShow}"
+        ><h2><i class="fa fa-pie-chart"></i></h2></el-row>
+        <el-row><h5>建模套装</h5></el-row>
+       </span>
+       <transition enter-active-class="zoomIn" leave-active-class="fadeOut" :duration="{ enter:200, leave:50 }">
+        <div v-if="animateArr[1].ifShow" class="animated slide">
+          <br/>
+          <h5>为您提供专业、稳定建模环境，协助您快速</h5>
+          <h5>完成三维建模相关内容，助力高效生产</h5>
+          <br/>
+          <h5>套装组件</h5><br/>
+          <h5>3Ds MAX 丨 Creo丨 Abaqus</h5>
+        </div>
+    </transition>
+       </div>
+</div>
+
+<div>   
+       <div class="handle" @click="animateChange(3)"
+       :style="{'backgroundImage': 'url(' + assembly_img[2].src + ')'}"
+       >
+       <span class="rotate">
+         <el-row
+          :class="{'noAnimate':!animateArr[2].ifShow,'isAnimate':animateArr[2].ifShow}"
+         ><h2><i class="fa fa-pie-chart"></i></h2></el-row>
+        <el-row><h5>建模套装</h5></el-row>
+       </span>
+       <transition enter-active-class="zoomIn" leave-active-class="fadeOut" :duration="{ enter:200, leave:50 }">
+        <div v-if="animateArr[2].ifShow" class="animated slide">
+          <br/>
+          <h5>为您提供专业、稳定建模环境，协助您快速</h5>
+          <h5>完成三维建模相关内容，助力高效生产</h5>
+          <br/>
+          <h5>套装组件</h5><br/>
+          <h5>3Ds MAX 丨 Creo丨 Abaqus</h5>
+        </div>
+    </transition>
+       </div>
+      
+</div>
+<div>
+      <div class="handle" @click="animateChange(4)"
+      :style="{'backgroundImage': 'url(' + assembly_img[3].src + ')'}"
+      >
+      <span class="rotate">
+        <el-row
+         :class="{'noAnimate':!animateArr[3].ifShow,'isAnimate':animateArr[3].ifShow}"
+        ><h2><i class="fa fa-pie-chart"></i></h2></el-row>
+        <el-row><h5>建模套装</h5></el-row>
+      </span>
+      <transition enter-active-class="zoomIn" leave-active-class="fadeOut" :duration="{ enter:200, leave:50 }">
+        <div v-if="animateArr[3].ifShow" class="animated slide">
+          <br/>
+          <h5>为您提供专业、稳定建模环境，协助您快速</h5>
+          <h5>完成三维建模相关内容，助力高效生产</h5>
+          <br/>
+          <h5>套装组件</h5><br/>
+          <h5>3Ds MAX 丨 Creo丨 Abaqus</h5>
+        </div>
+    </transition>
+      </div>
+      
+</div>
+<div>
+      <div class="handle" @click="animateChange(5)"
+      :style="{'backgroundImage': 'url(' + assembly_img[4].src + ')'}"
+      >
+      <span class="rotate">
+        <el-row
+         :class="{'noAnimate':!animateArr[4].ifShow,'isAnimate':animateArr[4].ifShow}"
+        ><h2><i class="fa fa-pie-chart"></i></h2></el-row>
+        <el-row><h5>建模套装</h5></el-row>
+      </span>
+      <transition enter-active-class="zoomIn" leave-active-class="fadeOut" :duration="{ enter:200, leave:50 }">
+        <div v-if="animateArr[4].ifShow" class="animated slide">
+          <br/>
+          <h5>为您提供专业、稳定建模环境，协助您快速</h5>
+          <h5>完成三维建模相关内容，助力高效生产</h5>
+          <br/>
+          <h5>套装组件</h5><br/>
+          <h5>3Ds MAX 丨 Creo丨 Abaqus</h5>
+        </div>
+    </transition>
+      </div>
+      
+</div>
 </div>
       </el-card>
     </el-row>
@@ -320,6 +411,13 @@ import animate from 'animate.css'
                 {src: require("../assets/soft/soft_demo.jpg")},
                 {src: require("../assets/soft/soft_demo.jpg")}
               ],
+              assembly_img:[
+                {src: require("../assets/assembly/assembly_img1.jpg")},
+                {src: require("../assets/assembly/assembly_img2.jpg")},
+                {src: require("../assets/assembly/assembly_img3.jpg")},
+                {src: require("../assets/assembly/assembly_img4.jpg")},
+                {src: require("../assets/assembly/assembly_img5.jpg")}
+              ],
             softCount: 0,
             serviceCount: 0,
             appCount: 0,
@@ -363,52 +461,10 @@ import animate from 'animate.css'
                 }
               }
             },
+            currentIndex:0,
             animateArr:[
-              {
-                ifShow:false,
-                icon:"fa fa-pie-chart",
-                bgImg:require("../assets/assembly/assembly_img1.jpg"),
-                title:"汽车零部件",
-                title2:"企业套装",
-                content1:"为您提供专业、稳定建模环境，协助您快速",
-                content2:"完成三维建模相关内容，助力高效生产",
-                name:"套装组件",
-                footer:"3Ds MAX 丨 Creo丨 Abaqus"
-                },{
-                ifShow:false,
-                icon:"fa fa-pie-chart",
-                bgImg:require("../assets/assembly/assembly_img2.jpg"),
-                title:"建模套装",
-                content1:"为您提供专业、稳定建模环境，协助您快速",
-                content2:"完成三维建模相关内容，助力高效生产",
-                name:"套装组件",
-                footer:"3Ds MAX 丨 Creo丨 Abaqus"
-                  },
-              {ifShow:false,
-                icon:"fa fa-pie-chart",
-                bgImg:require("../assets/assembly/assembly_img3.jpg"),
-                title:"建模套装",
-                content1:"为您提供专业、稳定建模环境，协助您快速",
-                content2:"完成三维建模相关内容，助力高效生产",
-                name:"套装组件",
-                footer:"3Ds MAX 丨 Creo丨 Abaqus"},
-                {ifShow:false,
-                icon:"fa fa-pie-chart",
-                bgImg:require("../assets/assembly/assembly_img4.jpg"),
-                title:"建模套装",
-                content1:"为您提供专业、稳定建模环境，协助您快速",
-                content2:"完成三维建模相关内容，助力高效生产",
-                name:"套装组件",
-                footer:"3Ds MAX 丨 Creo丨 Abaqus"},
-                {ifShow:true,
-                icon:"fa fa-pie-chart",
-                bgImg:require("../assets/assembly/assembly_img5.jpg"),
-                title:"建模套装",
-                content1:"为您提供专业、稳定建模环境，协助您快速",
-                content2:"完成三维建模相关内容，助力高效生产",
-                name:"套装组件",
-                footer:"3Ds MAX 丨 Creo丨 Abaqus"}],
-
+              {ifShow:false},{ifShow:false},
+              {ifShow:false},{ifShow:false},{ifShow:true}]
           }
       },
       mounted(){
@@ -468,10 +524,12 @@ import animate from 'animate.css'
           this.$emit('toDetail', obj);
         },
         animateChange(index){
+          this.currentIndex=index;
           for(let i=0;i<5;i++){
-            if(i!==index)this.animateArr[i].ifShow=false;
+            if(i!==(index-1))this.animateArr[i].ifShow=false;
+            
           }
-          this.animateArr[index].ifShow=true;
+          this.animateArr[index-1].ifShow=true;
         //   if(!e.target.siblings(".slide").is(":visible")){
 			  // e.target.addClass("select");
 				// e.target.siblings(".slide").animate({width:"show"},300);

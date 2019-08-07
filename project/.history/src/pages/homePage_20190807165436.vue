@@ -114,11 +114,11 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row class="assembly">
+    <el-row style="margin:20px 0px" class="assembly">
       <el-card class="box-card" :body-style="{padding:'0px',background:'none'}">
-        <el-row style="color:#ffffff;text-align:center;margin:50px 0px">
-          <h3 style="font-weight:normal;margin-bottom:10px">组装推荐</h3>
-          <h5 style="font-weight:normal;">RECOMMENDATION</h5>
+        <el-row style="font-weight:normal;color:#ffffff;text-align:center;margin:50px 0px">
+          <h3>组装推荐</h3>
+          <h5>RECOMMENDATION</h5>
         </el-row>
          <div class="container">
 <!-- animate -->
@@ -146,6 +146,7 @@
         </div>
     </transition>
         </div>
+      
 </div>
 <!--animate end  -->
 </div>
