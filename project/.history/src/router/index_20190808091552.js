@@ -253,12 +253,7 @@ export default new Router({
               path:'Console',
               name:'developersConsole',
               component:developersConsole
-            },
-            {
-              path:'upload-service',
-              name:'UploadService',
-              component:UploadService
-            },
+            }
           ]
           }
       ]

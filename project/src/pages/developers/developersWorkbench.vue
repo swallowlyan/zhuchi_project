@@ -27,8 +27,6 @@
      <router-view/>
   </el-col>
 </el-row>
-
-
     </div>
 </template>
 
@@ -37,24 +35,20 @@
     export default {
         name: "MainPage",
       components: {MyHeader},
-
       data(){
           return{
             username:'',
             roleId:'',
             buttons: [
-              { title: '常用服务',index:'1',url:'/personal-workbench/common-services'},
-              { title: '历史服务', index:'2',url:'/personal-workbench/historical-services'},
-              { title: '已购买服务',index:'3',url:'/personal-workbench/purchased-services'},
-              { title: '已收藏服务', index:'4',url:'/personal-workbench/collection-services'},
-              { title: '全部上架服务',index:'5',url:'/'},
-              { title: '运行软件列表',index:'10',url:'/personal-workbench/servicesRunningList'},
-              { title: '我的上传' ,index:'6',url:'/personal-workbench/my-upload'},
-              { title: '我的数据',index:'7',url:''},
-              { title: '我的订单',index:'8',url:''},
-              { title: '我的收入' ,index:'9',url:''},
-              { title: '我的企业',index:'10',url:'/personal-workbench/my-business'},
-              { title: '账号管理',index:'11',url:''},
+              { title: '开发者控制台',index:'1',url:'/developers-workbench/Console'},
+              { title: '工业APP开发环境', index:'2',url:'/developers-workbench/Console'},
+              { title: '微服务组件开发环境',index:'3',url:'/developers-workbench/Console'},
+              { title: '平台API检索', index:'4',url:'/developers-workbench/Console'},
+              { title: '工业APP运行工具',index:'5',url:'/developers-workbench/Console'},
+              { title: '工业APP上传',index:'6',url:'/developers-workbench/upload-service'},
+              { title: '微服务组件上传' ,index:'7',url:'/developers-workbench/upload-service'},
+              { title: '我的上传',index:'8',url:'/developers-workbench/Upload'},
+              { title: '我的收入',index:'8',url:'/developers-workbench/Console'}
             ],
           }
       },
