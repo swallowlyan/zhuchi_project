@@ -135,7 +135,7 @@
             <h5 v-if="item.title2">{{item.title2}}</h5>
             </el-row>
         </span>
-        <transition enter-active-class="zoomIn" leave-active-class="fadeOut" :duration="{ enter:200, leave:50 }">
+        <transition enter-active-class="zoomIn" leave-active-class="zoomOut" :duration="{ enter:200, leave:10 }">
         <div v-if="item.ifShow" class="animated slide">
           <br/>
           <h5>{{item.content1}}</h5>
