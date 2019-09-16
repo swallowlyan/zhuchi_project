@@ -275,6 +275,7 @@ font-weight: bolder;
 .bg_header button{
   color:#ffffff;
   padding:0px;
+  cursor: pointer;
 }
 .dropMenu a{color: #606266}
 .footer{

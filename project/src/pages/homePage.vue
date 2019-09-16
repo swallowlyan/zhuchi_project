@@ -260,15 +260,15 @@ import animate from 'animate.css'
             appList: [],
             resourceList: [],
             dataImg: [{
-              src: require("../assets/carousel/carousel_1.jpg"),
+              src: require("../assets/carousel/carousel_4.png"),
               name: ""
             },
               {
-                src: require("../assets/carousel/carousel_2.jpg"),
+                src: require("../assets/carousel/carousel_5.png"),
                 name: ""
               },
               {
-                src: require("../assets/carousel/carousel_3.jpg"),
+                src: require("../assets/carousel/carousel_2.jpg"),
                 name: ""
               }],
             soft1_img: [
