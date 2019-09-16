@@ -115,7 +115,6 @@
               softSupply:'',softFunDes:'',
               price1:"",price2:"",price3:"",
               icon:"",file:""
-
             },
             uploadFormRules:{
               softName: [{required: true, message: '请输入软件名', trigger: 'blur'}],

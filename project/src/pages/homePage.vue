@@ -17,11 +17,12 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="12" :offset="10">
-        <img src="../assets/common/logo_zhuchi.png" style="margin: 20px">
+      <el-col :span="12" :offset="9">
+        <img src="../assets/common/software_logo.png" style="margin: 20px;height:50px;width:50px;float:left">
+        <h2 style="line-height: 85px;">青岛工业软件研究所</h2>
       </el-col>
-      <el-col :span="12" :offset="10" style="margin-bottom: 30px">
-        <h2>行业领先工业互联网平台</h2>
+      <el-col :span="12" :offset="9" style="margin-bottom: 30px">
+        <h1 style="font-size: 36px;font-weight: normal;">行业领先工业互联网平台</h1>
       </el-col>
     </el-row>
     <el-row class="Introduction">
@@ -162,7 +163,7 @@
                 <div v-if="softList[index]!==undefined">
                   <div class="carousel_icon">
                     <img v-if="softList[index].softIcon===undefined||softList[index].softIcon===null||softList[index].softIcon===''"
-                         src="../assets/common/logo_zhuchi.png" height="80" width="80">
+                         src="../assets/common/software_logo.png" height="80" width="80">
                     <img v-if="softList[index].softIcon!==undefined&&softList[index].softIcon!==null&&softList[index].softIcon!==''"
                          :src="'data:image/jpg;base64,'+softList[index].softIcon" height="80" width="80">
                   </div>
@@ -194,7 +195,7 @@
                 <div v-if="appList[index]!==undefined">
                   <div class="carousel_icon">
                     <img v-if="appList[index].softIcon===undefined||appList[index].softIcon===null||appList[index].softIcon===''"
-                         src="../assets/common/logo_zhuchi.png" height="80" width="80">
+                         src="../assets/common/software_logo.png" height="80" width="80">
                     <img v-if="appList[index].softIcon!==undefined&&appList[index].softIcon!==null&&appList[index].softIcon!==''"
                          :src="'data:image/jpg;base64,'+appList[index].softIcon" height="80" width="80">
                   </div>
@@ -226,7 +227,7 @@
                 <div v-if="resourceList[index]!==undefined">
                   <div class="carousel_icon">
                     <img v-if="resourceList[index].softIcon===undefined||resourceList[index].softIcon===null||resourceList[index].softIcon===''"
-                         src="../assets/common/logo_zhuchi.png" height="80" width="80">
+                         src="../assets/common/software_logo.png" height="80" width="80">
                     <img v-if="resourceList[index].softIcon!==undefined&&resourceList[index].softIcon!==null&&resourceList[index].softIcon!==''"
                          :src="'data:image/jpg;base64,'+resourceList[index].softIcon" height="80" width="80">
                   </div>

@@ -3,7 +3,7 @@
     <div class="suffix">
       <div style="font-size:24px;font-weight:700;margin:0px 14px 0px -23px">|</div>当前企业
     </div>
-     <img src="../../assets/common/logo_zhuchi.png" >
+     <img src="../../assets/common/software_logo.png" >
      <div class="suffix">
       当前企业：{{business.name}}
      </div>

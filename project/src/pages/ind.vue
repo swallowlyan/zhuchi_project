@@ -5,7 +5,10 @@
       <el-header style="height: 90px">
         <div class="top-header">
           <!--<router-link :to="{path:'/homePage'}">-->
-        <img src="../assets/common/logo_zhuchi.png" alt="logo" style="float: left;margin:10px;width: 150px">
+        <div class="logo">
+        <img src="../assets/common/software_logo.png" alt="logo">
+        <div>青岛工业软件研究所</div>
+        </div>
           <!--</router-link>-->
       <div v-if="username===null" id="noLogin">
         <router-link to="/login">
@@ -28,11 +31,13 @@
           <router-link to="/"><i class="fa fa-home"></i></router-link>
         </el-col>
         <!--:style="{display:$route.meta=='false'||ifMenu?'none':''}"-->
-        <el-col :span="15" style="margin-top: 8px" :style="{display:$route.meta.ifMenu==='show'?'':'none'}">
-          <el-col :span="3" class="managerArea">
+        <el-col :span="18"
+        style="margin-top: 5px;"
+        :style="{display:$route.meta.ifMenu==='show'?'':'none'}">
+          <el-col :span="2" :offset="2" class="managerArea">
             <router-link to="/"><el-button  type="text">首页</el-button></router-link>
           </el-col>
-          <el-col :span="3" class="managerArea" v-for="(item,index) in menuList" :key="index">
+          <el-col :span="2" class="managerArea" v-for="(item,index) in menuList" :key="index">
             <el-button  type="text" @click="toPage(item.name,item.id)">{{item.name}}</el-button></el-col>
         </el-col>
         <el-col :span="1" class="managerArea"  style="float: right;" :style="{display:ifLogin?'':'none'}">
@@ -165,10 +170,12 @@
         sessionStorage.setItem('menuId',id);
         sessionStorage.setItem('menuName',name);
        if(name==="首页")this.$router.push("/homePage");
-       else if(name==="设备")window.open("http://121.42.250.244/gszy-skydev/app/potal/login.html");
+       else if(name==="微服务组件")this.$router.push("/componentsHomePage");
+      //  else if(name==="设备")window.open("http://121.42.250.244/gszy-skydev/app/potal/login.html");
+       else if(name==="开发者社区")this.$router.push("/developersHomePage");
        else {
          if(this.$route.path.indexOf("soft")>-1&&this.$route.path.indexOf("Detail")<0){
-           this.$refs.listPage.initPage();
+           this.$refs.listPage.initPage(name);
          }else{
            this.$router.push({path: '/soft'});
          }
@@ -217,7 +224,22 @@
   width: 2px;
   height: 30px;
   background: #dedbdb;
-  margin: 15px;
+  margin: 15px 10px;
+}
+.logo{
+width:190px;
+float:left;
+}
+.logo>img{
+float: left;
+margin:10px;
+width: 45px;
+height:45px;
+}
+.logo>div{
+font-size: 13px;
+line-height: 65px;
+font-weight: bolder;
 }
 .top-header{
   background: url(../assets/head_bg.png) no-repeat right top;
@@ -229,7 +251,6 @@
   border-bottom: none;
 }
 .title {
-  width: 200px;
   height: 45px;
   margin-left: 150px;
   padding-top: 15px;

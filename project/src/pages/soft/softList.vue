@@ -49,7 +49,7 @@
                 <el-col :span="2" class="softImg">
                     <el-button type="text" @click="toDetail(item)">
                       <img v-if="item.softIcon===''||item.softIcon===null||item.softIcon===undefined"
-                        src="../../assets/common/logo_zhuchi.png" height="80" width="80">
+                        src="../../assets/common/software_logo.png" height="80" width="80">
                       <img v-if="item.softIcon!==''&&item.softIcon!==null&&item.softIcon!==undefined"
                            :src="'data:image/jpg;base64,'+item.softIcon" height="80" width="80">
                     </el-button>

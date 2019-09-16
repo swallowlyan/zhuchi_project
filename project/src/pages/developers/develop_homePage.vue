@@ -92,18 +92,9 @@
 
 <script>
     export default {
-        name: "homePage",
+        name: "developHomePage",
       data(){
           return {
-            softList: [],
-            appList: [],
-            resourceList: [],
-            softCount: 0,
-            serviceCount: 0,
-            appCount: 0,
-            userCount: 0,
-            developCount: 0,
-            algorithmCount: 0,
             dataImg: [{
               src: require("../../assets/carousel/carousel_1.jpg"),
               name: ""

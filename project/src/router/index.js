@@ -40,6 +40,9 @@ import developersWorkbench from '../pages/developers/developersWorkbench'
 import developersUpload from '../pages/developers/developersUpload'
 import developersConsole from '../pages/developers/console'
 
+import componentsHomePage from '../pages/serviceComponents/components_homePage'
+import componentsDetail from '../pages/serviceComponents/componentsDetail'
+
 Vue.use(Router)
 
 export default new Router({
@@ -71,10 +74,24 @@ export default new Router({
             ifHome:"none"
             },
         },
+        //开发者社区
         {
           path:'developersHomePage',
           name:'developersHomePage',
           component:developersHomePage,
+          meta:{ifFooter:"show",ifMenu:"show",ifHome:"none"}
+        },
+        //微服务组件
+        {
+          path:'componentsHomePage',
+          name:'componentsHomePage',
+          component:componentsHomePage,
+          meta:{ifFooter:"show",ifMenu:"show",ifHome:"none"}
+        },
+        {
+          path:'componentsDetail',
+          name:'componentsDetail',
+          component:componentsDetail,
           meta:{ifFooter:"show",ifMenu:"show",ifHome:"none"}
         },
         //个人工作台

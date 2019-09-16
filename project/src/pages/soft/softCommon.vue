@@ -6,7 +6,7 @@
               <div class="accessDevice">
                 <h3>接入设备</h3><br/>
                 <h5>让您的设备快速云化，目前已接入XXX设备</h5><br/>
-                <el-button type="warning" plain size="medium">接入我的设备</el-button>
+                <el-button type="warning" plain size="medium" @click="intoDevice()">接入我的设备</el-button>
               </div>
           </el-card>
         </el-col>
@@ -15,7 +15,7 @@
               <div class="monitoringDevice">
                 <h3>设备监控运维</h3><br/>
                 <h5>对您已接入设备进行在线监控，保障设备运行安全</h5><br/>
-                <el-button type="success" plain size="medium">接入我的设备</el-button>
+                <el-button type="success" plain size="medium" @click="intoDevice()">接入我的设备</el-button>
               </div>
           </el-card>
         </el-col>
@@ -24,7 +24,7 @@
               <div class="releaseDevice">
                 <h3>设备能力发布</h3><br/>
                 <h5>将您的设备进行云端共享</h5><br/>
-                 <el-button plain size="medium">接入我的设备</el-button>
+                 <el-button plain size="medium" @click="intoDevice()">接入我的设备</el-button>
               </div>
           </el-card>
         </el-col>
@@ -79,7 +79,7 @@
             searchVal:"",
             menuName:"",
             detailObj:{},
-            ifDevice:true
+            ifDevice:false
           }
       },
       mounted(){
@@ -98,9 +98,18 @@
             this.detailObj=obj;
             this.$router.push({path: '/soft/softDetail'});
         },
-        initPage(){
+        initPage(name){
+          this.ifDevice=false;
+          if(name==="设备")this.ifDevice=true;
           this.menuName=sessionStorage.getItem('menuName');
           this.$refs.list.initPage();
+        },
+        //接入设备
+        intoDevice(){
+          this.$message({
+          showClose: true,
+          message: '请线下与工作人员进行联系',
+        });
         }
       }
     }
