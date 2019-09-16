@@ -177,7 +177,9 @@
          if(this.$route.path.indexOf("soft")>-1&&this.$route.path.indexOf("Detail")<0){
            this.$refs.listPage.initPage(name);
          }else{
-           this.$router.push({path: '/soft'});
+           if(name==="设备")this.$router.push({path: '/soft',query:{ifDevice:true}});
+           else this.$router.push({path: '/soft',query:{ifDevice:false}});
+           
          }
        }
       },

@@ -84,6 +84,7 @@
       },
       mounted(){
         this.menuName=sessionStorage.getItem('menuName');
+        this.ifDevice=this.$route.query.ifDevice;
       },
       methods:{
           //查找软件
@@ -99,8 +100,8 @@
             this.$router.push({path: '/soft/softDetail'});
         },
         initPage(name){
-          this.ifDevice=false;
           if(name==="设备")this.ifDevice=true;
+          else this.ifDevice=false;
           this.menuName=sessionStorage.getItem('menuName');
           this.$refs.list.initPage();
         },
