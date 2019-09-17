@@ -1,6 +1,6 @@
 <template>
     <div class="main-page" style="height:;margin-top:15px">
-   <el-row class="tac"style="height:100%">
+   <el-row class="tac" style="height:100%">
   <el-col :span="4" style="height:100%;background-color:#447edf">
     <el-menu
     style="height:850px;text-align:center"

@@ -66,7 +66,12 @@
     <el-dialog title="编辑服务" :visible.sync="dialogFormVisible">
       <el-form :model="dialogForm" :rules="dialogFormRules" ref="dialogForm" label-width="100px">
         <el-form-item label="服务名:" prop="softName">
-          <span>{{dialogForm.softName}}</span>
+          <el-input
+            v-model="dialogForm.softName"
+            size="medium"
+            placeholder="请输入内容"
+            style="width: 220px"
+          ></el-input>
         </el-form-item>
         <div class="demo-input-suffix">
           <span>上传图标:</span>
@@ -87,7 +92,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="submitUpload()">确 定</el-button>
+        <el-button type="primary" @click="submitUpload('dialogForm')">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -123,21 +128,7 @@ export default {
         file: ""
       },
       dialogFormRules: {
-        softName: [
-          { required: true, message: "请输入软件名", trigger: "blur" }
-        ],
-        softMenu: [
-          { required: true, message: "请选择服务分类", trigger: "blur" }
-        ],
-        softCategory: [
-          { required: true, message: "请选择领域分类", trigger: "blur" }
-        ],
-        softCategory2: [
-          { required: true, message: "请选择行业分类", trigger: "blur" }
-        ],
-        softCategory3: [
-          { required: true, message: "请选择交付分类", trigger: "blur" }
-        ]
+        softName: [{ required: true, message: "请输入软件名", trigger: "blur" }]
       }
     };
   },
@@ -192,58 +183,60 @@ export default {
       }
     },
     //编辑提交
-    submitUpload() {
-      if (
-        this.dialogForm.softIcon === "" ||
-        this.dialogForm.softIcon === undefined
-      ) {
-        this.$message({
-          message: "请选择图标，进行上传",
-          type: "error"
-        });
-      } else {
-        //开始上传
-        event.preventDefault();
-        // let param = new window.FormData();
-        // param.append("id",this.dialogForm.id);
-        // param.append("username",sessionStorage.getItem('username'));
-        // Object.keys(this.dialogForm).forEach((item) => {
-        //   if(item==="softIcon")param.append("softIcon",this.dialogForm.softIcon);
-        // });
-        let param = new window.FormData();
-        param.append("id", this.dialogForm.id);
-        param.append("username", sessionStorage.getItem("username"));
-        Object.keys(this.dialogForm).forEach(item => {
-          if (item === "softIcon")
-            param.append("icon", this.dialogForm.softIcon);
-        });
-        let config = {
-          headers: {
-            "Content-Type": "multipart/form-data"
+    submitUpload(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          if (
+            this.dialogForm.softIcon === "" ||
+            this.dialogForm.softIcon === undefined
+          ) {
+            this.$message({
+              message: "请选择图标，进行上传",
+              type: "error"
+            });
+          } else {
+            //开始上传
+            event.preventDefault();
+            let param = new window.FormData();
+            param.append("id", this.dialogForm.id);
+            param.append("username", sessionStorage.getItem("username"));
+            param.append("softName", this.dialogForm.softName);
+            Object.keys(this.dialogForm).forEach(item => {
+              if (item === "softIcon")
+                param.append("icon", this.dialogForm.softIcon);
+            });
+            let config = {
+              headers: {
+                "Content-Type": "multipart/form-data"
+              }
+            };
+            this.$axios
+              .post("/soft-detail/update", param, config)
+              .then(res => {
+                let message = "";
+                if (res.data.message === "成功") {
+                  this.dialogFormVisible = false;
+                  this.$message({
+                    message: "修改成功",
+                    type: "success"
+                  });
+                  this.searchUploadData();
+                } else {
+                  this.$message({
+                    message: "修改失败",
+                    type: "error"
+                  });
+                }
+              })
+              .catch(err => {
+                console.log(err);
+              });
           }
-        };
-        this.$axios
-          .post("/soft-detail/update", param, config)
-          .then(res => {
-            let message = "";
-            if (res.data.message === "成功") {
-              this.dialogFormVisible = false;
-              this.$message({
-                message: "修改成功",
-                type: "success"
-              });
-              this.searchUploadData();
-            } else {
-              this.$message({
-                message: "修改失败",
-                type: "error"
-              });
-            }
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     },
     //下架
     delSoft(softId) {
