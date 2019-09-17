@@ -8,7 +8,7 @@
             <div class="grid-content">
               <el-row>
                 <div>
-                  <img :src="item.src">
+                  <img :src="item.src" style="width:100%;height:100%">
                 </div>
               </el-row>
             </div>

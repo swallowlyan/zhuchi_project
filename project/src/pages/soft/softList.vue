@@ -56,19 +56,19 @@
                 </el-col>
                 <el-col :span="5" :offset="1" class="softInfo">
                   <el-row v-if="item.softCategory3Id==='1'">
-                    <a v-if="username!== null" :href="item.fileUrl">
+                    <a v-if="username!== null&&item.auth==='true'" :href="item.fileUrl">
                       <h3 class="softName">{{item.softName}}</h3>
                     </a>
-                    <a v-if="username === null">
+                    <a v-if="username === null||item.auth!=='true'">
                       <h3 class="softName">{{item.softName}}</h3>
                     </a>
                   </el-row>
                   <el-row v-if="item.softCategory3Id!=='1'">
-                    <div v-if="username!==null"
+                    <div v-if="username!==null&&item.auth==='true'"
                                style="cursor: pointer" @click="toSAAS(item.id)">
                     <h3 class="softName">{{item.softName}}</h3>
                   </div>
-                    <div v-if="username===null">
+                    <div v-if="username===null||item.auth!=='true'">
                       <h3 class="softName">{{item.softName}}</h3>
                     </div>
                   </el-row>
@@ -332,12 +332,18 @@
               },5000);
             }else {
               loading.close();
-              alert('打开软件失败，请重试或联系管理员！');
+              this.$message({
+                message: '打开软件失败，请重试或联系管理员',
+                type: 'error'
+              });
             }
             // console.log(res.data);
           }).catch((err)=>{
             loading.close();
-            alert('打开软件失败，请重试或联系管理员！');
+            this.$message({
+                message: '打开软件失败，请重试或联系管理员',
+                type: 'error'
+              });
             console.log(err);
           });
         }

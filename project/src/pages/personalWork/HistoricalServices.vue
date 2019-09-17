@@ -86,12 +86,18 @@
               },5000);
             }else {
               loading.close();
-              alert('打开软件失败，请重试或联系管理员！');
+              this.$message({
+                message: '打开软件失败，请重试或联系管理员',
+                type: 'error'
+              });
             }
             // console.log(res.data);
           }).catch((err)=>{
             loading.close();
-            alert('打开软件失败，请重试或联系管理员！');
+            this.$message({
+                message: '打开软件失败，请重试或联系管理员',
+                type: 'error'
+              });
             console.log(err);
           });
         }

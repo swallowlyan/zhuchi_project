@@ -32,7 +32,7 @@
         </el-col>
         <!--:style="{display:$route.meta=='false'||ifMenu?'none':''}"-->
         <el-col :span="18"
-        style="margin-top: 5px;"
+        style="margin:0px;"
         :style="{display:$route.meta.ifMenu==='show'?'':'none'}">
           <el-col :span="2" :offset="2" class="managerArea">
             <router-link to="/"><el-button  type="text">首页</el-button></router-link>
