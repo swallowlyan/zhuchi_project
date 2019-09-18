@@ -121,9 +121,6 @@ export default {
         description: "",
         softSupply: "",
         softFunDes: "",
-        price1: "",
-        price2: "",
-        price3: "",
         softIcon: "",
         file: ""
       },

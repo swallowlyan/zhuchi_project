@@ -28,7 +28,7 @@
               <br />
               <h5>让您的设备快速云化，目前已接入1281台设备</h5>
               <br />
-              <el-button type="warning" plain size="medium" @click="intoDevice()">接入我的设备</el-button>
+              <el-button type="warning" plain size="medium" @click="openUrl()">接入我的设备</el-button>
             </div>
           </el-card>
         </el-col>
@@ -158,6 +158,10 @@ export default {
       else this.ifDevice = false;
       this.menuName = sessionStorage.getItem("menuName");
       this.$refs.list.initPage();
+    },
+    //test
+    openUrl(){
+      window.open("http://121.42.250.244/gszy-skydev/app/potal/login.html");
     },
     //接入设备
     intoDevice() {

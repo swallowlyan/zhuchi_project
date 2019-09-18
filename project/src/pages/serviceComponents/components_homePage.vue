@@ -229,7 +229,7 @@ export default {
       tabName: "equipmentManagement",
       param: {
         current: 1,
-        size: 5,
+        size: 8,
         sort: "id",
         dir: "asc"
       }
@@ -282,7 +282,8 @@ export default {
         },
     //打开组件
     componentsDetail(roleName) {
-      window.open("http://10.50.200.208:8080/login?roleName=" + roleName);
+      window.open("http://10.50.200.244:8081/yc/login?roleName=" + roleName);
+      //  window.open("http://10.50.200.208:8080/login?roleName=" + roleName);
       // this.$axios
       //   .post("http://10.50.200.208:8080/login", {
       //     username: roleName,
