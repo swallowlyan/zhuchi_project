@@ -149,11 +149,13 @@
                     </el-col>
                   </el-row>
                   <el-row style="margin-top: 15px;">
-                    <span class="saleCount">月销量{{item.authNum}}件</span>
+                    <span v-if="item.authNum!==''&&item.authNum!==undefined" class="saleCount">月销量{{item.authNum}}件</span>
+                    <span v-if="item.authNum===''||item.authNum===undefined"  class="saleCount">月销量0件</span>
                   </el-row>
                 </el-col>
                 <el-col :span="3">
-                  <h3 class="money" style="margin: 10px 0px">￥{{item.money}}</h3>
+                  <h3 v-if="item.money!==''&&item.money!==undefined" class="money" style="margin: 10px 0px">￥{{item.money}}</h3>
+                  <h3 v-if="item.money===''||item.money===undefined" class="money" style="margin: 10px 0px">￥0</h3>
                 </el-col>
                 <el-col :span="3" v-if="!item.collect">
                   <el-button type="text" @click="collectSoft(item.id,1)">
@@ -284,7 +286,6 @@ export default {
           this.currentPage = res.data.data.current;
           this.pageSize = res.data.data.size;
           this.softList = res.data.data.records;
-          debugger;
           this.softList.forEach(item => {
             if (item.softBoughtMoudle !== "") {
               let money = JSON.parse(item.softBoughtMoudle);

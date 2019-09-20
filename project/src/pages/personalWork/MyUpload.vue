@@ -59,6 +59,7 @@
           <td v-if="data.status==='NORMAL'">正常</td>
           <td v-if="data.status==='DEL'">已下架</td>
           <td>
+            <el-button size="mini" name="select" @click="editSoft(data)">编辑</el-button>
             <template v-if="data.status==='NORMAL'">
               <el-button
                 size="mini"
@@ -75,6 +76,38 @@
         </tr>
       </table>
     </div>
+    <el-dialog title="编辑服务" :visible.sync="dialogFormVisible">
+      <el-form :model="dialogForm" :rules="dialogFormRules" ref="dialogForm" label-width="100px">
+        <el-form-item label="服务名:" prop="softName">
+          <el-input
+            v-model="dialogForm.softName"
+            size="medium"
+            placeholder="请输入内容"
+            style="width: 220px"
+          ></el-input>
+        </el-form-item>
+        <div class="demo-input-suffix">
+          <span>上传图标:</span>
+          <img v-show="ifEditImg" :src="dialogForm.softIcon" style="height:30px;width: 30px" />
+          <img
+            v-show="!ifEditImg"
+            :src="'data:image/jpg;base64,'+dialogForm.softIcon"
+            style="height:30px;width: 30px"
+          />
+          <input
+            class="file"
+            name="icon"
+            type="file"
+            accept="image/png, image/gif, image/jpeg"
+            @change="iconSelect"
+          />
+        </div>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="submitUpload('dialogForm')">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -83,7 +116,22 @@
           return{
             username:"",
             searchVal: '',
-            uploadData:[]
+            uploadData:[],
+            ifEditImg: false,
+      dialogFormVisible: false,
+      editImg: [],
+      dialogForm: {
+        softName: "",
+        softMenu: "",
+        description: "",
+        softSupply: "",
+        softFunDes: "",
+        softIcon: "",
+        file: ""
+      },
+      dialogFormRules: {
+        softName: [{ required: true, message: "请输入软件名", trigger: "blur" }]
+      }
           }
       },
       mounted(){
@@ -98,6 +146,96 @@
             console.log(err);
           });
         },
+        //编辑
+    editSoft(data) {
+      this.dialogForm = data;
+      this.ifEditImg = false;
+      this.dialogFormVisible = true;
+    },
+    //图标选择
+    iconSelect(e) {
+      let file = e.target.files[0];
+      const isJPG =
+        file.type === "image/jpeg" ||
+        file.type === "image/jpg" ||
+        file.type === "image/png";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error("上传头像只能是图片格式!");
+        return false;
+      } else if (!isLt2M) {
+        this.$message.error("上传头像图片大小不能超过2MB!");
+        return false;
+      } else {
+        if (!e || !window.FileReader) return; // 看支持不支持FileReader
+        let reader = new FileReader();
+        reader.onload = function(e) {
+          console.info(e.target.result);
+          this.editImg.push(e.target.result);
+        };
+        reader.readAsDataURL(file);
+        console.info(this.editImg);
+        this.ifEditImg = true;
+        this.dialogForm.softIcon = file;
+      }
+    },
+    //编辑提交
+    submitUpload(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          if (
+            this.dialogForm.softIcon === "" ||
+            this.dialogForm.softIcon === undefined
+          ) {
+            this.$message({
+              message: "请选择图标，进行上传",
+              type: "error"
+            });
+          } else {
+            //开始上传
+            event.preventDefault();
+            let param = new window.FormData();
+            param.append("id", this.dialogForm.id);
+            param.append("username", sessionStorage.getItem("username"));
+            param.append("softName", this.dialogForm.softName);
+            Object.keys(this.dialogForm).forEach(item => {
+              if (item === "softIcon")
+                param.append("icon", this.dialogForm.softIcon);
+            });
+            let config = {
+              headers: {
+                "Content-Type": "multipart/form-data"
+              }
+            };
+            this.$axios
+              .post("/soft-detail/update", param, config)
+              .then(res => {
+                let message = "";
+                if (res.data.message === "成功") {
+                  this.dialogFormVisible = false;
+                  this.$message({
+                    message: "修改成功",
+                    type: "success"
+                  });
+                  this.searchUploadData();
+                } else {
+                  this.$message({
+                    message: "修改失败",
+                    type: "error"
+                  });
+                }
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
         delSoft(softId){//
           this.$axios.post('/soft-detail/del',{id:softId}).then((res)=>{
             if(res.data.message==="成功"){
